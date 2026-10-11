@@ -1,72 +1,38 @@
 """
 The Swap Club — Flask app.
-
-Routes for every page, plus backend logic for the contact form
-(/contact) and the footer newsletter signup (/newsletter).
-
-Email is sent with Python's built-in smtplib, so no extra package is
-required beyond Flask itself. All SMTP credentials and the destination
-address are read from environment variables — see .env.example for the
-full list and README.md for setup instructions.
+Contact form sends email via smtplib + Gmail SMTP.
+Google Analytics (GA4) is loaded only after the visitor accepts cookies.
 """
-
 import os
 import re
 import smtplib
-from email.mime.text import MIMEText
-from typing import Optional
+from email.message import EmailMessage
 
+from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, url_for
 
-app = Flask(__name__)
+# Load variables from .env locally. On Vercel they come from the project settings.
+load_dotenv()
 
-# SECRET_KEY is required for flash() messages to work (they're stored in a
-# signed session cookie). Set a real, random value via the SECRET_KEY
-# environment variable in production — this fallback is for local dev only.
-app.secret_key = os.environ.get("SECRET_KEY", "dev-only-secret-change-me")
-
-# ── Email configuration (all read from environment variables) ──
-SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.gmail.com")
-SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
-SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "info@theswapclub.nl")
-SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "fogm diyg thgm ozmc")
-# Where contact-form submissions and newsletter signups are delivered.
-CONTACT_TO_EMAIL = os.environ.get("CONTACT_TO_EMAIL", "info@theswapclub.nl")
+# On Vercel, static files must live in public/ (served by the CDN at /static/...).
+# Pointing Flask at the same folder keeps local development identical.
+app = Flask(__name__, static_folder="public/static", static_url_path="/static")
+app.secret_key = os.environ.get("SECRET_KEY", "dev-only-change-me")
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
+TOPICS = {
+    "general": "General question",
+    "collaboration": "Collaboration idea",
+    "business": "Business inquiry",
+    "feedback": "Site feedback",
+}
 
-def send_email(subject: str, body: str, reply_to: Optional[str] = None) -> bool:
-    """Send a plain-text email via SMTP. Returns True on success.
 
-    If SMTP_USERNAME / SMTP_PASSWORD aren't configured, this logs to the
-    console instead of failing outright, so the site still runs locally
-    without mail credentials.
-    """
-    if not SMTP_USERNAME or not SMTP_PASSWORD:
-        app.logger.warning(
-            "SMTP not configured (SMTP_USERNAME/SMTP_PASSWORD missing) — "
-            "email NOT sent. Would have sent:\nSubject: %s\n%s",
-            subject, body,
-        )
-        return False
-
-    msg = MIMEText(body)
-    msg["Subject"] = subject
-    msg["From"] = SMTP_USERNAME
-    msg["To"] = CONTACT_TO_EMAIL
-    if reply_to:
-        msg["Reply-To"] = reply_to
-
-    try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
-            server.starttls()
-            server.login(SMTP_USERNAME, SMTP_PASSWORD)
-            server.sendmail(SMTP_USERNAME, [CONTACT_TO_EMAIL], msg.as_string())
-        return True
-    except smtplib.SMTPException:
-        app.logger.exception("Failed to send email")
-        return False
+@app.context_processor
+def inject_analytics():
+    """Makes GA_MEASUREMENT_ID available in every template (empty = Analytics off)."""
+    return {"ga_measurement_id": os.environ.get("GA_MEASUREMENT_ID", "").strip()}
 
 
 # ───────────────────────── Page routes ─────────────────────────
@@ -78,7 +44,7 @@ def home():
 
 @app.route("/events")
 def events():
-    return render_template("events.html")
+    return redirect("/#events")
 
 
 @app.route("/how")
@@ -96,70 +62,70 @@ def business():
     return render_template("business.html")
 
 
-@app.route("/business-no-form")
-def business_no_form():
-    """Alternative version of the business page: shows the contact
-    email/socials instead of the submission form."""
-    return render_template("business_no_form.html")
-
-
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     form_data = {
-        "name": "",
-        "email": "",
-        "topic": "general",
-        "message": "",
+        "name": request.form.get("name", "").strip(),
+        "email": request.form.get("email", "").strip(),
+        "topic": request.form.get("topic", "general"),
+        "message": request.form.get("message", "").strip(),
     }
 
     if request.method == "POST":
-        form_data = {
-            "name": request.form.get("name", "").strip(),
-            "email": request.form.get("email", "").strip(),
-            "topic": request.form.get("topic", "general").strip(),
-            "message": request.form.get("message", "").strip(),
-        }
+        # Honeypot: real visitors never see or fill this field, bots do.
+        if request.form.get("website"):
+            return redirect(url_for("contact", sent=1))
 
-        topic_labels = {
-            "general": "General question",
-            "collaboration": "Collaboration idea",
-            "feedback": "Site feedback",
-            "business": "Business inquiry",
-        }
-
-        errors = []
-        if not form_data["name"]:
-            errors.append("Please enter your name.")
-        if not EMAIL_RE.match(form_data["email"]):
-            errors.append("Please enter a valid email address.")
-        if form_data["topic"] not in topic_labels:
-            errors.append("Please choose a valid topic.")
-        if not form_data["message"]:
-            errors.append("Please write a message.")
-
-        if errors:
-            for error in errors:
-                flash(error, "error")
-            return render_template("contact.html", form_data=form_data)
-
-        subject = f"Website contact: {topic_labels[form_data['topic']]}"
-        body = (
-            f"Name: {form_data['name']}\n"
-            f"Email: {form_data['email']}\n"
-            f"Topic: {topic_labels[form_data['topic']]}\n\n"
-            f"Message:\n{form_data['message']}"
-        )
-
-        if send_email(subject, body, reply_to=form_data["email"]):
-            flash("Thanks, your message has been sent. We'll get back to you soon.", "success")
-            return redirect(url_for("contact"))
-
-        flash(
-            "We couldn't send your message right now. Please email info@theswapclub.nl directly.",
-            "error",
-        )
+        # Server-side validation (the JS checks are only for convenience).
+        if len(form_data["name"]) < 2 or len(form_data["name"]) > 100:
+            flash("Please enter your name.", "error")
+        elif not EMAIL_RE.match(form_data["email"]) or len(form_data["email"]) > 200:
+            flash("Please enter a valid email address.", "error")
+        elif form_data["topic"] not in TOPICS:
+            flash("Please choose a topic.", "error")
+        elif not 10 <= len(form_data["message"]) <= 2000:
+            flash("Your message should be between 10 and 2000 characters.", "error")
+        else:
+            if send_contact_email(form_data):
+                flash("Thanks! Your message has been sent. We'll get back to you soon.", "success")
+                return redirect(url_for("contact", sent=1))  # redirect = no double-send on refresh
+            flash("Sorry, something went wrong sending your message. "
+                  "Please try again or email us directly.", "error")
 
     return render_template("contact.html", form_data=form_data)
+
+
+def send_contact_email(data):
+    """Send the form to your own Gmail inbox. Returns True on success."""
+    username = os.environ.get("GMAIL_USERNAME")
+    password = (os.environ.get("GMAIL_APP_PASSWORD") or "").replace(" ", "")
+    to_address = os.environ.get("CONTACT_TO_EMAIL") or username
+
+    if not (username and password):
+        print("Email not configured: set GMAIL_USERNAME and GMAIL_APP_PASSWORD.")
+        return False
+
+    msg = EmailMessage()
+    msg["Subject"] = f"[{TOPICS[data['topic']]}] Contact form: {data['name']}"
+    msg["From"] = username
+    msg["To"] = to_address
+    msg["Reply-To"] = data["email"]  # hitting "Reply" in Gmail answers the visitor
+    msg.set_content(
+        f"Name: {data['name']}\n"
+        f"Email: {data['email']}\n"
+        f"Topic: {TOPICS[data['topic']]}\n\n"
+        f"{data['message']}"
+    )
+
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587, timeout=15) as server:
+            server.starttls()
+            server.login(username, password)
+            server.send_message(msg)
+        return True
+    except Exception as e:
+        print(f"Email error: {e}")
+        return False
 
 
 @app.route("/about")
@@ -169,7 +135,7 @@ def about():
 
 @app.route("/community")
 def community():
-    return render_template("community.html")
+    return redirect("/#community")
 
 
 @app.route("/privacy")
@@ -183,8 +149,5 @@ def terms():
 
 
 if __name__ == "__main__":
-    # Allow the port to be configured via the PORT environment variable
-    # (useful when port 5000 is reserved by macOS services). Default to 5001
-    # for local development to avoid conflicts.
     port = int(os.environ.get("PORT", "5001"))
     app.run(debug=True, port=port)

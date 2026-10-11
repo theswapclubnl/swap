@@ -17,7 +17,7 @@
         loop
         playsinline
         preload="auto"
-        poster="{{ url_for('static', filename='images/hero_image.jpg') }}"
+        poster="{{ url_for('static', filename='images/hero_poster.jpg') }}"
         aria-hidden="true"
         >
         <source src="{{ url_for('static', filename='images/hero_video.mp4') }}" type="video/mp4">
@@ -29,17 +29,13 @@
     <div class="background-video-content">
         <div class="hero-text">
             <h1 class="hero-headline">
-                Swapping is the<br>new shopping!
+                Swapping is the<br>
+                new shopping!
             </h1>
 
-            <p class="hero-tagline">
-                The Swap Club is a membership club in Amsterdam where clothes never stop moving.<br>
-                You bring what you no longer wear. You earn points. You take home something you love. No cash, no waste. 
-            </p>
-
             <div class="hero-btns">
-                <a href="/membership" class="btn btn-matcha">Join the Club</a>
-                <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light">Events</a>
+                <a href="/membership" class="btn btn-green-yellow">Become a Member</a>
+                <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-hot-orange">Events</a>
             </div>
         </div>
     </div>
@@ -55,11 +51,11 @@
             <path id="stickerCirclePath" d="M 100, 100 m -80, 0 a 80,80 0 1,1 160,0 a 80,80 0 1,1 -160,0" fill="none"></path>
             <text>
                 <textPath href="#stickerCirclePath" startOffset="0%">
-                  &#8226;&nbsp; JOIN THE KALVERSTRAAT SWAP &nbsp;&#8226;&nbsp; 9-11 Oktober &nbsp;
+                  &#8226;&nbsp; JOIN THE KALVERSTRAAT SWAP &nbsp;&#8226;&nbsp; 9-11 October &nbsp;
                 </textPath>
             </text>
         </svg>
-        <span class="hero-sticker-center" aria-hidden="true">
+        <span class="hero-sticker-center shape-bg" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M7 17L17 7"></path>
                 <path d="M8 7h9v9"></path>
@@ -80,19 +76,19 @@
 </div>
 
 <!-- ─── EVENTS SECTION ─── -->
-<div class="events-page">
+<div class="events-page" id="events">
     <section class="events-hero" data-aos="fade-up">
         <div class="events-hero-text">
           <p class="page-label">Next Events</p>
           <h1>Your next swap.</h1>        
           <p>
-            Join a local Swap Club event, bring items you no longer use,
-            collect points, and choose new pre-loved pieces from the community.
+            Join a Swap Club event. Bring items you no longer use,
+            collect points and choose new pre-loved pieces.
           </p>
 
           <div class="hero-buttons">
-            <a href="/membership" class="btn btn-plum">Membership</a>
-            <a href="/how" class="button button-secondary">First time? Start here</a>
+            <a href="/membership" class="btn btn-plum">Become a Member</a>
+            <a href="/how" class="btn btn-plum-deep">First time? Start here</a>
           </div>
         </div>
 
@@ -155,7 +151,7 @@
                     <span class="step-number">1</span>
                     <h3 class="step-title">Bring Your Items</h3>
                     <p class="step-body">Bring your clean and good quality pre-loved items to our events. The more you bring the more you can take home.</p>
-                    <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-plum">Find an Event</a>
+                    <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-green-yellow">Find an Event</a>
                 </div>
             </div>
         </div>
@@ -169,7 +165,7 @@
                     <span class="step-number">2</span>
                     <h3 class="step-title">Earn Points</h3>
                     <p class="step-body">Earn swap points to your personalised digital wallet according to the quality and type of items you bring in. <a href="#swap-points" class="inline-link">Learn More.</a></p>
-                    <a href="#swap-points" class="btn btn-plum">Learn More</a>
+                    <a href="#swap-points" class="btn btn-green-yellow">Learn More</a>
                 </div>
             </div>
         </div>
@@ -183,7 +179,7 @@
                     <span class="step-number">3</span>
                     <h3 class="step-title">Start Swapping!</h3>
                     <p class="step-body">Browse through the pre-loved items and start shopping with your points.</p>
-                    <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-plum">Find an Event</a>
+                    <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-green-yellow">Find an Event</a>
                 </div>
             </div>
         </div>
@@ -197,7 +193,7 @@
                     <span class="step-number">4</span>
                     <h3 class="step-title">After the Event</h3>
                     <p class="step-body">Go home with a good feeling and no money spent on new items. When you have not spend all your points, you can keep them in your wallet for the next event!</p>
-                    <a href="https://forms.piggy.eu/forms/7621a0c4-00d3-4691-95bd-f632186a5f4f/public/custom" target="_blank" rel="noopener noreferrer" class="btn btn-plum">Join the Club</a>
+                    <a href="https://forms.piggy.eu/forms/7621a0c4-00d3-4691-95bd-f632186a5f4f/public/custom" target="_blank" rel="noopener noreferrer" class="btn btn-green-yellow">Join Our Mail</a>
                 </div>
             </div>
         </div>
@@ -212,19 +208,6 @@
         <h2 class="section-title">Pick your membership</h2>
     </div>
     <div class="tiers-grid">
-        <div class="tier-card">
-            <div class="tier-head">
-                <div class="tier-label">Trial · 1 month</div>
-                <div class="tier-name">Try it</div>
-                <div class="tier-price">€12</div>
-            </div>
-            <div class="tier-body">
-                <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access all month</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>5 welcome points</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>1 free swap event ticket</div>
-                <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Start trial</a>
-            </div>
-        </div>
         <div class="tier-card">
             <div class="tier-head">
                 <div class="tier-label">Basic · monthly</div>
@@ -243,7 +226,7 @@
             <div class="tier-head">
                 <div class="tier-label">Standard · monthly</div>
                 <div class="tier-name">Clubhouse Regular</div>
-                <div class="tier-price">€19</div>
+                <div class="tier-price">€15</div>
             </div>
             <div class="tier-body">
                 <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access anytime</div>
@@ -251,6 +234,18 @@
                 <div class="tier-feature"><span class="tier-check">✓</span>10 bonus points / month</div>
                 <div class="tier-feature"><span class="tier-check">✓</span>1 event included per month</div>
                 <div class="tier-feature"><span class="tier-check">✓</span>Member-only events</div>
+                <div class="tier-feature">
+                    <span class="tier-present-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+                            <path d="M2 7h20v5H2z" />
+                            <path d="M12 22V7" />
+                            <path d="M12 7H7.5A2.5 2.5 0 1 1 10 4.5L12 7z" />
+                            <path d="M12 7h4.5A2.5 2.5 0 1 0 14 4.5L12 7z" />
+                        </svg>
+                    </span>
+                    Upcycled bag gift (after 3 months)
+                 </div>
                 <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Join now</a>
             </div>
         </div>
@@ -289,102 +284,34 @@
 
 
 <!-- ─── THE COMMUNITY ─── -->
-<section class="floating-swap-section home-floating-swap-section reveal" data-aos="fade-up">
+<section class="floating-swap-section home-floating-swap-section reveal" id="community" data-aos="fade-up">
     <div class="floating-swap-header">
         <p class="font-writtenscript">"Giving away clothes feels just as rewarding as finding something new."</p>
     </div>
 
     <div class="hscroll-wrap floating-card-track-wrap">
-        <button class="hscroll-btn prev" type="button" aria-label="Scroll carousel left">&#8249;</button>
-        <div class="hscroll floating-card-track" data-speed="26">
-            <!-- SET 1 -->
-            <div class="hscroll-set floating-card-set">
+        <button class="hscroll-btn prev shape-bg" type="button" aria-label="Scroll carousel left">&#8249;</button>
+        <div class="hscroll floating-card-track" data-speed="26" role="group" aria-label="Community photos">
+            {# One list, rendered twice. The second copy must be an exact duplicate of the
+               first: base.js scrolls one set-width and then jumps back, which is only
+               invisible when both sets are identical. #}
+            {% set community_photos = [
+                'com1.JPG', 'com2.jpg', 'com3.jpg', 'com4.JPEG', 'com5.jpg', 'com6.JPG',
+                'com7.jpg', 'com8.JPEG', 'com9.jpg', 'com10.jpg', 'com11.JPG', 'com12.JPG'
+            ] %}
+            {% for copy in (0, 1) %}
+            <div class="hscroll-set floating-card-set"{% if copy == 1 %} aria-hidden="true"{% endif %}>
+                {% for photo in community_photos %}
                 <article class="floating-flip-card">
                     <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com1.JPG') }}" width="611" height="900" loading="lazy" decoding="async" alt="Swap story image 1">
+                        <img src="{{ url_for('static', filename='images/' ~ photo) }}" width="600" height="600" loading="lazy" decoding="async" alt="{% if copy == 0 %}Swap story image {{ loop.index }}{% endif %}">
                     </div>
                 </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com2.JPEG') }}" width="506" height="900" loading="lazy" decoding="async" alt="Swap story image 2">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com3.jpg') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 3">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com4.JPEG') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 4">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com5.jpg') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 5">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com6.JPG') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 6">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com7.JPEG') }}" width="900" height="600" loading="lazy" decoding="async" alt="Swap story image 7">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com8.JPEG') }}" width="675" height="900" loading="lazy" decoding="async" alt="Swap story image 8">
-                    </div>
-                </article>
+                {% endfor %}
             </div>
-            <!-- SET 2 (duplicate of set 1, for the seamless scrolling loop) -->
-            <div class="hscroll-set floating-card-set" aria-hidden="true">
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com1.JPG') }}" width="611" height="900" loading="lazy" decoding="async" alt="Swap story image 1">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com2.JPEG') }}" width="506" height="900" loading="lazy" decoding="async" alt="Swap story image 2">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com3.jpg') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 3">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com4.JPEG') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 4">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com5.jpg') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 5">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com6.JPG') }}" width="600" height="900" loading="lazy" decoding="async" alt="Swap story image 6">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com7.JPEG') }}" width="900" height="600" loading="lazy" decoding="async" alt="Swap story image 7">
-                    </div>
-                </article>
-                <article class="floating-flip-card">
-                    <div class="floating-card-front">
-                        <img src="{{ url_for('static', filename='images/com8.JPEG') }}" width="675" height="900" loading="lazy" decoding="async" alt="Swap story image 8">
-                    </div>
-                </article>
-            </div>
+            {% endfor %}
         </div>
-        <button class="hscroll-btn next" type="button" aria-label="Scroll carousel right">&#8250;</button>
+        <button class="hscroll-btn next shape-bg" type="button" aria-label="Scroll carousel right">&#8250;</button>
     </div>
 </section>
 

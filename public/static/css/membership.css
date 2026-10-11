@@ -1,0 +1,300 @@
+/* MEMBERSHIP PAGE — page-specific styles.
+   Shared nav, buttons, and .tiers/.tier-card pricing component live in base.css.
+   (This file previously contained its entire contents pasted twice, plus a
+   second copy of the global reset/nav/hero already defined in base.css —
+   both have been removed.) */
+
+/* ───────── HERO ───────── */
+.hero {
+  background: var(--lilac); 
+  padding: 80px 48px 100px; 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 64px; 
+  align-items: center; 
+}
+.hero-eyebrow { 
+  font-size: 12px; 
+  font-weight: 600; 
+  letter-spacing: 0.15em; 
+  text-transform: uppercase; 
+  color: rgba(var(--plum-deep-rgb), 0.8); 
+  margin-bottom: 16px; 
+}
+.hero-headline { 
+  font-family: var(--font-display); 
+  font-weight: 900; 
+  font-size: 64px; 
+  line-height: 0.95; 
+  color: var(--plum-deep); 
+  text-transform: uppercase; 
+  margin-bottom: 24px; 
+}
+.hero-headline H2 { 
+  color: var(--plum-deep); 
+}
+.hero-headline span { color: var(--plum-deep); }
+.hero-body { font-size: 17px; line-height: 1.6; color: rgba(var(--plum-deep-rgb), 0.72); max-width: 420px; margin-bottom: 36px; }
+.hero .hero-btns { justify-content: flex-start; }
+.hero-btn { display: block; 
+  margin-top: 16px; 
+  width: 100%; 
+  background: var(--plum-deep); 
+  color: var(--text-white); 
+  text-align: center; 
+  padding: 16px; 
+  border-radius: 8px; 
+  font-weight: 700; 
+  font-size: 15px; 
+  cursor: pointer; 
+  border: none; 
+}
+
+
+
+
+/* .hours-strip and .section-eyebrow / .section-title now live in
+   base.css (shared) — this page only adds the tweaks below. */
+.section-title { color: var(--plum-deep); }
+
+/* ───────── HOW IT WORKS (4 steps) ───────── */
+.how { 
+  background: var(--cream); 
+  padding: 96px 48px; 
+  text-align: center; 
+}
+.steps { 
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 24px; 
+  max-width: 900px; 
+  margin: 0 auto; 
+}
+
+.step-num { 
+  font-family: var(--font-display); 
+  font-weight: 900; 
+  font-size: 64px; 
+  color: var(--plum-deep); 
+  line-height: 1; 
+  margin-bottom: 8px; 
+  -webkit-text-stroke: 2px var(--plum-deep); 
+}
+.step-title { 
+  font-family: var(--font-display); 
+  font-weight: 800; 
+  font-size: 18px; 
+  text-transform: uppercase; 
+  color: var(--text); 
+  margin-bottom: 8px; 
+  line-height: 1.1; 
+}
+.step-body { 
+  font-size: 13px; 
+  color: var(--plum-deep); 
+  line-height: 1.5; 
+}
+
+.luma-calendar-wrapper {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.luma-calendar-wrapper iframe {
+  min-height: 450px;
+  height: 70vh; /* scales with viewport */
+  max-height: 900px;
+  display: block;
+  width: 100%;
+}
+
+/* ───────── COMPARE: TICKET VS MEMBERSHIP ───────── */
+.compare { 
+  background: var(--cream); 
+  padding: 96px 48px; 
+  text-align: center; 
+}
+.compare-grid { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 24px; 
+  max-width: 760px; 
+  margin: 0 auto; 
+  text-align: center; 
+}
+.compare-card { 
+  background: var(--light-blue); 
+  border-radius: 12px; 
+  min-height: 360px;
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.compare-card.highlight { 
+  background: var(--green-yellow); 
+}
+.compare-card h3 { 
+  font-family: var(--font-display); 
+  font-weight: 700; 
+  font-size: 26px; 
+  text-transform: uppercase; 
+  margin: 0 0 18px; 
+  color: var(--plum-deep);
+  text-align: center; 
+}
+.compare-item { 
+  display: block; 
+  font-size: 14px; 
+  color: var(--plum-deep); 
+  max-width: 230px;
+  margin: 0 auto 12px; 
+  line-height: 1.4; 
+  text-align: center;
+}
+.compare-item::before { 
+  content: none; 
+}
+.compare-intro { 
+  margin-bottom: 48px; 
+  font-size: 16px; 
+  color: var(--plum-deep); 
+  max-width: 520px; 
+  margin-left: auto; 
+  margin-right: auto; 
+  line-height: 1.6; 
+  text-align: center;
+}
+
+
+/* ───────── CLUBHOUSE HOURS ───────── */
+.hours-section { 
+  background: var(--green-yellow); 
+  padding: 80px 48px; 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 64px; 
+  align-items: center; 
+}
+.hours-left h2 { 
+  font-family: var(--font-display); 
+  font-weight: 900; 
+  font-size: 56px; 
+  color: var(--plum); 
+  text-transform: uppercase; 
+  line-height: 0.95; 
+  margin-bottom: 20px; 
+}
+.hours-left h2 span { 
+  color: var(--plum-deep); 
+}
+.hours-left p { 
+  font-size: 16px; 
+  color: rgba(var(--plum-deep-rgb), 0.8); 
+  line-height: 1.6; 
+  max-width: 360px; 
+}
+.hours-right { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+}
+.hours-row { 
+  background: rgba(var(--plum-rgb), 0.12); 
+  border-radius: 10px; 
+  padding: 18px 24px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+}
+.hours-day { 
+  font-family: var(--font-display); 
+  font-weight: 800; 
+  font-size: 18px; 
+  text-transform: uppercase; 
+  color: var(--plum-deep); 
+}
+.hours-time { 
+  font-size: 14px; 
+  font-weight: 600; 
+  color: var(--plum-deep); 
+}
+.hours-row.er { 
+  background: rgba(var(--plum-rgb), 0.12); 
+}
+.hours-row.er .hours-day { 
+  color: var(--plum); 
+}
+.hours-row.er .hours-time { 
+  color: rgba(var(--plum-rgb), 0.5); 
+  font-size: 12px; 
+}
+
+/* ───────── FINAL CTA ───────── */
+.cta-section { 
+  background: var(--plum); 
+  padding: 96px 48px; 
+  text-align: center; 
+}
+.cta-section h2 { 
+  font-family: var(--font-display); 
+  font-weight: 900; font-size: 64px; 
+  text-transform: uppercase; 
+  color: var(--light-blue); 
+  line-height: 0.95; 
+  margin-bottom: 24px; 
+}
+.cta-section p { 
+  font-size: 17px; 
+  color: var(--light-blue); 
+  margin-bottom: 36px; 
+  max-width: 480px;
+  margin-left: auto; 
+  margin-right: auto; 
+  line-height: 1.6; 
+}
+.cta-btns { 
+  display: flex; 
+  gap: 12px; 
+  justify-content: center; 
+  flex-wrap: wrap; 
+}
+.btn-primary { 
+  background: var(--cream); 
+  border: 2px solid var(--cream); 
+  color: var(--plum-deep); 
+  padding: 16px 36px; 
+  border-radius: 6px; 
+  font-weight: 700; 
+  font-size: 15px; 
+  letter-spacing: 0.04em; 
+  text-transform: uppercase; 
+}
+.btn-secondary { 
+  background: transparent; 
+  color: var(--text-white); 
+  padding: 16px 36px; 
+  border-radius: 6px; 
+  font-weight: 700; 
+  font-size: 15px; 
+  letter-spacing: 0.04em; 
+  text-transform: uppercase; 
+  border: 2px solid var(--cream); 
+}
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 56px 24px 72px; }
+  .steps, .points-grid { grid-template-columns: repeat(2, 1fr); }
+  .compare-grid { grid-template-columns: 1fr; }
+  .hours-section { grid-template-columns: 1fr; padding: 56px 24px; }
+}
+
+@media (max-width: 600px) {
+  .hero-headline { font-size: 44px; }
+  .section-title { font-size: 40px; }
+  .steps, .points-grid { grid-template-columns: 1fr; }
+  .compare-card { min-height: 320px; padding: 48px 36px; }
+  .cta-section h2 { font-size: 44px; }
+}

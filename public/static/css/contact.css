@@ -1,0 +1,310 @@
+/* CONTACT PAGE — page-specific styles.
+   Uses the shared design system from base.css: display font headings,
+   palette tokens, and .btn-* buttons. */
+
+/* ───────── HERO ───────── */
+.contact-hero {
+  padding: 96px var(--section-px) 56px;
+  background: var(--lilac);
+  text-align: center;
+}
+
+.contact-hero__inner,
+.contact-layout {
+  width: min(100%, var(--max-w));
+  margin: 0 auto;
+}
+
+.contact-eyebrow,
+.form-field label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.contact-eyebrow { color: var(--plum-deep); margin-bottom: 12px; }
+
+.contact-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.93;
+  text-transform: uppercase;
+  color: var(--plum-deep);
+  margin-bottom: 18px;
+}
+
+.contact-hero p {
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--plum-deep);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.contact-social-links {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.contact-social-links .shape-badge { --shape-size: 56px; }
+
+/* ───────── FORM ───────── */
+.contact-section {
+  padding: 12px var(--section-px) 96px;
+  background: var(--lilac);
+}
+
+.contact-layout { max-width: 680px; }
+
+.contact-form {
+  display: grid;
+  gap: 8px;
+  padding: 36px;
+  background: var(--plum);
+  border-radius: 14px;
+}
+
+.form-field { display: grid; gap: 8px; }
+.form-field label { color: var(--text-white); }
+
+.form-field input,
+.form-field textarea,
+.form-field select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1.5px solid rgba(var(--plum-rgb), 0.25);
+  border-radius: 6px;
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.4;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-field textarea { min-height: 180px; resize: vertical; }
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: var(--plum);
+  box-shadow: 0 0 0 3px rgba(var(--plum-rgb), 0.18);
+}
+
+.contact-form .btn { justify-self: start; padding: 14px 32px; font-size: 13px; }
+
+/* ───────── FLASH MESSAGES ───────── */
+.flash-container {
+  width: min(calc(100% - 32px), var(--max-w));
+  margin: 24px auto 0;
+}
+
+.form-message {
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.form-message.success { background: var(--light-blue); border: 1.5px solid var(--light-blue); color: var(--plum-deep); }
+.form-message.error   { background: var(--cream); border: 1.5px solid var(--hot-orange); color: var(--plum-deep); }
+
+@media (max-width: 760px) {
+  .contact-hero { padding-top: 72px; }
+  .contact-section { padding: 48px var(--section-px) 72px; }
+  .contact-form { padding: 24px 20px; }
+  .contact-form .btn { justify-self: stretch; }
+}
+
+
+/* CONTACT FORM CAPTCHA & ENHANCEMENTS */
+/* Extends contact.css with CAPTCHA-specific styling */
+
+/* ───────── VALIDATION ICONS ───────── */
+.field-validation-icon {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.form-field input:focus + .field-validation-icon,
+.form-field textarea:focus + .field-validation-icon {
+  display: block;
+}
+
+.form-field input.valid + .field-validation-icon {
+  background-color: var(--green-yellow);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231A0710' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231A0710' d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+}
+
+.form-field input.invalid + .field-validation-icon {
+  background-color: var(--hot-orange);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231A0710' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231A0710' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+}
+
+/* ───────── CHARACTER COUNTER ───────── */
+.char-counter {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(var(--cream-rgb), 0.7);
+  margin-top: -6px;
+  min-height: 14px;
+}
+
+.char-counter.warning {
+  color: var(--hot-orange);
+  font-weight: 700;
+}
+
+/* ───────── CAPTCHA FIELD ───────── */
+.captcha-field {
+  margin: 24px 0;
+  padding: 16px;
+  background: rgba(var(--cream-rgb), 0.08);
+  border-radius: 8px;
+  border: 1.5px dashed rgba(var(--cream-rgb), 0.3);
+}
+
+.g-recaptcha {
+  transform-origin: 0 0;
+  transform: scale(0.95);
+}
+
+@media (max-width: 520px) {
+  .g-recaptcha {
+    transform: scale(0.85);
+  }
+}
+
+.captcha-error {
+  display: none;
+  color: var(--light-blue);
+  font-size: 13px;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+.captcha-error.visible {
+  display: block;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ───────── DISABLED STATE FOR BUTTON ───────── */
+.contact-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--lilac);
+  color: var(--plum-deep);
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.contact-form .btn:not(:disabled):hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* ───────── LOADING STATE ───────── */
+.contact-form .btn.loading .btn-text::after {
+  content: '...';
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* ───────── SUCCESS ANIMATION ───────── */
+.form-message.success {
+  position: relative;
+  animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ───────── GDPR NOTICE ───────── */
+.gdpr-notice {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: rgba(var(--cream-rgb), 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--light-blue);
+  color: var(--lilac);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.gdpr-notice strong {
+  color: var(--text-white);
+  display: block;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gdpr-notice ul {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+
+.gdpr-notice li {
+  margin-bottom: 6px;
+  list-style-type: disc;
+}
+
+.gdpr-notice a {
+  color: var(--light-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition);
+}
+
+.gdpr-notice a:hover {
+  color: var(--text-white);
+}
+
+.gdpr-notice small {
+  display: block;
+  margin-top: 12px;
+  opacity: 0.8;
+}
+
+/* Honeypot spam trap — invisible to people */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

@@ -5,37 +5,52 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}"/>
 {% endblock %}
 
+{% block flash %}{% endblock %}
+
 {% block content %}
 <section class="contact-hero">
   <div class="contact-hero__inner">
     <p class="contact-eyebrow">Get in touch</p>
     <h1>Contact Us</h1>
     <p>
-      Have a question, collaboration idea, or business request? Send us a
-      message and we will get back to you soon.
+      Have a question, collaboration idea, or business request?<br>
+      Send us a message and we will get back to you soon.
     </p>
-      <div class="contact-info-list">
-        <div class="contact-social-links" aria-label="Social links">
-          <a href="mailto:info@theswapclub.nl" class="work-social-link" target="_blank" rel="noopener noreferrer" aria-label="mail">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path  d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.3l8 5.1 8-5.1V7H4Zm0 10h16V9.7l-8 5.1-8-5.1V17Z"/></svg>
-          </a>
-          <a href="https://instagram.com/theswapclub.nl" class="work-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-          </a>
-          <a href="https://www.facebook.com/p/The-Swap-Club-Amsterdam-61560924692272/" class="work-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </a>
-          <a href="https://www.linkedin.com/company/the-swap-club/" class="work-social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
-          </a>
-        </div>
+    <div class="contact-info-list">
+      <div class="contact-social-links" aria-label="Social links">
+        <a href="mailto:info@theswapclub.nl" class="shape-badge shape-badge--dark" target="_blank" rel="noopener noreferrer" aria-label="mail">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path  d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.3l8 5.1 8-5.1V7H4Zm0 10h16V9.7l-8 5.1-8-5.1V17Z"/></svg>
+        </a>
+        <a href="https://instagram.com/theswapclub.nl" class="shape-badge shape-badge--dark" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/p/The-Swap-Club-Amsterdam-61560924692272/" class="shape-badge shape-badge--dark" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/the-swap-club/" class="shape-badge shape-badge--dark" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg>
+        </a>
       </div>
+    </div>
   </div>
 </section>
 
 <section class="contact-section">
   <div class="contact-layout">
-    <form class="contact-form" action="{{ url_for('contact') }}" method="post" novalidate>
+    <!-- Flash Messages Container -->
+    <div class="flash-container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="form-message {{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    <form id="contactForm" class="contact-form" action="{{ url_for('contact') }}" method="post" novalidate>
       <div class="form-field">
         <label for="name">Full name</label>
         <input
@@ -46,6 +61,7 @@
           autocomplete="name"
           required
         >
+        <span class="field-validation-icon"></span>
       </div>
 
       <div class="form-field">
@@ -58,6 +74,7 @@
           autocomplete="email"
           required
         >
+        <span class="field-validation-icon"></span>
       </div>
 
       <div class="form-field">
@@ -73,10 +90,34 @@
       <div class="form-field">
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="7" required>{{ form_data.message }}</textarea>
+        <div class="char-counter">
+          <span id="charCount">{{ form_data.message|length if form_data.message else 0 }}</span>/2000
+        </div>
       </div>
 
-      <button type="submit" class="btn btn-plum">Send message</button>
+      <!-- Honeypot: hidden spam trap, leave empty -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="website">Website</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="btn btn-hot-orange" id="submitBtn" disabled>
+        <span class="btn-text">Send message</span>
+        <span class="btn-icon">→</span>
+      </button>
     </form>
   </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% if request.args.get('sent') %}
+<script>
+  // Successful submission: record a conversion in GA (only if the visitor accepted cookies).
+  if (window.gtag) { gtag('event', 'generate_lead', { form_name: 'contact_form' }); }
+  // Remove ?sent=1 so a page refresh doesn't count it twice.
+  history.replaceState(null, '', window.location.pathname);
+</script>
+{% endif %}
 {% endblock %}

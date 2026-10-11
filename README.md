@@ -5,33 +5,34 @@ A Flask site for The Swap Club.
 ## Running locally
 
 ```bash
+python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env      # then fill in real values
-export $(cat .env | xargs) # or use python-dotenv / your platform's env-var settings
 python app.py
 ```
 
-Visit http://127.0.0.1:5000
+Visit http://127.0.0.1:5001
 
-## Contact form & newsletter — what you need to configure
+## Contact form & Google Analytics — environment variables
 
-The contact form (`/business` page) and the footer newsletter signup both
-POST to routes in `app.py`, which validate the input and send an email via
-SMTP using Python's built-in `smtplib` (no extra email package required).
-
-You must set these environment variables on your server (see
-`.env.example`):
+Set these in `.env` locally and under **Vercel -> Project -> Settings -> Environment Variables** in production
+(see `.env.example`). Never commit `.env`.
 
 | Variable | Purpose |
 |---|---|
-| `SECRET_KEY` | Signs the session cookie so success/error messages work. Set a long random string. |
-| `SMTP_HOST` / `SMTP_PORT` | Your outgoing mail server, e.g. `smtp.gmail.com` / `587`. |
-| `SMTP_USERNAME` / `SMTP_PASSWORD` | The mailbox that sends the emails. For Gmail, use an **App Password**, not your normal password. |
-| `CONTACT_TO_EMAIL` | The Swap Club inbox that should receive submissions (defaults to `info@theswapclub.nl`). |
+| `GMAIL_USERNAME` | Gmail or Google Workspace address that sends contact form emails. |
+| `GMAIL_APP_PASSWORD` | 16-character Google **App Password** (not your normal password). |
+| `CONTACT_TO_EMAIL` | Optional. Deliver to a different inbox than `GMAIL_USERNAME`. |
+| `GA_MEASUREMENT_ID` | GA4 Measurement ID (`G-XXXXXXXXXX`). Empty = Analytics and cookie banner are off. |
+| `SECRET_KEY` | Long random string that signs the success/error messages. |
 
-If `SMTP_USERNAME`/`SMTP_PASSWORD` aren't set, the app won't crash — it
-just logs the message to the console instead of emailing it, so you can
-develop locally without real credentials.
+Analytics only loads after a visitor clicks "Accept" in the cookie banner.
+
+## Deploying on Vercel
+
+Vercel detects Flask automatically (`app.py` exposes `app`). Static files live in
+`public/static/` because Vercel serves `public/` from its CDN and ignores Flask's own static folder.
+Templates still use `url_for('static', ...)` unchanged.
 
 ## Luma page
 
@@ -45,16 +46,19 @@ folder.
 ## Project structure
 
 ```
-app.py                  Flask routes + contact/newsletter backend
+app.py                  Flask routes + contact form backend
+.env                    local secrets (same folder as app.py, never committed)
+.env.example            template listing the required variables
+
 templates/
   base.html              Shared layout: nav, footer, flash messages
   home.html, how.html, membership.html, business.html,
   community.html, events.html, about.html, privacy.html, terms.html
-static/
+public/static/          (served at /static/...)
   css/base.css            Shared tokens (plum & matcha palette), resets,
                            nav/footer/buttons, and components used on 2+ pages
   css/<page>.css          Page-specific styles only
-  js/base.js
+  js/base.js, contact.js, analytics.js
   images/
 ```
 

@@ -1,0 +1,543 @@
+/* HOME PAGE — page-specific styles.
+   Shared hero, stats-bar, about-block, scroll-snap steps, membership tiers
+   and FAQ accordion styles live in base.css. */
+
+.hero-section {
+  position: relative;
+  /* Overrides base.css's height:100vh so the hours strip below the hero
+     is always visible in the first screenful, without scrolling. */
+  height: calc(100vh - var(--nav-h) - 30px);
+  min-height: 560px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+}  
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(var(--text-rgb), 0.4);
+}
+
+.background-video-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 4rem 6%;
+  color: var(--text-white);
+}
+
+.hero-text {
+  max-width: 700px;
+}
+
+.hero-headline {
+  width: min(1280px, 94vw);
+  margin: 0 0 1rem 50%;
+  transform: translateX(-50%);
+}
+
+.hero-tagline {
+  line-height: 1.6;
+}
+
+.hero-section .hero-btns {
+  gap: 12px;
+}
+
+.hero-section .hero-btns .btn {
+  flex: 0 0 auto;
+  min-height: 0;
+  padding: 11px 24px;
+  font-size: 12px;
+}
+
+
+.hero-sticker {
+  position: absolute;
+  right: 6%;
+  bottom: 32px;
+  z-index: 3;
+  width: 162px;
+  height: 162px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--hot-orange);
+  filter: drop-shadow(0 10px 18px rgba(var(--text-rgb), 0.3));
+  transition: transform 0.25s ease;
+}
+
+.hero-sticker:hover,
+.hero-sticker:focus-visible { transform: scale(1.06); }
+
+.hero-sticker-ring {
+  position: absolute;
+  inset: 5%;          /* keeps the spinning text clear of the shape's notches */
+  width: 90%;
+  height: 90%;
+  animation: hero-sticker-spin 14s linear infinite;
+}
+
+.hero-sticker-ring text {
+  font-family: var(--font-body);
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  fill: var(--light-blue);
+}
+
+.hero-sticker-center {
+  position: relative;
+  z-index: 1;
+  --shape-bg: var(--light-blue);
+  width: 42px;
+  height: 42px;
+  color: var(--hot-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-sticker-center svg { width: 18px; height: 18px; }
+
+@keyframes hero-sticker-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-sticker-ring { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .hero-sticker { width: 120px; height: 120px; right: 5%; bottom: 22px; }
+  .hero-sticker-ring text { font-size: 16px; }
+  .hero-sticker-center { width: 28px; height: 28px; }
+  .hero-sticker-center svg { width: 15px; height: 15px; }
+}
+
+@media (max-width: 600px) {
+  .hero-sticker { width: 100px; height: 100px; right: 4%; bottom: 16px; }
+  .hero-sticker-ring text { font-size: 15px; }
+}
+
+@media (max-width: 380px) {
+.hero-sticker { width: 80px; height: 80px; right: 4%; bottom: 16px; }
+  .hero-sticker-ring text { font-size: 14px; }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 700px;
+  }
+
+  .background-video-content {
+    padding: 3rem 1rem;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-headline {
+    font-size: 2.5rem;
+  }
+
+  .hero-tagline br {
+    display: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .background-video-content {
+    padding: 2.5rem 0.75rem;
+  }
+}
+
+/* On the home page the stats bar is pinned to the bottom of the hero image */
+.hero-section .stats-bar { position: absolute; bottom: 0; left: 0; right: 0; z-index: 2; }
+
+/* ───────── EVENTS (home variant) ───────── */
+/* EVENT CARDS */
+/* EVENTS PAGE — page-specific styles.
+   Shared .events-hero-summary / .event-flow-list / .page-label live in base.css. */
+
+.events-hero {
+  width: 100%;
+  min-height: 85vh;
+  background: var(--lilac);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 80px;
+  padding: 120px 8%;
+}
+
+.events-hero-text { flex: 0 1 34%; }
+
+.events-hero-text h1 {
+  font-family: var(--font-display);
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--hot-orange);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.events-hero-text p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text);
+  max-width: 560px;
+  margin-bottom: 30px;
+}
+
+.hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; }
+
+.button {
+  display: inline-block;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s, filter 0.3s, box-shadow 0.3s, color 0.3s, transform 0.3s;
+}
+
+.button:hover {
+  filter: brightness(0.9);
+  box-shadow: 0px 0.1em 0.2em rgba(var(--plum-deep-rgb), 0.4), 0px 0.4em 0.7em -0.1em rgba(var(--plum-deep-rgb), 0.3), inset 0px -0.1em 0px var(--plum-deep);
+  transform: translateY(-0.1em);
+}
+
+.button-primary { background: var(--plum); color: var(--text-white); }
+
+.button-secondary { background: var(--plum); color: var(--text-white); }
+
+/* SHARED SECTION STYLING */
+.events-section,
+.practical-section,
+.events-faq-section {
+  width: 100%;
+  padding: 120px 8%;
+  background: var(--lilac);
+}
+
+.first-time-section { width: 100%; padding: 120px 8%; background: var(--cream); }
+
+.section-heading { text-align: center; margin: 0 auto 90px; }
+
+.section-heading h2 {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--plum-deep);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.section-heading h3 {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--plum-deep);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.section-heading p { font-family: var(--font-body); font-size: 1rem; color: var(--text); }
+
+/* FILTER FORM */
+.event-filter-form {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 50px;
+  background: var(--cream);
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 30px;
+}
+
+.filter-field { display: flex; flex-direction: column; gap: 10px; }
+
+.filter-field label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--plum-deep);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-field select,
+.filter-field input {
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--cream);
+  color: var(--text);
+}
+
+/* EVENT CARDS */
+.event-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+
+.event-card { background: var(--lilac); border-radius: 20px; overflow: hidden; }
+
+.event-card-header { background: var(--plum); padding: 30px; }
+
+.event-date {
+  display: inline-block;
+  background: var(--light-blue);
+  color: var(--plum-deep);
+  font-family: var(--font-body);
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+
+.event-card-header h3 {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--text-white);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.event-card-header p { font-family: var(--font-body); color: var(--text-white); }
+
+.event-card-body { padding: 30px; }
+.event-card-body p { font-family: var(--font-body); font-size: 1rem; color: var(--text); margin-bottom: 14px; }
+
+.event-card-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+
+
+.events-hero-summary { flex: 1 1 62%; }
+
+.luma-calendar-wrapper {
+  width: 100%;
+  max-width: 800px;
+}
+
+.luma-calendar-wrapper iframe {
+  min-height: 450px;
+  height: 70vh; /* scales with viewport */
+  max-height: 800px;
+  display: block;
+  width: 100%;
+  
+}
+
+/* ───────── CLUBHOUSE HOURS STRIP ───────── */
+.hours-strip { background: var(--plum); padding: 8px 40px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--light-blue); flex-wrap: wrap; text-align: center; }
+.hours-strip span { opacity: 0.4; }
+
+
+/* COMMUNITY PAGE — page-specific styles. */
+
+.community-page { background: var(--cream); color: var(--text); }
+
+/* ───────── FLOATING STORY WALL (marquee flip-cards) ───────── */
+.floating-swap-section { background: var(--cream); padding: 100px 0; overflow: hidden; }
+
+.floating-swap-header { text-align: center; max-width: 1000px; margin: 0 auto 56px; padding: 0 6%; }
+
+.font-writtenscript {
+  font-family: var(--font-writtenscript);
+  font-weight: 300;
+}
+
+.floating-swap-header p {
+  position: relative;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-family: var(--font-writtenscript);
+  color: var(--plum-deep);
+}
+
+.home-floating-swap-section .floating-swap-header p {
+  max-width: 800px;
+  font-size: clamp(2.1rem, 3.4vw, 3.25rem);
+  line-height: 1.25;
+}
+
+.floating-swap-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  color: var(--plum-deep);
+  text-transform: uppercase;
+  line-height: 0.95;
+  margin-bottom: 18px;
+}
+
+.floating-card-track-wrap {
+  --card-width: 340px;
+  --card-height: 340px;   /* square: photos are cut to the brand shape */
+  --card-gap: 6px;
+  width: 100%;
+}
+
+.floating-card-set { display: flex; gap: var(--card-gap); flex-shrink: 0; }
+.floating-card-set + .floating-card-set { margin-left: var(--card-gap); }
+
+.floating-flip-card {
+  width: var(--card-width);
+  height: var(--card-height);
+  flex: 0 0 var(--card-width);
+  perspective: 1000px;
+  box-shadow: 0 10px 28px rgba(var(--text-rgb), 0.14);
+  border-radius: 0;
+}
+
+.floating-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease;
+}
+.floating-flip-card:hover .floating-flip-inner,
+.floating-flip-card.is-flipped .floating-flip-inner { transform: rotateY(180deg); }
+
+.floating-card-front,
+.floating-card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.floating-card-front { background: var(--cream); }
+.floating-card-front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.floating-card-back {
+  background: var(--plum);
+  color: var(--text-white);
+  padding: 28px;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.floating-card-back h3 { font-family: var(--font-mono); font-size: 1rem; color: var(--text-white); line-height: 1.2; margin-bottom: 18px; }
+.floating-card-back p { font-size: 14px; line-height: 1.65; color: var(--text-white); }
+
+.story-card { position: relative; }
+.story-date {
+  position: absolute;
+  right: 42px;
+  bottom: 36px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-flip-inner { transition: none; }
+}
+
+/* ───────── JOIN THE CLUB (membership tier teaser cards) ───────── */
+.join-section { background: var(--cream); padding: 100px 6%; text-align: center; }
+.join-inner { max-width: 920px; margin: 0 auto; }
+
+.join-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--plum-deep);
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.join-sub { font-size: 14px; color: rgba(var(--text-rgb), 0.62); max-width: 560px; margin: 0 auto 56px; line-height: 1.7; }
+
+.join-tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+
+.join-tier-card {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 36px 28px;
+  text-align: left;
+  border: 1.5px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.join-tier-card:hover { border-color: var(--plum); transform: translateY(-4px); }
+
+.join-tier-badge { font-family: var(--font-display); font-size: 1.6rem; color: var(--plum-deep); text-transform: uppercase; }
+.join-tier-desc { font-size: 14px; color: rgba(var(--text-rgb), 0.62); line-height: 1.6; flex: 1; }
+
+/* Note: the "Follow Us & Join Us" social-section component now lives
+   only in base.css, so it renders identically on every page. */
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width: 900px) {
+  .floating-card-track-wrap { --card-width: 280px; --card-height: 280px; --card-gap: 4px; }
+  .floating-swap-section { padding: 80px 0; }
+  .floating-card-back { padding: 22px; }
+  .floating-card-back h3 { font-size: 1.5rem; }
+  .floating-card-back p { font-size: 13px; }
+
+  .join-tiers-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .join-section { padding: 72px 6%; }
+  .join-sub { margin-bottom: 42px; }
+  .join-tier-card { padding: 30px 24px; border-radius: 12px; }
+
+  .floating-swap-header p { padding: 16px 8px; }
+  .home-floating-swap-section .floating-swap-header p { font-size: clamp(1.8rem, 9vw, 2.4rem); }
+
+  .floating-card-track-wrap {
+    --card-width: min(78vw, 320px);
+    --card-height: min(78vw, 320px);
+    --card-gap: 2px;
+  }
+}
+
+
+/* ───────── RESPONSIVE ───────── */
+@media (max-width: 900px) {
+  .hero-headline { font-size: 3.2rem; }
+  .hero-section .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-image-wrap { aspect-ratio: 16 / 9; }
+
+
+  .events-hero { flex-direction: column; align-items: flex-start; gap: 40px; padding: 80px 6%; }
+  .events-hero-text, .events-hero-summary { flex: 1 1 100%; width: 100%; }
+  .events-hero-text h1 { font-size: 3.2rem; }
+  .hours-strip { font-size: 11px; }
+}
+
+
+@media (max-width: 600px) {
+  .hero-headline { font-size: 2.6rem; }
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .about-section, .community-section, .faq-section { padding: 72px 6%; }
+  .hours-strip { font-size: 9px; }
+}
