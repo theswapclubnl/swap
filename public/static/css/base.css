@@ -104,7 +104,7 @@ body {
   background: var(--warm-white);
   color: var(--text-dark);
   overflow-x: hidden;
-  font-size: 16px;
+  font-size: clamp(15px, 1.4vw, 16px);
   line-height: 1.6;
 }
 
@@ -273,7 +273,6 @@ html.has-scroll-motion div.clubhouse-photo {
    ───────────────────────────────────────────── */
 .step-image-wrap,
 .story-photo,
-.grid-item,
 .compare-card,
 .compare-card .highlight,
 .clubhouse-grid div.clubhouse-photo,
@@ -492,7 +491,7 @@ nav {
 
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-size: clamp(1.7rem, 5vw, 4.5rem);
   line-height: 0.93;
   color: var(--light-blue);
   text-transform: uppercase;
@@ -658,7 +657,7 @@ nav {
 .step-number {
   display: block;
   font-family: var(--font-display);
-  font-size: 7rem;
+  font-size: clamp(2.4rem, 13vw, 7rem);
   color: var(--hot-purple);
   line-height: 0.85;
   margin-bottom: 12px;
@@ -666,7 +665,7 @@ nav {
 
 .step-title {
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-size: clamp(1.45rem, 5vw, 2.4rem);
   color: var(--plum-deep);
   text-transform: uppercase;
   line-height: 1.05;
@@ -691,7 +690,7 @@ nav {
 
 .faq-title-block h1 {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 12vw, 6rem);   /* BN Dope words are ~6.7em wide: must scale down on phones */
+  font-size: clamp(1.7rem, 12vw, 6rem);   /* BN Dope words are ~6.7em wide: must scale down on phones */
   text-transform: uppercase;
   color: var(--cream);
   margin: 0 0 8px;
@@ -733,7 +732,7 @@ nav {
   transition: color var(--transition);
 }
 .toggle-heading:hover,
-.toggle-heading[aria-expanded="true"] { color: var(--lilac);color: var(--lilac); }
+.toggle-heading[aria-expanded="true"] { color: var(--light-blue);color: var(--hot-orange); }
 .toggle-heading:focus-visible { outline-color: var(--light-blue); }
 
 /* Smooth open/close: the wrapper div animates its row height 0fr → 1fr */
@@ -793,7 +792,7 @@ nav {
 .section-title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-size: clamp(1.6rem, 6vw, 3.5rem);
   line-height: 0.95;
   text-transform: uppercase;
   color: var(--plum-deep);
@@ -869,7 +868,7 @@ nav {
 .tier-name { 
   font-family: var(--font-display); 
   font-weight: 900; 
-  font-size: 24px; 
+  font-size: clamp(20px, 3vw, 24px); 
   text-transform: uppercase; 
   color: var(--hot-purple-deep); 
   line-height: 1; 
@@ -881,7 +880,7 @@ nav {
 .tier-price { 
   font-family: var(--font-display); 
   font-weight: 900; 
-  font-size: 48px; 
+  font-size: clamp(38px, 6vw, 48px); 
   color: var(--hot-purple-deep); line-height: 1; 
 }
 .tier-card.featured .tier-price,
@@ -1079,7 +1078,7 @@ footer {
 
 .social-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.7rem, 8vw, 4rem);
   color: var(--hot-orange);
   text-transform: uppercase;
   line-height: 1;
@@ -1093,8 +1092,8 @@ footer {
 .btn-social { background: var(--cream); color: var(--hot-orange); border-color: var(--cream); gap: 8px; }
 .btn-social:hover { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--cream); }
 
-.btn-social-newsletter { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--light-blue); }
-.btn-social-newsletter:hover { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--light-blue); }
+.btn-social-newsletter { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--cream); }
+.btn-social-newsletter:hover { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--cream); }
 
 /* icon sits on a small brand-shape badge inside the pill */
 .btn-social .shape-badge { --shape-size: 34px; --shape-bg: var(--light-blue); --shape-bg-hover: var(--light-blue); --shape-fg: var(--plum); margin-left: -8px; }
@@ -1223,7 +1222,7 @@ footer {
   .step-number {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: 64px;
+    font-size: clamp(2.2rem, 15vw, 4rem);
     color: var(--hot-purple);
     line-height: 1;
     margin-bottom: 8px;

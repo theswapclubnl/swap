@@ -20,7 +20,7 @@ main { max-width: 900px; margin: 0 auto; padding: 80px 6% 120px; }
   margin: 0;
   color: var(--plum-deep);
   font-family: var(--font-display);
-  font-size: 5rem;
+  font-size: clamp(2.2rem, 9vw, 5rem);
   font-weight: 700;
   line-height: 0.95;
   text-transform: uppercase;
@@ -42,7 +42,7 @@ section:last-child { border-bottom: none; }
 
 section h2 {
   font-family: var(--font-display);
-  font-size: clamp(1.9rem, 3vw, 3rem);
+  font-size: clamp(1.5rem, 3vw, 3rem);
   line-height: 1;
   color: var(--plum-deep);
   text-transform: uppercase;
@@ -51,7 +51,7 @@ section h2 {
 
 section h3 {
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.9vw, 2.1rem);
+  font-size: clamp(1.15rem, 1.9vw, 2.1rem);
   font-weight: 200;
   line-height: 0.95;
   letter-spacing: 0.035em;

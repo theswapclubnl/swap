@@ -252,9 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
    We scroll one set-width and jump back by exactly that distance, which
    is invisible because the second set is a copy of the first.
 
-   Auto-advance pauses while a mouse hovers, while the user drags/wheels,
-   and for 2.5s afterwards; it also stops when the strip is off-screen or
-   the tab is hidden, so idle carousels cost nothing.
+   Auto-advance keeps moving on hover. It pauses only while the user
+   drags/wheels/clicks arrows, then resumes after 2.5s; it also stops when
+   the strip is off-screen or the tab is hidden, so idle carousels cost nothing.
    ───────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.hscroll').forEach((track) => {
@@ -269,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastTs = null;
     let rafId = null;
     let inView = false;
-    let hovering = false;        // mouse only — touch has no "leave" event
     let paused = false;          // short cool-down after user interaction
     let userInteracting = false;
     let resumeTimer = null;
@@ -278,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let suppressClick = false;
 
     const isRunning = () =>
-      inView && !paused && !userInteracting && !prefersReducedMotion() && !document.hidden;  // no hover check on purpose: keeps looping under the mouse
+      inView && !paused && !userInteracting && !prefersReducedMotion() && !document.hidden;
 
     function tick(ts) {
       rafId = null;
@@ -327,9 +326,6 @@ document.addEventListener('DOMContentLoaded', () => {
       inView = true;
     }
     document.addEventListener('visibilitychange', start);
-
-    track.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovering = true; });
-    track.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hovering = false; start(); } });
 
     track.addEventListener('pointerdown', (event) => {
       if (event.button !== undefined && event.button !== 0) return;

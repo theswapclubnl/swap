@@ -28,7 +28,7 @@
 .contact-hero h1 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: clamp(2.2rem, 7vw, 6.5rem);
   line-height: 0.93;
   text-transform: uppercase;
   color: var(--plum-deep);
