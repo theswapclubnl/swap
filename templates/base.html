@@ -32,19 +32,19 @@
   <nav id="main-nav">
     <div class="nav-left mobile-nav-logo">
       <a href="/" class="nav-logo" aria-label="The Swap Club home">
-        <img src="{{ url_for('static', filename='images/brand/logos/PURPLE/RGB_THESWAPCLUB_HORIZONTAL_LOGO_PURPLE_OUTLINE2.png') }}" alt="The Swap Club">
+        <img src="{{ url_for('static', filename='images/brand/logos/COLOUR_COMBO/RGB_THESWAPCLUB_HORIZONTAL_LOGO_COLOUR3.png') }}" alt="The Swap Club">
       </a>
     </div>
 
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer">Events</a></li>
+        <li><a href="/membership" class="{% if request.path == '/membership' %}active{% endif %}">Become a Member</a></li>
         <li><a href="/how" class="{% if request.path == '/how' %}active{% endif %}">How It Works</a></li>
         <li><a href="/about" class="{% if request.path == '/about' %}active{% endif %}">About</a></li>
         <li><a href="/business" class="{% if request.path == '/business' %}active{% endif %}">B2B</a></li>
         <li><a href="/contact" class="{% if request.path == '/contact' %}active{% endif %}">Contact Us</a></li>
       </ul>
-      <a href="/membership" class="nav-cta mobile-nav-join-btn">Become a Member</a>
+      <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="nav-cta mobile-nav-join-btn">Events</a>
     </div>
 
     <button class="nav-toggle" id="navToggle" type="button" aria-label="Open navigation" aria-controls="main-nav" aria-expanded="false">
@@ -127,7 +127,7 @@
     </div>
     <div class="footer-bottom">
           <div class="footer-watermark" aria-hidden="true">
-            <img src="{{ url_for('static', filename='images/brand/logos/PURPLE/RGB_THESWAPCLUB_HORIZONTAL_LOGO_PURPLE.png') }}" alt="">
+            <img src="{{ url_for('static', filename='images/brand/logos/COLOUR_COMBO/RGB_THESWAPCLUB_HORIZONTAL_LOGO_COLOUR3.png') }}" alt="">
           </div>
       &copy; The Swap Club 2024.
       {% if ga_measurement_id %}<button type="button" class="cookie-settings-link" id="cookieSettings">Cookie settings</button>{% endif %}

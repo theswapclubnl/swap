@@ -39,7 +39,7 @@
   --lilac: #f8dae9;
   --light-lilac: #FFD1E7;
   --light-blue: #c0e8ff;
-  --hot-orange: #ff662e;
+  --hot-orange: #ff591d;
   --green-yellow: #ddec4e;
   --text: #24151F;
   --text-white: #FFFFFF;
@@ -109,7 +109,7 @@ body {
   line-height: 1.6;
 }
 
-.page-content { padding-top: var(--nav-h); }
+.page-content { padding-top: 0; }
 
 
 html.has-scroll-motion [data-aos="fade-up"] {
@@ -350,8 +350,10 @@ a:focus-visible > .shape-badge { color: var(--shape-fg-hover); }
    states — see the responsive block for the panel layout.
    ───────────────────────────────────────────── */
 nav {
-  background: var(--light-blue);
-  padding: 6px 20px;
+  background: rgba(var(--cream-rgb), 0.64);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+          backdrop-filter: blur(18px) saturate(1.3);
+  padding: 12px 20px 6px;
   min-height: var(--nav-h);
   width: 100%;
   display: flex;
@@ -361,6 +363,9 @@ nav {
   top: 0;
   left: 0;
   z-index: 1000;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.34) inset,
+    0 14px 34px rgba(var(--text-rgb), 0.08);
 }
 
 .nav-logo {
@@ -389,18 +394,18 @@ nav {
 }
 
 .nav-links a {
-  color: var(--hot-purple-deep);
+  color: var(--hot-orange);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  opacity: 0.65;
   transition: opacity var(--transition), color var(--transition);
 }
 .nav-links a:hover,
 .nav-links a.active {
   opacity: 1;
-  color: var(--hot-purple);
+  font-weight: 800;
+  color: var(--hot-orange);
 }
 
 .nav-cta {
@@ -408,12 +413,12 @@ nav {
   align-items: center;
   margin-left: 36px;
   padding: 8px 18px;
-  background: var(--hot-purple-deep);
+  background: var(--hot-orange);
   border-radius: 6px;
   color: var(--cream);
   font-family: var(--font-body);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   transition: background var(--transition), filter var(--transition), box-shadow var(--transition), transform var(--transition);
@@ -436,7 +441,7 @@ nav {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  color: var(--hot-purple-deep);
+  color: var(--hot-orange);
   transition: filter var(--transition), box-shadow var(--transition), color var(--transition), transform var(--transition);
 }
 .nav-toggle:hover {
@@ -468,7 +473,8 @@ nav {
 .hero-section {
   position: relative;
   height: 100vh;
-  min-height: 750px;
+  height: 100svh;
+  min-height: 0;
 }
 
 .hero-image {
@@ -493,7 +499,7 @@ nav {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 5vw, 4.5rem);
   line-height: 0.93;
-  color: var(--light-blue);
+  color: var(--lilac);
   text-transform: uppercase;
   margin-bottom: 14px;
 }
@@ -686,7 +692,7 @@ nav {
    ───────────────────────────────────────────── */
 #faqs {
   padding: 100px 0;
-  color: var(--light-blue);
+  color: var(--green-yellow);
   text-align: center;
   background: var(--hot-purple);
 }
@@ -704,7 +710,7 @@ nav {
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 6.5vw, 3.6rem);
   text-transform: uppercase;
-  color: var(--light-blue);
+  color: var(--green-yellow);
   margin: 0;
   line-height: 1.15;
 }
@@ -727,7 +733,7 @@ nav {
   font-family: var(--font-body);
   font-size: clamp(1.1rem, 2.2vw, 1.4rem);
   font-weight: 400;
-  color: var(--light-blue);
+  color: var(--green-yellow);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 6px;
@@ -735,8 +741,8 @@ nav {
   transition: color var(--transition);
 }
 .toggle-heading:hover,
-.toggle-heading[aria-expanded="true"] { color: var(--light-blue);color: var(--hot-orange); }
-.toggle-heading:focus-visible { outline-color: var(--light-blue); }
+.toggle-heading[aria-expanded="true"] { color: var(--light-blue); }
+.toggle-heading:focus-visible { outline-color: var(--green-yellow); }
 
 /* Smooth open/close: the wrapper div animates its row height 0fr → 1fr */
 .toggle > div {
@@ -770,7 +776,7 @@ nav {
   font-family: var(--font-body);
   font-size: 0.95rem;
   line-height: 1.7;
-  color: var(--light-blue);
+  color: var(--green-yellow);
   text-align: center;
 }
 .inner-toggle-wrap p:last-child { margin-bottom: 0; }
@@ -1073,21 +1079,25 @@ footer {
 
 
 /* ───────── SOCIAL / NEWSLETTER SECTION ───────── */
-.social-section { background: var(--light-blue); padding: 60px 6%; text-align: center; }
+.social-section { background: var(--plum-deep); padding: 60px 6%; text-align: center; }
 .social-inner { max-width: 920px; margin: 0 auto; }
 
 .social-title {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 8vw, 4rem);
-  color: var(--hot-orange);
+  color: var(--light-blue);
   text-transform: uppercase;
   line-height: 1;
   margin-bottom: 12px;
 }
 
-.social-sub { font-size: 14px; color: var(--plum); max-width: 560px; margin: 0 auto 28px; line-height: 1.7; }
+.social-sub { font-size: 14px; color: rgba(var(--cream-rgb), 0.82); max-width: 560px; margin: 0 auto 28px; line-height: 1.7; }
 
 .social-buttons { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+
+.social-section .btn-social-newsletter { background: var(--green-yellow); border-color: var(--green-yellow); color: var(--plum-deep); }
+.social-section .btn-social-newsletter:hover { background: var(--green-yellow); border-color: var(--green-yellow); color: var(--plum-deep); }
+.social-section .shape-badge { --shape-bg: var(--light-blue); --shape-bg-hover: var(--lilac); --shape-fg: var(--plum); }
 
 .btn-social { background: var(--cream); color: var(--hot-orange); border-color: var(--cream); gap: 8px; }
 .btn-social:hover { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--cream); }
@@ -1108,32 +1118,40 @@ footer {
    ───────────────────────────────────────────── */
 @media (max-width: 900px) {
   /* ── Mobile navigation ──
-     Same light-blue bar, same link type/colours/hover as desktop. The
-     links + CTA drop down in a panel of the same colour that slides in. */
-  nav { min-height: var(--nav-h-mobile); padding: 8px 20px; }
-  .page-content { padding-top: var(--nav-h-mobile); }
+     The toggle opens a full-screen lilac panel behind the logo/close button. */
+  nav { min-height: var(--nav-h-mobile); padding: 12px 20px 8px; }
+  .page-content { padding-top: 0; }
   html { scroll-padding-top: calc(var(--nav-h-mobile) + 12px); }
+  .hero-section {
+    height: 100vh;
+    height: 100svh;
+  }
 
   .nav-left { position: relative; z-index: 1001; }
   .nav-logo { width: min(170px, 52vw); }
   .nav-toggle { display: flex; margin-left: auto; position: relative; z-index: 1001; }
 
   .nav-right {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
     z-index: 999;
     flex-direction: column;
     align-items: center;
-    padding: 4px var(--section-px) 24px;
-    background: var(--light-blue);
-    border-top: 1px solid rgba(var(--hot-purple-deep-rgb), 0.15);
-    box-shadow: 0 16px 28px rgba(var(--text-rgb), 0.14);
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: calc(var(--nav-h-mobile) + 32px) var(--section-px) 40px;
+    background: var(--lilac);
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+    border-top: none;
+    box-shadow: none;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-12px);
+    transform: translateY(-16px);
     transition: opacity 0.25s ease, transform 0.35s var(--ease-out), visibility 0s linear 0.35s;
   }
   nav.nav-open .nav-right {

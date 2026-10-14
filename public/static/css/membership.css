@@ -7,6 +7,8 @@
 /* ───────── HERO ───────── */
 .hero {
   background: var(--lilac); 
+  min-height: 100vh;
+  min-height: 100svh;
   padding: 80px 48px 100px; 
   display: grid; 
   grid-template-columns: 1fr 1fr; 
@@ -286,7 +288,7 @@
 
 /* ───────── RESPONSIVE ───────── */
 @media (max-width: 900px) {
-  .hero { grid-template-columns: 1fr; padding: 56px 24px 72px; }
+  .hero { grid-template-columns: 1fr; min-height: 100vh; min-height: 100svh; padding: 56px 24px 72px; }
   .steps, .points-grid { grid-template-columns: repeat(2, 1fr); }
   .compare-grid { width: min(100%, 720px); }
   .compare-card { min-height: 0; }

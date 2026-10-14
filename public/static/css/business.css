@@ -48,8 +48,8 @@
 
 /* brand-shape badge (markup adds .shape-badge; look comes from base.css) */
 .why-icon { --shape-size: 78px; margin-bottom: 14px; }
-.why-item:nth-child(odd) .why-icon { --shape-bg: var(--green-yellow); --shape-fg: var(--plum); }
-.why-item:nth-child(even) .why-icon { --shape-bg: var(--green-yellow); --shape-fg: var(--plum); }
+.why-item:nth-child(odd) .why-icon { --shape-bg: var(--hot-orange); --shape-fg: var(--cream); }
+.why-item:nth-child(even) .why-icon { --shape-bg: var(--hot-orange); --shape-fg: var(--cream); }
 .why-icon svg {
   width: 40%;
   height: 40%;
@@ -84,10 +84,10 @@
 }
 
 /* ───────── OUR SERVICES ───────── */
-.services-section { background: var(--hot-orange); padding: 110px 6%; text-align: center; }
+.services-section { background: var(--lilac); padding: 110px 6%; text-align: center; }
 .services-inner { max-width: 1200px; margin: 0 auto; }
 .services-section .section-eyebrow,
-.services-section .section-title { color: var(--cream); }
+.services-section .section-title { color: var(--hot-orange); }
 
 .service-list { display: flex; flex-direction: column; margin: 48px auto 0; max-width: 780px; }
 
@@ -96,7 +96,7 @@
   justify-content: center;
   gap: 24px;
   padding: 32px 0;
-  border-top: 1px solid rgba(var(--lilac-rgb), 0.16);
+  border-top: 1px solid var(--hot-orange);
   text-align: center;
 }
 .service-row:last-child { padding-bottom: 0; }
@@ -105,7 +105,7 @@
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 700;
-  color: var(--cream);
+  color: var(--plum);
   flex-shrink: 0;
   padding-top: 4px;
 }
@@ -114,15 +114,15 @@
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 1.6rem;
-  color: var(--lilac);
+  color: var(--plum-deep);
   text-transform: uppercase;
   margin-bottom: 10px;
   line-height: 1;
 }
 .service-copy { max-width: 640px; margin: 0 auto; }
-.service-copy p { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--cream); margin-bottom: 12px; }
+.service-copy p { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--plum-deep); margin-bottom: 12px; }
 .service-copy p:last-child { margin-bottom: 0; }
-.service-copy .service-tags { font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em; color: var(--cream); }
+.service-copy .service-tags { font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em; color: var(--plum-deep); }
 
 /* ───────── LET'S WORK TOGETHER ───────── */
 .work-together-section { background: var(--plum-deep); text-align: center; padding: 96px 6%; }

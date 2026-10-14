@@ -124,6 +124,70 @@ if (prefersReducedMotion()) {
 }
 
 /* ─────────────────────────────────────────────
+   Type-on-scroll quote reveal
+   ───────────────────────────────────────────── */
+(function typeOnScrollQuotes() {
+  const quotes = document.querySelectorAll('[data-type-on-scroll]');
+  if (!quotes.length) return;
+
+  const typeQuote = (quote) => {
+    if (quote.dataset.typed === 'true') return;
+
+    const text = quote.dataset.typeText || quote.textContent;
+    quote.dataset.typeText = text;
+    quote.dataset.typed = 'true';
+
+    if (prefersReducedMotion()) {
+      quote.textContent = text;
+      return;
+    }
+
+    quote.textContent = '';
+    quote.classList.add('is-typing');
+
+    const characters = Array.from(text);
+    const charDelay = 62;
+    const startDelay = 180;
+    let startTime = null;
+    let visibleCount = 0;
+
+    const typeFrame = (timestamp) => {
+      if (startTime === null) startTime = timestamp + startDelay;
+
+      const elapsed = timestamp - startTime;
+      const nextCount = Math.max(0, Math.min(characters.length, Math.floor(elapsed / charDelay) + 1));
+
+      if (nextCount !== visibleCount) {
+        visibleCount = nextCount;
+        quote.textContent = characters.slice(0, visibleCount).join('');
+      }
+
+      if (visibleCount < characters.length) {
+        window.requestAnimationFrame(typeFrame);
+      } else {
+        quote.classList.remove('is-typing');
+      }
+    };
+
+    window.requestAnimationFrame(typeFrame);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        typeQuote(entry.target);
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.45 });
+
+    quotes.forEach((quote) => observer.observe(quote));
+  } else {
+    quotes.forEach(typeQuote);
+  }
+})();
+
+/* ─────────────────────────────────────────────
    FAQ toggles (How It Works page)
    Question links open/close their answer block; aria-expanded mirrors it.
    ───────────────────────────────────────────── */

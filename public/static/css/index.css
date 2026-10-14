@@ -4,10 +4,9 @@
 
 .hero-section {
   position: relative;
-  /* Overrides base.css's height:100vh so the hours strip below the hero
-     is always visible in the first screenful, without scrolling. */
-  height: calc(100vh - var(--nav-h) - 30px);
-  min-height: 560px;
+  height: 100vh;
+  height: 100svh;
+  min-height: 0;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -134,7 +133,9 @@
 
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 700px;
+    height: 100vh;
+    height: 100svh;
+    min-height: 0;
   }
 
   .background-video-content {
@@ -346,6 +347,13 @@
 /* ───────── CLUBHOUSE HOURS STRIP ───────── */
 .hours-strip { background: var(--green-yellow); padding: 8px 40px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--plum-deep); flex-wrap: wrap; text-align: center; }
 .hours-strip span { opacity: 0.4; }
+.hero-section .hours-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+}
 
 
 /* COMMUNITY PAGE — page-specific styles. */
@@ -365,12 +373,23 @@
 .floating-swap-header p {
   position: relative;
   max-width: 1000px;
-  margin: 40px auto;
+  margin: 24px auto 40px;
   padding: 20px;
   text-align: center;
   font-size: clamp(2rem, 7vw, 6rem);
   font-family: var(--font-writtenscript);
   color: var(--plum-deep);
+}
+
+.floating-swap-header p.is-typing::after {
+  content: '|';
+  display: inline-block;
+  margin-left: 0.08em;
+  animation: typing-caret 0.8s steps(1) infinite;
+}
+
+@keyframes typing-caret {
+  50% { opacity: 0; }
 }
 
 .home-floating-swap-section .floating-swap-header p {
