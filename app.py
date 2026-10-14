@@ -6,6 +6,7 @@ Google Analytics (GA4) is loaded only after the visitor accepts cookies.
 import os
 import re
 import smtplib
+import ssl
 from email.message import EmailMessage
 
 from dotenv import load_dotenv
@@ -97,12 +98,15 @@ def contact():
 
 def send_contact_email(data):
     """Send the form to your own Gmail inbox. Returns True on success."""
-    username = os.environ.get("GMAIL_USERNAME")
-    password = (os.environ.get("GMAIL_APP_PASSWORD") or "").replace(" ", "")
-    to_address = os.environ.get("CONTACT_TO_EMAIL") or username
+    username = (os.environ.get("GMAIL_USERNAME") or "").strip()
+    password = "".join((os.environ.get("GMAIL_APP_PASSWORD") or "").split())
+    to_address = (os.environ.get("CONTACT_TO_EMAIL") or "").strip() or username
 
     if not (username and password):
-        print("Email not configured: set GMAIL_USERNAME and GMAIL_APP_PASSWORD.")
+        app.logger.error(
+            "Contact email is not configured: set GMAIL_USERNAME and "
+            "GMAIL_APP_PASSWORD in the hosting environment, then redeploy."
+        )
         return False
 
     msg = EmailMessage()
@@ -119,12 +123,21 @@ def send_contact_email(data):
 
     try:
         with smtplib.SMTP("smtp.gmail.com", 587, timeout=15) as server:
-            server.starttls()
+            server.starttls(context=ssl.create_default_context())
             server.login(username, password)
             server.send_message(msg)
         return True
-    except Exception as e:
-        print(f"Email error: {e}")
+    except smtplib.SMTPAuthenticationError as exc:
+        app.logger.error(
+            "Contact email authentication failed (SMTP %s): check the deployed "
+            "GMAIL_USERNAME and GMAIL_APP_PASSWORD.", exc.smtp_code
+        )
+        return False
+    except smtplib.SMTPResponseException as exc:
+        app.logger.error("Contact email rejected by Gmail (SMTP %s).", exc.smtp_code)
+        return False
+    except (OSError, smtplib.SMTPException) as exc:
+        app.logger.error("Contact email connection/delivery failed (%s).", type(exc).__name__)
         return False
 
 

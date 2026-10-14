@@ -28,6 +28,18 @@ Set these in `.env` locally and under **Vercel -> Project -> Settings -> Environ
 
 Analytics only loads after a visitor clicks "Accept" in the cookie banner.
 
+### Contact form works locally but fails on the live site
+
+The local `.env` is not uploaded to Vercel. Add `GMAIL_USERNAME`,
+`GMAIL_APP_PASSWORD`, `CONTACT_TO_EMAIL`, and `SECRET_KEY` to the project's
+**Production** environment variables, using the values from your local `.env`.
+Redeploy after adding or changing them; existing deployments keep their previous
+environment settings. For a preview URL, configure the **Preview** environment too.
+
+If sending still fails, inspect the deployment's runtime logs for `Contact email`.
+The log distinguishes missing configuration, rejected Gmail authentication,
+SMTP rejection, and connection failures without printing credentials or messages.
+
 ## Deploying on Vercel
 
 Vercel detects Flask automatically (`app.py` exposes `app`). Static files live in
