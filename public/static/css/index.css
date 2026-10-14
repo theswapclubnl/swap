@@ -146,7 +146,7 @@
   }
 
   .hero-headline {
-    font-size: clamp(2.1rem, 12vw, 4rem);
+    font-size: clamp(1.8rem, 10vw, 3.2rem);
   }
 
   .hero-tagline br {
@@ -157,6 +157,10 @@
 @media (max-width: 400px) {
   .background-video-content {
     padding: 2.5rem 0.75rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(1.6rem, 9vw, 2.6rem);
   }
 }
 
@@ -185,7 +189,7 @@
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 8vw, 6rem);
   line-height: 1;
-  color: var(--hot-orange);
+  color: var(--plum-dark);
   text-transform: uppercase;
   margin-bottom: 24px;
 }
@@ -340,7 +344,7 @@
 }
 
 /* ───────── CLUBHOUSE HOURS STRIP ───────── */
-.hours-strip { background: var(--plum); padding: 8px 40px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--light-blue); flex-wrap: wrap; text-align: center; }
+.hours-strip { background: var(--green-yellow); padding: 8px 40px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--plum-deep); flex-wrap: wrap; text-align: center; }
 .hours-strip span { opacity: 0.4; }
 
 
@@ -386,7 +390,7 @@
 
 .floating-card-track-wrap {
   --card-width: 340px;
-  --card-height: 340px;   /* square: photos are cut to the brand shape */
+  --card-height: 430px;
   --card-gap: 6px;
   width: 100%;
 }
@@ -494,7 +498,7 @@
 
 /* ───────── RESPONSIVE ───────── */
 @media (max-width: 900px) {
-  .floating-card-track-wrap { --card-width: 280px; --card-height: 280px; --card-gap: 4px; }
+  .floating-card-track-wrap { --card-width: 280px; --card-height: 360px; --card-gap: 4px; }
   .floating-swap-section { padding: 80px 0; }
   .floating-card-back { padding: 22px; }
   .floating-card-back h3 { font-size: 1.5rem; }
@@ -513,7 +517,7 @@
 
   .floating-card-track-wrap {
     --card-width: min(78vw, 320px);
-    --card-height: min(78vw, 320px);
+    --card-height: min(98vw, 400px);
     --card-gap: 2px;
   }
 }
@@ -521,7 +525,7 @@
 
 /* ───────── RESPONSIVE ───────── */
 @media (max-width: 900px) {
-  .hero-headline { font-size: clamp(2.2rem, 9vw, 5rem); }
+  .hero-headline { font-size: clamp(2rem, 8vw, 4.2rem); }
   .hero-section .stats-bar { grid-template-columns: repeat(2, 1fr); }
   .stat-item:nth-child(2) { border-right: none; }
 
@@ -537,7 +541,7 @@
 
 
 @media (max-width: 600px) {
-  .hero-headline { font-size: clamp(2.1rem, 12vw, 4rem); }
+  .hero-headline { font-size: clamp(1.8rem, 10vw, 3.2rem); }
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .about-section, .community-section, .faq-section { padding: 72px 6%; }
   .hours-strip { font-size: 9px; }
