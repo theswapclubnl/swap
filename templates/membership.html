@@ -13,7 +13,7 @@
     <h1 class="hero-headline">Swap more.<br><span>Shop less.</span></h1>
     <p class="hero-body">
       Membership gets you unlimited entry to our swap events, a points wallet that never expires,
-      and first access to new drops at the Clubhouse. All for one simple monthly rate.
+      and first access to new drops at the Clubhouse. All for one simple monthly rate and can be cancelled at any time.
     </p>
     <div class="hero-btns">
       <a href="#tiers" class="btn btn-plum">See Membership Plans</a>
@@ -27,25 +27,13 @@
   </div>
 
   <div class="events-hero-summary">
-    <div class="luma-calendar-wrapper">
-      <iframe
-        src="https://luma.com/embed/calendar/cal-2oIrrJqOeQUjKMA/events"
-        width="800"
-        height="500"
-        frameborder="0"
-        style="border: 1px solid #bfcbda88; border-radius: 4px;"
-        allowfullscreen="true"            
-        aria-hidden="false"
-        tabindex="0"
-      ></iframe>
-    </div>
+    {% include "luma_calendar.html" %}
   </div>
 </section>
 
   <!-- MEMBERSHIP TIERS -->
 <section class="tiers" id="tiers">
   <div class="tiers-header">
-    <div class="section-eyebrow">Membership options</div>
     <h2 class="section-title">Pick your membership</h2>
   </div>
   <div class="tiers-grid">
@@ -123,24 +111,28 @@
 </section>
 
 <section class="compare">
-  <div class="section-eyebrow">Compare</div>
   <h2 class="section-title">Single ticket or membership?</h2>
-  <p class="compare-intro">Membership is for people who want to return regularly. A single ticket is a great first step.</p>
   <div class="compare-grid">
-    <div class="compare-card">
+    <a class="compare-card" href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer">
       <h3>Single ticket</h3>
-      <div class="compare-item">Good for trying one event.</div>
-      <div class="compare-item">Pay per event — €15 with drinks & snacks included.</div>
-      <div class="compare-item">Great for first-time visitors.</div>
-      <div class="compare-item">No access to the clubhouse between events.</div>
-    </div>
-    <div class="compare-card highlight">
+      <ul class="compare-features">
+        <li class="compare-item">Good for trying one event.</li>
+        <li class="compare-item">€15 per event, including drinks & snacks.</li>
+        <li class="compare-item">Great for first-time visitors.</li>
+        <li class="compare-item">Clubhouse access during events only.</li>
+      </ul>
+      <span class="compare-action">Explore single events <img class="compare-action-arrow" src="{{ url_for('static', filename='images/brand/arrows/RGB_SWAPCLUB_ARROWS_PURPLE2.png') }}" width="40" height="40" alt=""></span>
+    </a>
+    <a class="compare-card highlight" href="#tiers">
       <h3>Membership</h3>
-      <div class="compare-item">Walk into our locations anytime.</div>
-      <div class="compare-item">Better value if you come regularly.</div>
-      <div class="compare-item">Points, history and events all in one place.</div>
-      <div class="compare-item">Supports long-term community belonging.</div>
-    </div>
+      <ul class="compare-features">
+        <li class="compare-item">Clubhouse access during opening hours.</li>
+        <li class="compare-item">Better value for regular visits.</li>
+        <li class="compare-item">Points, history and events in one place.</li>
+        <li class="compare-item">Be part of our community.</li>
+      </ul>
+      <span class="compare-action">View membership plans <img class="compare-action-arrow" src="{{ url_for('static', filename='images/brand/arrows/RGB_SWAPCLUB_ARROWS_PURPLE2.png') }}" width="40" height="40" alt=""></span>
+    </a>
   </div>
 </section>
 

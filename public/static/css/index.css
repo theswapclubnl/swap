@@ -330,23 +330,9 @@
 
 .events-hero-summary { flex: 1 1 62%; }
 
-.luma-calendar-wrapper {
-  width: 100%;
-  max-width: 800px;
-}
-
-.luma-calendar-wrapper iframe {
-  min-height: 450px;
-  height: 70vh; /* scales with viewport */
-  max-height: 800px;
-  display: block;
-  width: 100%;
-  
-}
-
 /* ───────── CLUBHOUSE HOURS STRIP ───────── */
 .hours-strip { background: var(--green-yellow); padding: 8px 40px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--plum-deep); flex-wrap: wrap; text-align: center; }
-.hours-strip span { opacity: 0.4; }
+.hours-strip-divider { opacity: 0.4; }
 .hero-section .hours-strip {
   position: absolute;
   left: 0;
@@ -378,18 +364,26 @@
   text-align: center;
   font-size: clamp(2rem, 7vw, 6rem);
   font-family: var(--font-writtenscript);
-  color: var(--plum-deep);
+  color: var(--hot-orange);
 }
 
-.floating-swap-header p.is-typing::after {
-  content: '|';
-  display: inline-block;
-  margin-left: 0.08em;
-  animation: typing-caret 0.8s steps(1) infinite;
+.scroll-quote-word { display: inline-block; white-space: nowrap; }
+.scroll-quote-letter {
+  opacity: 0;
+  transition: opacity 160ms linear;
 }
-
-@keyframes typing-caret {
-  50% { opacity: 0; }
+.scroll-quote-accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-quote-letter { opacity: 1 !important; transition: none; }
 }
 
 .home-floating-swap-section .floating-swap-header p {
@@ -532,7 +526,11 @@
   .join-tier-card { padding: 30px 24px; border-radius: 12px; }
 
   .floating-swap-header p { padding: 16px 8px; }
-  .home-floating-swap-section .floating-swap-header p { font-size: clamp(1.8rem, 9vw, 2.4rem); }
+  .home-floating-swap-section .floating-swap-header { padding-inline: 3%; }
+  .home-floating-swap-section .floating-swap-header p {
+    padding-inline: 0;
+    font-size: clamp(1.5rem, 6.5vw, 2rem);
+  }
 
   .floating-card-track-wrap {
     --card-width: min(78vw, 320px);
@@ -563,5 +561,22 @@
   .hero-headline { font-size: clamp(1.8rem, 10vw, 3.2rem); }
   .stats-bar { grid-template-columns: 1fr 1fr; }
   .about-section, .community-section, .faq-section { padding: 72px 6%; }
-  .hours-strip { font-size: 9px; }
+  .hero-section { display: grid; grid-template-rows: 1fr auto; height: auto; min-height: 100svh; }
+  .hero-section .hours-strip { position: relative; }
+  .hours-strip {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 8px 16px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .hours-strip > span { flex-shrink: 0; }
+  .hours-strip-label { font-weight: 800; }
+  .hours-strip-divider { display: inline; }
 }

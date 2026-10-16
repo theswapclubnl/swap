@@ -14,6 +14,12 @@
    doesn't collapse to half the viewport on narrow screens. */
 .hero-text { width: min(1000px, 88%); text-align: left; }
 .hero-text .hero-btns { justify-content: flex-start; }
+.business-heading-line { display: block; white-space: nowrap; }
+.business-heading-mobile { display: none; }
+@media (max-width: 600px) {
+  .business-heading-desktop { display: none; }
+  .business-heading-mobile { display: block; }
+}
 .hero-text .hero-headline,
 .hero-text .hero-tagline { color: var(--green-yellow); }
 
@@ -87,7 +93,7 @@
 .services-section { background: var(--lilac); padding: 110px 6%; text-align: center; }
 .services-inner { max-width: 1200px; margin: 0 auto; }
 .services-section .section-eyebrow,
-.services-section .section-title { color: var(--hot-orange); }
+.services-section .section-title { color: var(--plum); }
 
 .service-list { display: flex; flex-direction: column; margin: 48px auto 0; max-width: 780px; }
 
@@ -96,7 +102,7 @@
   justify-content: center;
   gap: 24px;
   padding: 32px 0;
-  border-top: 1px solid var(--hot-orange);
+  border-top: none;
   text-align: center;
 }
 .service-row:last-child { padding-bottom: 0; }
@@ -125,22 +131,24 @@
 .service-copy .service-tags { font-size: 12.5px; font-weight: 700; letter-spacing: 0.01em; color: var(--plum-deep); }
 
 /* ───────── LET'S WORK TOGETHER ───────── */
-.work-together-section { background: var(--plum-deep); text-align: center; padding: 96px 6%; }
-.work-together-inner { max-width: 900px; margin: 0 auto; }
-.work-together-section .section-eyebrow { color: var(--lilac); }
-.work-together-section .section-title { color: var(--light-blue); }
+.work-together-section { background: var(--light-blue); text-align: center; padding: 60px 6%; }
+.work-together-inner { max-width: 920px; margin: 0 auto; }
+.work-together-section .section-eyebrow { color: var(--plum); }
+.work-together-section .section-title { color: var(--plum); font-size: clamp(1.7rem, 8vw, 4rem); }
 .work-together-body {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.7;
-  color: rgba(var(--cream-rgb), 0.82);
-  max-width: 560px;
+  color: var(--plum);
+  max-width: 760px;
   margin: 0 auto;
 }
-.work-together-section .hero-btns { align-items: center; margin-top: 28px; }
-.work-together-section .hero-btns .btn { flex: 0 1 220px; }
+.work-together-section .hero-btns { align-items: center; margin-top: 28px; flex-wrap: nowrap; gap: 10px; }
+.work-together-section .hero-btns .btn { flex: 0 1 auto; }
 
-.work-together-section .shape-badge { --shape-size: 54px; }
+.work-together-section .shape-badge { --shape-size: 48px; --shape-bg: var(--hot-orange); --shape-bg-hover: var(--plum); --shape-fg: var(--cream); --shape-fg-hover: var(--cream); }
+.work-together-section .hero-btns .btn { background: var(--hot-orange); border-color: var(--hot-orange); color: var(--cream); }
+.work-together-section .hero-btns .btn:hover { background: var(--plum); border-color: var(--plum); }
 
 /* ───────── BECOME A PARTNER CTA (optional section) ───────── */
 .partner-cta-section { background: var(--plum); padding: 96px 6%; text-align: center; }
@@ -168,13 +176,13 @@
   .work-together-section { padding-left: 6%; padding-right: 6%; }
   .why-partner-section,
   .services-section { padding-top: 72px; padding-bottom: 72px; }
-  .work-together-section { padding-top: 72px; padding-bottom: 72px; }
+  .work-together-section { padding-top: 60px; padding-bottom: 60px; }
 
   .why-grid { grid-template-columns: 1fr; }
   .why-item h3 { min-height: 0; }
   .service-row { gap: 16px; }
 
-  .work-together-section .hero-btns { gap: 12px; }
-  .work-together-section .hero-btns .btn { flex-basis: 100%; width: 100%; max-width: 280px; margin: 0 auto 2px; }
-  .work-together-section .shape-badge { --shape-size: 50px; }
+  .work-together-section .hero-btns { gap: 8px; }
+  .work-together-section .hero-btns .btn { min-height: 44px; padding: 10px 12px; font-size: 10px; }
+  .work-together-section .shape-badge { --shape-size: 44px; }
 }

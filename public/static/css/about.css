@@ -33,6 +33,10 @@ p {
 /* .section-eyebrow / .section-title live in base.css (shared). */
 
 /* ───────── HERO ───────── */
+.hero-title {
+  font-size: clamp(20px, 5.5vw, 64px);
+  white-space: nowrap;
+}
 .hero { background: var(--cream); padding: 64px 6% 64px; text-align: center; margin: 0 auto; }
 .hero-headline {
   font-family: var(--font-display);
@@ -84,6 +88,25 @@ p {
   display: block;
 }
 
+/* Mask the pictures themselves so the surrounding shadows remain visible. */
+.story-photo,
+.clubhouse-grid div.clubhouse-photo {
+  overflow: visible;
+  -webkit-mask: none;
+          mask: none;
+  filter:
+    drop-shadow(0 6px 10px rgba(var(--hot-orange-rgb), 0.18))
+    drop-shadow(8px 14px 18px rgba(var(--hot-orange-rgb), 0.22));
+}
+.story-photo img,
+.clubhouse-grid div.clubhouse-photo > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask: url('../images/brand-shape.svg') center / contain no-repeat;
+          mask: url('../images/brand-shape.svg') center / contain no-repeat;
+}
+
 .story-text .section-title { margin-bottom: 20px; }
 .story-text p { font-size: 16px; line-height: 1.75; }
 
@@ -109,7 +132,6 @@ p {
   transition: background 0.2s, color 0.2s;
 }
 .social-link .shape-badge { --shape-size: 34px; --shape-bg-hover: var(--light-blue); --shape-fg-hover: var(--plum); }
-.social-link:hover { background: var(--plum); color: var(--text-white); }
 
 /* ───────── OUR VALUES ───────── */
 .values-section { background: var(--cream); padding: 110px 6% 40px; }
@@ -165,8 +187,8 @@ p {
 .impact-num {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(2.2rem, 12vw, 7rem);
-  color: var(--plum-deep);
+  font-size: clamp(2rem, 11vw, 6.4rem);
+  color: var(--hot-orange);
   line-height: 1;
 }
 
@@ -185,6 +207,7 @@ p {
 .clubhouse-inner { max-width: 1100px; margin: 0 auto; }
 .clubhouse .section-eyebrow,
 .clubhouse .section-title { text-align: center; }
+.clubhouse .section-title { white-space: nowrap; font-size: clamp(20px, 4vw, 40px); }
 .clubhouse-intro {
   max-width: 620px;
   margin: 0 auto 56px;
@@ -214,10 +237,22 @@ p {
 }
 
 .clubhouse-details { display: flex; flex-direction: column; gap: 24px; }
+.locations-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.location-details { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.clubhouse-detail .location-address { margin-top: 12px; }
+.location-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(14px, 1.8vw, 22px);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--plum);
+}
+.location-title { white-space: nowrap; }
 
 .clubhouse-detail { display: flex; gap: 16px; align-items: flex-start; }
 .clubhouse-icon { font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
-.clubhouse-detail h3 {
+.clubhouse-detail h4 {
   font-family: var(--font-display);
   font-size: 1.1rem;
   color: var(--plum-deep);
@@ -258,7 +293,7 @@ p {
   .value-row.reverse .value-text { order: 2; }
   .value-photo { aspect-ratio: 16 / 10; }
 
-  .impact-num { font-size: clamp(2.1rem, 10vw, 5.6rem); }
+  .impact-num { font-size: clamp(1.9rem, 9vw, 5.1rem); }
   .impact-label { font-size: 13px; }
 }
 
@@ -279,7 +314,7 @@ p {
   /* 3 stat columns must fit a phone: min-width 0 lets the columns shrink, and
      the number size scales with the viewport (was a 3rem floor = sideways scroll) */
   .impact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-  .impact-num { font-size: clamp(1.8rem, 10vw, 3.2rem); }
+  .impact-num { font-size: clamp(1.65rem, 9vw, 2.9rem); }
   .impact-label { font-size: 10px; overflow-wrap: anywhere; }
 }
 
@@ -291,7 +326,7 @@ p {
   min-height: 100vh;
   min-height: 100svh;
   box-sizing: border-box;
-  padding: 48px 6% 64px;
+  padding: 64px 6% 48px;
   display: flex;
   align-items: center;
   /* soft colour blobs on a lilac base (palette: lilac, light-blue, hot-orange, plum) */
@@ -326,11 +361,11 @@ p {
 }
 
 @media (max-width: 900px) {
-  .about-video { min-height: 100vh; min-height: 100svh; padding: 32px 5% 48px; }
+  .about-video { min-height: 100vh; min-height: 100svh; padding: 48px 5% 32px; }
   .about-video__frame { border-width: 3px; border-radius: 16px; }
 }
 
 @media (max-width: 600px) {
-  .about-video { padding: 24px 5% 40px; }
+  .about-video { padding: 40px 5% 24px; }
   .about-video__frame { border-radius: 12px; }
 }

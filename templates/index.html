@@ -35,19 +35,18 @@
 
             <div class="hero-btns">
                 <a href="/membership" class="btn btn-plum">Become a Member</a>
-                <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-lilac">Events</a>
+                <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="btn btn-hot-orange">Events</a>
             </div>
         </div>
     </div>
 
     <div class="hours-strip">
-        &nbsp;The Clubhouse is open:
-        <span> </span>
-        Wednesday &amp; Friday 11:00–18:00
-        <span>·</span>
-        Saturday 11:00–19:00
-        <span>·</span>
-        Events on weekday evenings &amp; weekends
+        <span class="hours-strip-label">The Clubhouse is open:</span>
+        <span class="hours-strip-time">Wed &amp; Fri 11:00–18:00</span>
+        <span class="hours-strip-divider" aria-hidden="true">·</span>
+        <span class="hours-strip-time">Sat 11:00–19:00</span>
+        <span class="hours-strip-divider" aria-hidden="true">·</span>
+        <span class="hours-strip-events">Events on weekday evenings &amp; weekends</span>
     </div>
 </section>
    <!-- ───  <a
@@ -91,18 +90,7 @@
 
 
         <div class="events-hero-summary">
-            <div class="luma-calendar-wrapper">
-                <iframe
-                    src="https://luma.com/embed/calendar/cal-2oIrrJqOeQUjKMA/events"
-                    width="800"
-                    height="600"
-                    frameborder="0"
-                    style="border: 1px solid #bfcbda88; border-radius: 4px;"
-                    allowfullscreen="true"            
-                    aria-hidden="false"
-                    tabindex="0"
-                ></iframe>
-            </div>
+            {% include "luma_calendar.html" %}
         </div>
     </section>
 </div>
@@ -201,7 +189,6 @@
 
 <section class="tiers" id="tiers">
     <div class="tiers-header">
-        <div class="section-eyebrow">Membership options</div>
         <h2 class="section-title">Pick your membership</h2>
     </div>
     <div class="tiers-grid">
@@ -283,7 +270,7 @@
 <!-- ─── THE COMMUNITY ─── -->
 <section class="floating-swap-section home-floating-swap-section reveal" id="community" data-aos="fade-up">
     <div class="floating-swap-header">
-        <p class="font-writtenscript" data-type-on-scroll>"Giving away clothes feels just as rewarding as finding something new."</p>
+        <p class="font-writtenscript" data-scroll-quote>"Giving away clothes feels just as rewarding as finding something new!"</p>
     </div>
 
     <div class="hscroll-wrap floating-card-track-wrap">

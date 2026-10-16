@@ -4,6 +4,129 @@
 
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* Fill the available heading width without wrapping. */
+(function fitPageHeadings() {
+  const headings = document.querySelectorAll('[data-fit-heading]');
+  if (!headings.length) return;
+  const context = document.createElement('canvas').getContext('2d');
+  if (!context) return;
+
+  function fit() {
+    headings.forEach((heading) => {
+      const style = window.getComputedStyle(heading);
+      const currentSize = parseFloat(style.fontSize);
+      const spacing = parseFloat(style.letterSpacing) || 0;
+      const lines = Array.from(heading.querySelectorAll('[data-heading-line]'))
+        .filter((line) => window.getComputedStyle(line).display !== 'none');
+      const texts = (lines.length ? lines : [heading]).map((line) =>
+        style.textTransform === 'uppercase' ? line.textContent.trim().toUpperCase() : line.textContent.trim()
+      );
+      context.font = `${style.fontWeight} 100px ${style.fontFamily}`;
+      const width = Math.max(...texts.map((text) => context.measureText(text).width + Math.max(0, text.length - 1) * spacing * 100 / currentSize));
+      if (width > 0 && heading.clientWidth > 0) {
+        heading.style.fontSize = `${Math.min(80, (heading.clientWidth - 4) * 100 / width)}px`;
+      }
+    });
+  }
+
+  window.addEventListener('resize', fit);
+  if (document.fonts) document.fonts.ready.then(fit);
+  fit();
+})();
+
+/* Fit mobile social headings to the width of their supporting paragraph. */
+(function fitSocialHeadings() {
+  const titles = document.querySelectorAll('.social-title');
+  if (!titles.length) return;
+  const mobile = window.matchMedia('(max-width: 600px)');
+  const context = document.createElement('canvas').getContext('2d');
+  if (!context) return;
+
+  function fit() {
+    titles.forEach((title) => {
+      if (!mobile.matches) {
+        title.style.removeProperty('font-size');
+        return;
+      }
+      const paragraph = title.parentElement.querySelector('.social-sub');
+      if (!paragraph) return;
+      const style = window.getComputedStyle(title);
+      context.font = `${style.fontWeight} 100px ${style.fontFamily}`;
+      const text = style.textTransform === 'uppercase'
+        ? title.textContent.trim().toUpperCase() : title.textContent.trim();
+      const textWidth = context.measureText(text).width;
+      if (textWidth > 0 && paragraph.clientWidth > 0) {
+        title.style.fontSize = `${(paragraph.clientWidth - 2) * 100 / textWidth}px`;
+      }
+    });
+  }
+
+  window.addEventListener('resize', fit);
+  if (document.fonts) document.fonts.ready.then(fit);
+  fit();
+})();
+
+/* Opening hours gently scroll back and forth on mobile; touch pauses autoplay. */
+(function scrollMobileHours() {
+  const strip = document.querySelector('.hours-strip');
+  if (!strip) return;
+
+  const mobile = window.matchMedia('(max-width: 600px)');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let frame = null;
+  let lastTime = null;
+  let position = 0;
+  let direction = 1;
+  let pausedUntil = 0;
+  let interacting = false;
+  let hovered = false;
+
+  function animate(time) {
+    const elapsed = lastTime === null ? 0 : Math.min(time - lastTime, 50);
+    lastTime = time;
+    const rect = strip.getBoundingClientRect();
+    const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+    const maxScroll = strip.scrollWidth - strip.clientWidth;
+
+    if (visible && maxScroll > 0 && !interacting && !hovered &&
+        !strip.matches(':focus-within') && time >= pausedUntil) {
+      position = Math.max(0, Math.min(maxScroll, position + direction * elapsed * 0.025));
+      strip.scrollLeft = position;
+      if (position === maxScroll || position === 0) {
+        direction *= -1;
+        pausedUntil = time + 1000;
+      }
+    } else {
+      position = strip.scrollLeft;
+    }
+    frame = window.requestAnimationFrame(animate);
+  }
+
+  function sync() {
+    if (frame !== null) window.cancelAnimationFrame(frame);
+    frame = null;
+    lastTime = null;
+    position = strip.scrollLeft;
+    if (mobile.matches && !motion.matches && !document.hidden) {
+      pausedUntil = performance.now() + 1500;
+      frame = window.requestAnimationFrame(animate);
+    }
+  }
+
+  strip.addEventListener('pointerdown', () => { interacting = true; });
+  const release = () => { interacting = false; pausedUntil = performance.now() + 2500; };
+  window.addEventListener('pointerup', release);
+  window.addEventListener('pointercancel', release);
+  strip.addEventListener('pointerenter', (event) => { hovered = event.pointerType === 'mouse'; });
+  strip.addEventListener('pointerleave', () => { hovered = false; });
+  strip.addEventListener('wheel', release, { passive: true });
+  mobile.addEventListener('change', sync);
+  motion.addEventListener('change', sync);
+  window.addEventListener('resize', sync);
+  document.addEventListener('visibilitychange', sync);
+  sync();
+})();
+
 /* ─────────────────────────────────────────────
    Scroll reveal (AOS) — sections slide up as they enter.
    Runs once per element so it never re-triggers while scrolling back.
@@ -124,67 +247,73 @@ if (prefersReducedMotion()) {
 }
 
 /* ─────────────────────────────────────────────
-   Type-on-scroll quote reveal
+   Quote letters fade in with scroll progress, keeping the full text layout.
    ───────────────────────────────────────────── */
-(function typeOnScrollQuotes() {
-  const quotes = document.querySelectorAll('[data-type-on-scroll]');
-  if (!quotes.length) return;
+(function revealScrollQuotes() {
+  const quotes = Array.from(document.querySelectorAll('[data-scroll-quote]'));
+  if (!quotes.length || prefersReducedMotion()) return;
 
-  const typeQuote = (quote) => {
-    if (quote.dataset.typed === 'true') return;
+  const reveals = quotes.map((quote) => {
+    const text = quote.textContent;
+    const accessibleText = document.createElement('span');
+    accessibleText.className = 'scroll-quote-accessible';
+    accessibleText.textContent = text;
 
-    const text = quote.dataset.typeText || quote.textContent;
-    quote.dataset.typeText = text;
-    quote.dataset.typed = 'true';
+    const visualText = document.createElement('span');
+    visualText.setAttribute('aria-hidden', 'true');
+    const letters = [];
 
-    if (prefersReducedMotion()) {
-      quote.textContent = text;
-      return;
-    }
-
-    quote.textContent = '';
-    quote.classList.add('is-typing');
-
-    const characters = Array.from(text);
-    const charDelay = 62;
-    const startDelay = 180;
-    let startTime = null;
-    let visibleCount = 0;
-
-    const typeFrame = (timestamp) => {
-      if (startTime === null) startTime = timestamp + startDelay;
-
-      const elapsed = timestamp - startTime;
-      const nextCount = Math.max(0, Math.min(characters.length, Math.floor(elapsed / charDelay) + 1));
-
-      if (nextCount !== visibleCount) {
-        visibleCount = nextCount;
-        quote.textContent = characters.slice(0, visibleCount).join('');
+    // Keep words together so wrapping stays natural on narrow screens.
+    text.split(/(\s+)/).forEach((word) => {
+      if (/^\s+$/.test(word)) {
+        visualText.append(document.createTextNode(word));
+        return;
       }
-
-      if (visibleCount < characters.length) {
-        window.requestAnimationFrame(typeFrame);
-      } else {
-        quote.classList.remove('is-typing');
-      }
-    };
-
-    window.requestAnimationFrame(typeFrame);
-  };
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        typeQuote(entry.target);
-        obs.unobserve(entry.target);
+      const wordSpan = document.createElement('span');
+      wordSpan.className = 'scroll-quote-word';
+      Array.from(word).forEach((character) => {
+        const letter = document.createElement('span');
+        letter.className = 'scroll-quote-letter';
+        letter.textContent = character;
+        wordSpan.append(letter);
+        letters.push(letter);
       });
-    }, { threshold: 0.45 });
+      visualText.append(wordSpan);
+    });
 
-    quotes.forEach((quote) => observer.observe(quote));
-  } else {
-    quotes.forEach(typeQuote);
+    quote.replaceChildren(accessibleText, visualText);
+    return { quote, letters };
+  });
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const viewportHeight = window.innerHeight;
+    reveals.forEach(({ quote, letters }) => {
+      const top = quote.getBoundingClientRect().top;
+      const progress = Math.max(0, Math.min(1,
+        (viewportHeight * 0.85 - top) / (viewportHeight * 0.55)
+      ));
+      letters.forEach((letter, index) => {
+        const opacity = prefersReducedMotion() ? 1 : Math.max(0, Math.min(1,
+          (progress * (letters.length + 6) - index) / 6
+        ));
+        letter.style.opacity = String(opacity);
+      });
+    });
   }
+
+  function requestUpdate() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate);
+  window.addEventListener('pageshow', requestUpdate);
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', requestUpdate);
+  update();
 })();
 
 /* ─────────────────────────────────────────────
