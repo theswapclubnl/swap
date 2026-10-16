@@ -42,7 +42,7 @@
   height: 100%;
   display: block;
   border-radius: 8px;
-  box-shadow: 0 8px 22px rgba(var(--text-rgb), 0.14);
+  box-shadow: 0 8px 22px rgba(var(--hot-orange-rgb), 0.14);
   object-fit: cover;
 }
 
@@ -51,8 +51,8 @@
   overflow: hidden;
   border-radius: 8px;
   box-shadow:
-    0 22px 44px rgba(var(--text-rgb), 0.32),
-    0 6px 16px rgba(var(--text-rgb), 0.18);
+    0 22px 44px rgba(var(--hot-orange-rgb), 0.32),
+    0 6px 16px rgba(var(--hot-orange-rgb), 0.18);
 }
 
 .grid-item a {
@@ -77,8 +77,8 @@
 .grid-item:hover,
 .grid-item:focus-within {
   box-shadow:
-    0 28px 56px rgba(var(--text-rgb), 0.36),
-    0 8px 20px rgba(var(--text-rgb), 0.2);
+    0 28px 56px rgba(var(--hot-orange-rgb), 0.36),
+    0 8px 20px rgba(var(--hot-orange-rgb), 0.2);
 }
 
 
@@ -300,7 +300,7 @@
   background: var(--plum);
   border: 1.5px solid var(--plum);
   padding: 28px;
-  color: var(--lilac);
+  color: var(--light-blue);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -311,10 +311,10 @@
 
 .example-number {
   position: relative;
-  --shape-bg: var(--hot-orange);   /* shape drawn by .shape-bg in base.css */
+  --shape-bg: var(--light-blue);   /* shape drawn by .shape-bg in base.css */
   width: 78px;
   height: 78px;
-  color: var(--lilac);
+  color: var(--plum);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -330,7 +330,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--lilac);
+  color: var(--light-blue);
   margin-top: 10px;
 }
 
@@ -340,7 +340,7 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--lilac);
+  color: var(--light-blue);
   line-height: 1.1;
   margin: 26px 0 0;
 }
@@ -362,12 +362,12 @@
 
 .example-breakdown { 
   font-family: var(--font-body); 
-  color: var(--lilac);
+  color: var(--light-blue);
   font-size: 0.95rem; 
   line-height: 1.55; 
 }
-.example-breakdown p { margin: 0; color: var(--lilac); }
-.example-breakdown span { display: block; width: 78%; border-top: 1.5px dashed var(--lilac); margin: 7px 0; }
+.example-breakdown p { margin: 0; color: var(--light-blue); }
+.example-breakdown span { display: block; width: 78%; border-top: 1.5px dashed var(--light-blue); margin: 7px 0; }
 
 /* ───────── RESPONSIVE (mobile) ───────── */
 @media (max-width: 1100px) {

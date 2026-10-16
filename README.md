@@ -1,22 +1,44 @@
 # The Swap Club — Website
 
-A Flask site for The Swap Club.
+A Flask website for The Swap Club's Amsterdam swapping community, events,
+memberships, and business collaborations. Uses Jinja templates, plain CSS and
+JavaScript, and Gmail SMTP for contact emails. No frontend build step or database
+is required.
 
 ## Running locally
 
 ```bash
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env      # then fill in real values
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 python app.py
 ```
 
-Visit http://127.0.0.1:5001
+Visit <http://127.0.0.1:5001>. On Windows, activate the environment with
+`.venv\Scripts\activate` instead. To change the local port on macOS/Linux, run
+`PORT=5002 python app.py`.
+
+Pages work without environment configuration. Sending contact emails requires
+Gmail credentials; Analytics is disabled unless configured. Running `python
+app.py` enables Flask's development server and debug mode.
 
 ## Contact form & Google Analytics — environment variables
 
-Set these in `.env` locally and under **Vercel -> Project -> Settings -> Environment Variables** in production
-(see `.env.example`). Never commit `.env`.
+Create `.env` beside `app.py`; `python-dotenv` loads it automatically. The
+included `.env.example` is currently empty. For a new `.env`, start with these
+placeholders and replace them with your own values:
+
+```dotenv
+SECRET_KEY=replace-with-a-long-random-secret
+GMAIL_USERNAME=your-address@gmail.com
+GMAIL_APP_PASSWORD=your-google-app-password
+CONTACT_TO_EMAIL=
+GA_MEASUREMENT_ID=
+PORT=5001
+```
+
+Never commit `.env`; it is excluded by `.gitignore`. On a host, configure these
+values through the hosting environment settings.
 
 | Variable | Purpose |
 |---|---|
@@ -24,9 +46,40 @@ Set these in `.env` locally and under **Vercel -> Project -> Settings -> Environ
 | `GMAIL_APP_PASSWORD` | 16-character Google **App Password** (not your normal password). |
 | `CONTACT_TO_EMAIL` | Optional. Deliver to a different inbox than `GMAIL_USERNAME`. |
 | `GA_MEASUREMENT_ID` | GA4 Measurement ID (`G-XXXXXXXXXX`). Empty = Analytics and cookie banner are off. |
-| `SECRET_KEY` | Long random string that signs the success/error messages. |
+| `SECRET_KEY` | Signs Flask session cookies used for flash messages. Set a strong private value in production; otherwise the code uses `dev-only-change-me`. |
+| `PORT` | Local port when running `python app.py`; defaults to `5001`. |
 
-Analytics only loads after a visitor clicks "Accept" in the cookie banner.
+Analytics loads after consent, including on later visits with saved consent.
+The choice is stored in `localStorage` under `swapclub_cookie_consent`. When
+Analytics is configured, **Cookie settings** in the footer reopens the banner.
+
+## Pages and routes
+
+| URL | Template or behavior |
+|---|---|
+| `/` | `index.html`: homepage, events calendar, swapping steps, membership tiers, and community photos. |
+| `/how` | `how.html`: how swapping works. |
+| `/membership` | `membership.html`: membership options and calendar. |
+| `/business` | `business.html`: business services and collaborations. |
+| `/contact` | `contact.html`: contact form, accepting GET and POST. |
+| `/about` | `about.html`: the club's story. |
+| `/privacy` | `privacy.html`: privacy page. |
+| `/terms` | `terms.html`: terms page. |
+| `/events` | Redirects to `/#events` on the homepage. |
+| `/community` | Redirects to `/#community` on the homepage. |
+
+## Contact form
+
+The backend validates names (2–100 characters), email addresses (up to 200
+characters), one of the topics in `TOPICS`, and messages (10–2,000 characters).
+Topics cover general questions, collaborations, business inquiries, and site
+feedback. A hidden `website` honeypot field filters bots; `contact.js` adds
+browser-side validation and a character counter.
+
+Email is sent through `smtp.gmail.com:587` using STARTTLS. The recipient defaults
+to `GMAIL_USERNAME`, and `Reply-To` is set to the visitor's address. Successful
+submissions redirect back to the contact page to prevent resending on refresh.
+Validation and delivery errors appear as flash messages.
 
 ### Contact form works locally but fails on the live site
 
@@ -40,46 +93,64 @@ If sending still fails, inspect the deployment's runtime logs for `Contact email
 The log distinguishes missing configuration, rejected Gmail authentication,
 SMTP rejection, and connection failures without printing credentials or messages.
 
-## Deploying on Vercel
+## Hosting
 
-Vercel detects Flask automatically (`app.py` exposes `app`). Static files live in
-`public/static/` because Vercel serves `public/` from its CDN and ignores Flask's own static folder.
-Templates still use `url_for('static', ...)` unchanged.
+`app.py` exposes the Flask application as `app`. Use that application object
+with your host's Flask/WSGI setup for production; running the script directly
+starts the development server with debug mode enabled.
 
-## Luma page
+The code is arranged for Vercel as well as local development, with assets under
+`public/static/` and settings read from environment variables. No `vercel.json`
+is included. Templates reference assets with `url_for('static', ...)`, and Flask
+serves the same files locally at `/static/`.
 
-"Ticket" and "Membership" buttons across the site link to
-`https://luma.com/theswapclub` (this URL was already present and used
-consistently in the original code, so it was kept as-is rather than
-replaced with a placeholder). If that isn't the club's real Luma URL,
-search-and-replace `https://luma.com/theswapclub` across the `templates/`
-folder.
+## External services and content updates
+
+- **Luma:** event and membership buttons link to `https://luma.com/theswapclub`.
+  The shared calendar embed is in `templates/luma_calendar.html`; the homepage
+  also contains a separate event link. Bookings and membership signup use
+  external links.
+- **Newsletter:** signup buttons open a hosted Piggy form. Links appear in
+  several templates, including the shared footer and social section.
+- **Fonts and animations:** `base.html` loads Google Fonts and AOS from external
+  services. Local font files are also included under `public/static/fonts/`.
+
+Edit page content in its template, shared styles in `base.css`, and page styles
+in the corresponding CSS file. External service and social URLs are written
+directly in the templates; search `templates/` when updating them so all
+occurrences stay consistent.
 
 ## Project structure
 
 ```
-app.py                  Flask routes + contact form backend
-.env                    local secrets (same folder as app.py, never committed)
-.env.example            template listing the required variables
-
+app.py                    Flask routes, environment loading, and email backend
+requirements.txt          Flask and python-dotenv dependencies
+.env                      Local configuration (not committed)
+.env.example              Empty configuration placeholder
 templates/
-  base.html              Shared layout: nav, footer, flash messages
-  home.html, how.html, membership.html, business.html,
-  community.html, events.html, about.html, privacy.html, terms.html
-public/static/          (served at /static/...)
-  css/base.css            Shared tokens (plum & matcha palette), resets,
-                           nav/footer/buttons, and components used on 2+ pages
-  css/<page>.css          Page-specific styles only
-  js/base.js, contact.js, analytics.js
-  images/
+  base.html               Shared navigation, footer, flash messages, cookie banner
+  index.html              Homepage, including events and community sections
+  how.html
+  membership.html
+  business.html
+  contact.html
+  about.html
+  privacy.html
+  terms.html
+  luma_calendar.html      Shared calendar embed
+  social_section.html     Shared newsletter and social links
+public/static/            Served at /static/...
+  css/base.css            Shared styles and components
+  css/index.css           Homepage styles
+  css/how.css
+  css/membership.css
+  css/business.css
+  css/contact.css
+  css/about.css
+  css/legal.css           Privacy and terms styles
+  js/base.js              Navigation, animations, and shared interactions
+  js/contact.js           Contact form behavior
+  js/analytics.js         GA4 consent and loading
+  fonts/                  Local fonts and bundled license file
+  images/                 Photos, videos, logos, and brand assets
 ```
-
-
-
-echo "# swapclub" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/donnagerholt/swapclub.git
-git push -u origin main

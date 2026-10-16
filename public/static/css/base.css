@@ -1470,9 +1470,9 @@ html.no-vt.is-leaving footer { animation: page-slide-out 0.28s cubic-bezier(0.4,
   gap: 16px;
   flex-wrap: wrap;
   padding: 16px 20px;
-  background: var(--green-yellow);
+  background: var(--cream);
   color: var(--plum-deep);
-  border: 1.5px solid var(--plum);
+  border: 1.5px solid var(--cream);
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(var(--text-rgb), 0.18);
   font-size: 14px;

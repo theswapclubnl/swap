@@ -8,16 +8,17 @@
 {% block content %}
 
 <!-- TOP VIDEO — framed on a colourful backdrop -->
-<section class="about-video" aria-hidden="true">
+<section class="about-video" aria-label="The Swap Club video">
   <div class="about-video__frame">
     <video
       class="background-video"
       autoplay
+      controls
       loop
       playsinline
       preload="metadata"
       poster="{{ url_for('static', filename='images/about_poster.jpg') }}"
-      aria-hidden="true"
+      aria-label="The Swap Club video"
       >
       <source src="{{ url_for('static', filename='images/about_video.mp4') }}" type="video/mp4">
       Your browser does not support HTML video.
