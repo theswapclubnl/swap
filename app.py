@@ -8,6 +8,7 @@ import re
 import smtplib
 import ssl
 from email.message import EmailMessage
+from pathlib import Path
 
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, url_for
@@ -60,7 +61,36 @@ def membership():
 
 @app.route("/business")
 def business():
-    return render_template("business.html")
+    logo_folder = Path(app.static_folder) / "images" / "logos"
+    logo_names = {
+        "logo_1": "Zoku",
+        "logo_2": "Minor Hotels",
+        "logo_3": "Hotel Jakarta Amsterdam by Westcord",
+        "logo_4": "The Hoxton",
+        "logo_5": "AMS Institute",
+        "logo_6": "Gemeente Amsterdam",
+        "logo_7": "Droppie",
+        "logo_8": "DB55",
+        "logo_9": "Vrije Universiteit Amsterdam",
+        "logo_10": "STACH",
+        "logo_11": "Universiteit van Amsterdam",
+        "logo_12": "Equals",
+        "logo_13": "NEMO Science Museum",
+    }
+    partnership_logos = []
+    if logo_folder.is_dir():
+        def logo_order(path):
+            return [int(part) if part.isdigit() else part for part in re.split(r"(\d+)", path.name.casefold())]
+
+        for logo in sorted(logo_folder.iterdir(), key=logo_order):
+            if logo.is_file() and logo.suffix.lower() in {".svg", ".png", ".jpg", ".jpeg", ".webp", ".avif"}:
+                transparent_logo = logo_folder / "transparent" / f"{logo.stem}.png"
+                partnership_logos.append({
+                    "path": (f"images/logos/transparent/{logo.stem}.png"
+                             if transparent_logo.is_file() else f"images/logos/{logo.name}"),
+                    "name": logo_names.get(logo.stem, logo.stem.replace("_", " ").replace("-", " ")),
+                })
+    return render_template("business.html", partnership_logos=partnership_logos)
 
 
 @app.route("/contact", methods=["GET", "POST"])

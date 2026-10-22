@@ -11,8 +11,7 @@
    ========================================================= */
 
 /* ─── FONTS ───
-   Self-hosted (static/fonts). Outfit and BN Dope are declared here;
-   Space Mono + Pinyon Script still come from Google Fonts via <link> in base.html.
+   Self-hosted (static/fonts). Outfit and BN Dope are declared here.
    font-display: swap shows fallback text immediately, then swaps when loaded. */
 @font-face {
   font-family: 'Outfit';
@@ -56,6 +55,7 @@
   --plum-rgb: 140, 35, 90;
   --plum-deep-rgb: 138, 36, 91;
   --cream-rgb: 250, 249, 245;
+  --lilac-rgb: 255, 209, 231;
   --light-blue-rgb: 184, 229, 255;
   --hot-orange-rgb: 255, 89, 29;
   --hot-purple-rgb: 138, 36, 91;
@@ -69,11 +69,11 @@
 
   /* Typography */
   /* BN Dope lacks € " — so Outfit is listed next to supply them */
-  --font-display: 'BN Dope', sans-serif;
+  --font-display: 'BN Dope', 'Outfit', sans-serif;
   --font-body:    'Outfit', system-ui, sans-serif;
-  --font-mono:    'Outfit', sans-serif;
-  --font-quote:   'Outfit', sans-serif;
-  --font-writtenscript: 'BN Dope', sans-serif;
+  --font-mono:    var(--font-body);
+  --font-quote:   var(--font-body);
+  --font-writtenscript: var(--font-display);
 
   /* Layout */
   --nav-h: 44px;
@@ -94,6 +94,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
   html { scroll-behavior: auto; }
 }
 a { text-decoration: none; color: inherit; }
+button, input, select, textarea { font-family: inherit; }
 :focus-visible { outline: 2px solid var(--hot-purple); outline-offset: 3px; }
 
 /* BN Dope is wide: if a single word still can't fit a narrow screen, break it rather than overflow */
@@ -106,7 +107,7 @@ body {
   background: var(--warm-white);
   color: var(--text-dark);
   overflow-x: hidden;
-  font-size: clamp(15px, 1.4vw, 16px);
+  font-size: calc(clamp(15px, 1.4vw, 16px) - var(--mobile-body-reduction, 0px));
   line-height: 1.6;
 }
 
@@ -203,14 +204,21 @@ html.has-scroll-motion div.clubhouse-photo {
 .hscroll-btn.prev { left: 14px; }
 .hscroll-btn.next { right: 14px; }
 
-.hscroll-btn:hover,
 .hscroll-btn:focus-visible {
   filter: brightness(0.9);
   box-shadow: none;
   transform: translateY(calc(-50% - 0.1em));
 }
-.hscroll-btn:hover::before,
 .hscroll-btn:focus-visible::before { transform: rotate(14deg) scale(1.06); }
+
+@media (hover: hover) and (pointer: fine) {
+  .hscroll-btn:hover {
+    filter: brightness(0.9);
+    box-shadow: none;
+    transform: translateY(calc(-50% - 0.1em));
+  }
+  .hscroll-btn:hover::before { transform: rotate(14deg) scale(1.06); }
+}
 
 @media (max-width: 700px) {
   .hscroll-btn { display: none; }
@@ -229,10 +237,10 @@ html.has-scroll-motion div.clubhouse-photo {
   justify-content: center;
   padding: 11px 24px;
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.07em;
-  text-transform: uppercase;
+  text-transform: none;
   border-radius: 6px;
   border: 1.5px solid transparent; /* same box size for filled + outline variants */
   cursor: pointer;
@@ -351,7 +359,7 @@ a:focus-visible > .shape-badge { color: var(--shape-fg-hover); }
    states — see the responsive block for the panel layout.
    ───────────────────────────────────────────── */
 nav {
-  background: rgba(var(--cream-rgb), 0.50);
+  background: rgba(var(--cream-rgb), 0.65);
   -webkit-backdrop-filter: blur(18px) saturate(1.3);
           backdrop-filter: blur(18px) saturate(1.3);
   padding: 2px 20px;
@@ -364,15 +372,31 @@ nav {
   top: 0;
   left: 0;
   z-index: 1000;
+  transition: transform 0.22s ease;
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.34) inset,
     0 14px 34px rgba(var(--text-rgb), 0.08);
 }
 
+nav.nav-hidden {
+  transform: translateY(calc(-100% - 40px));
+  pointer-events: none;
+}
+
+nav.nav-open {
+  transform: none;
+  pointer-events: auto;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav { transition: none; }
+}
+
 .nav-logo {
   display: inline-flex;
   align-items: center;
-  width: min(195px, 42vw);
+  width: min(215px, 46vw);
   line-height: 0;
 }
 
@@ -395,11 +419,12 @@ nav {
 }
 
 .nav-links a {
-  color: var(--hot-orange);
+  font-family: var(--font-display);
+  color: var(--plum);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   text-decoration: underline;
   text-decoration-color: transparent;
   text-decoration-thickness: 2px;
@@ -418,14 +443,14 @@ nav {
   align-items: center;
   margin-left: 36px;
   padding: 8px 18px;
-  background: var(--hot-orange);
+  background: var(--plum);
   border-radius: 6px;
   color: var(--cream);
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
+  text-transform: none;
   transition: background var(--transition), filter var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 .nav-cta:hover {
@@ -469,7 +494,7 @@ nav {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
+  text-transform: none;
 }
 .luma-calendar-badge {
   --shape-bg: var(--green-yellow);
@@ -508,7 +533,7 @@ nav {
   color: var(--plum-deep);
   min-width: 0;
   padding: 10px 14px;
-  font-size: 12px;
+  font-size: 15px;
   gap: 8px;
   white-space: normal;
   text-align: center;
@@ -530,7 +555,7 @@ nav {
     width: 100%;
     min-height: 44px;
     padding: 8px 10px;
-    font-size: 10px;
+    font-size: 14px;
     letter-spacing: 0.04em;
     gap: 6px;
   }
@@ -556,7 +581,7 @@ nav {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  color: var(--hot-orange);
+  color: var(--plum);
   transition: filter var(--transition), box-shadow var(--transition), color var(--transition), transform var(--transition);
 }
 .nav-toggle:hover {
@@ -614,13 +639,13 @@ nav {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 5vw, 4.5rem);
   line-height: 0.93;
-  color: var(--lilac);
-  text-transform: uppercase;
+  color: var(--light-lilac);
+  text-transform: none;
   margin-bottom: 14px;
 }
 
 .hero-tagline {
-  font-size: 14px;
+  font-size: calc(14px - var(--mobile-body-reduction, 0px));
   line-height: 1.7;
   color: rgba(var(--cream-rgb), 0.85);
   margin-bottom: 36px;
@@ -642,7 +667,7 @@ nav {
     flex: 1 1 auto;
     min-height: 44px;
     padding: 11px 16px;
-    font-size: 11px;
+    font-size: 14px;
   }
 }
 
@@ -753,7 +778,7 @@ nav {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   color: rgba(var(--plum-deep-rgb), 0.5);
   transition: color 0.25s;
 }
@@ -818,12 +843,12 @@ nav {
   font-family: var(--font-display);
   font-size: clamp(1.45rem, 5vw, 2.4rem);
   color: var(--plum);
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1.05;
   margin-bottom: 16px;
 }
 
-.step-body { font-size: 15px; line-height: 1.7; color: var(--plum); margin-bottom: 32px; }
+.step-body { font-size: calc(15px - var(--mobile-body-reduction, 0px)); line-height: 1.7; color: var(--plum); margin-bottom: 32px; }
 .step-body .inline-link { color: var(--plum); }
 
 .inline-link { color: var(--plum-deep); font-weight: 700; text-decoration: underline; }
@@ -843,7 +868,7 @@ nav {
 .faq-title-block h1 {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 12vw, 6rem);   /* BN Dope words are ~6.7em wide: must scale down on phones */
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--plum);
   margin: 0 0 8px;
   line-height: 1;
@@ -852,7 +877,7 @@ nav {
 .faq-title-block h2 {
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 6.5vw, 3.6rem);
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--plum);
   margin: 0;
   line-height: 1.15;
@@ -917,7 +942,7 @@ nav {
 .inner-toggle-wrap p {
   margin: 0 0 12px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: calc(0.95rem - var(--mobile-body-reduction, 0px));
   line-height: 1.7;
   color: var(--plum);
   text-align: center;
@@ -946,7 +971,7 @@ nav {
   font-weight: 900;
   font-size: clamp(1.6rem, 6vw, 3.5rem);
   line-height: 0.95;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--plum-deep);
   margin-bottom: 24px;
 }
@@ -1021,7 +1046,7 @@ nav {
   font-family: var(--font-display); 
   font-weight: 900; 
   font-size: clamp(20px, 3vw, 24px); 
-  text-transform: uppercase; 
+  text-transform: none;
   color: var(--hot-purple-deep); 
   line-height: 1; 
   margin-bottom: 8px; 
@@ -1050,7 +1075,7 @@ nav {
   display: flex; 
   gap: 10px; 
   align-items: flex-start; 
-  font-size: 13px; 
+  font-size: calc(13px - var(--mobile-body-reduction, 0px));
   color: var(--text); 
   padding: 6px 0; 
   line-height: 1.35; 
@@ -1090,15 +1115,16 @@ nav {
 .tier-feature:last-of-type { margin-bottom: 16px; }
 
 .tier-btn {
+  font-family: var(--font-display);
   margin-top: auto;
   display: block;
   text-align: center;
   padding: 13px;
   border-radius: 6px;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
+  text-transform: none;
   background: var(--plum);
   color: var(--cream);
   cursor: pointer;
@@ -1148,8 +1174,9 @@ nav {
   .tier-label { font-size: 9.5px; }
   .tier-name { font-size: clamp(17px, 5vw, 21px); }
   .tier-price { font-size: 30px; }
-  .tier-feature { font-size: 13px; gap: 8px; padding: 6px 0; }
-  .tier-btn { padding: 11px; font-size: 12px; }
+  .tier-feature { font-size: calc(13px - var(--mobile-body-reduction, 0px)); gap: 8px; padding: 6px 0; }
+  .tier-btn {
+  font-family: var(--font-display); padding: 11px; font-size: 15px; }
 }
 
 
@@ -1192,7 +1219,7 @@ footer {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1.6;
   color: var(--plum-deep);
   margin-bottom: 16px;
@@ -1200,16 +1227,16 @@ footer {
 }
 
 .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
-.footer-col ul li a { font-size: 14px; color: var(--text-mid); transition: color var(--transition); }
+.footer-col ul li a { font-size: calc(14px - var(--mobile-body-reduction, 0px)); color: var(--text-mid); transition: color var(--transition); }
 .footer-col ul li a:hover { color: var(--hot-purple); }
 
 .footer-connect .social-links { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-.footer-connect .social-links a { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-mid); transition: color var(--transition); }
+.footer-connect .social-links a { display: flex; align-items: center; gap: 12px; font-size: 17px; color: var(--text-mid); transition: color var(--transition); }
 .footer-connect .social-links a:hover { color: var(--hot-purple); }
 .footer-connect .social-links .shape-badge { --shape-size: 36px; }
 
 .footer-newsletter h2 { margin-bottom: 8px; }
-.footer-newsletter p  { font-size: 13px; color: var(--text-mid); margin-bottom: 14px; }
+.footer-newsletter p  { font-size: calc(13px - var(--mobile-body-reduction, 0px)); color: var(--text-mid); margin-bottom: 14px; }
 
 .footer-bottom {
   padding-top: 20px;
@@ -1229,12 +1256,12 @@ footer {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 8vw, 4rem);
   color: var(--plum);
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1;
   margin-bottom: 12px;
 }
 
-.social-sub { font-size: 14px; color: var(--plum); max-width: 760px; margin: 0 auto 28px; line-height: 1.7; }
+.social-sub { font-size: calc(14px - var(--mobile-body-reduction, 0px)); color: var(--plum); max-width: 760px; margin: 0 auto 28px; line-height: 1.7; }
 
 .social-buttons { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: nowrap; }
 .social-buttons > .hero-btns { flex-wrap: nowrap; }
@@ -1243,7 +1270,7 @@ footer {
   .social-title { font-size: 8vw; white-space: nowrap; }
   .social-buttons { gap: 8px; }
   .social-buttons > .hero-btns { gap: 8px; }
-  .social-buttons .btn-social-newsletter { padding: 10px 12px; font-size: 10px; min-height: 44px; letter-spacing: 0.04em; }
+  .social-buttons .btn-social-newsletter { padding: 10px 12px; font-size: 14px; min-height: 44px; letter-spacing: 0.04em; }
   .social-buttons .shape-badge { --shape-size: 44px; }
 }
 
@@ -1280,7 +1307,7 @@ footer {
   }
 
   .nav-left { position: relative; z-index: 1001; }
-  .nav-logo { width: min(170px, 52vw); }
+  .nav-logo { width: min(185px, 56vw); }
   .nav-toggle { display: flex; margin-left: auto; position: relative; z-index: 1001; }
 
   .nav-right {
@@ -1409,7 +1436,7 @@ footer {
   }
   .footer-newsletter .btn-social-newsletter {
     padding: 8px 12px;
-    font-size: 10px;
+    font-size: 14px;
     gap: 6px;
     letter-spacing: 0.04em;
   }
@@ -1482,9 +1509,10 @@ html.no-vt.is-leaving footer { animation: page-slide-out 0.28s cubic-bezier(0.4,
 .cookie-banner p { margin: 0; flex: 1 1 280px; }
 .cookie-banner a { color: var(--hot-purple); text-decoration: underline; }
 .cookie-banner__actions { display: flex; gap: 10px; }
-.cookie-banner .btn { padding: 10px 20px; font-size: 12px; }
+.cookie-banner .btn { padding: 10px 20px; font-size: 15px; }
 
 .cookie-settings-link {
+  font-family: var(--font-display);
   display: block;
   margin: 8px auto 0;
   background: none;

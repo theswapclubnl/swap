@@ -154,3 +154,17 @@ public/static/            Served at /static/...
   fonts/                  Local fonts and bundled license file
   images/                 Photos, videos, logos, and brand assets
 ```
+
+### Business partnership logos
+
+Add logo images to `public/static/images/logos/`. The Business page loads
+them automatically in numbered filename order. Supported formats: SVG, PNG, JPG, JPEG,
+WebP, and AVIF. Use the partner name as the filename (for example,
+`Partner-Name.svg`); it also supplies the accessible image description.
+The logo slider is shown once files are added.
+
+White-background-removed versions live in `public/static/images/logos/transparent/`, using
+the original filename stem and a `.png` extension. The Business page prefers
+these versions while preserving the original uploads. Its logo slider loops
+automatically, pauses on hover or keyboard focus, and has a pause button.
+With reduced motion enabled, logos stay still and can be scrolled horizontally.

@@ -30,7 +30,7 @@
   font-weight: 400;
   font-size: clamp(2.2rem, 7vw, 6.5rem);
   line-height: 0.93;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--plum-deep);
   margin-bottom: 18px;
 }
@@ -40,7 +40,7 @@
   margin: 0 auto;
   color: var(--plum-deep);
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  font-size: calc(clamp(1rem, 1.5vw, 1.15rem) - var(--mobile-body-reduction, 0px));
   line-height: 1.7;
 }
 
@@ -97,7 +97,7 @@
   box-shadow: 0 0 0 3px rgba(var(--plum-rgb), 0.18);
 }
 
-.contact-form .btn { justify-self: start; padding: 14px 32px; font-size: 13px; }
+.contact-form .btn { justify-self: start; padding: 14px 32px; font-size: 16px; }
 
 /* ───────── FLASH MESSAGES ───────── */
 .flash-container {
@@ -260,7 +260,7 @@
   border-radius: 8px;
   border-left: 3px solid var(--light-blue);
   color: var(--lilac);
-  font-size: 13px;
+  font-size: calc(13px - var(--mobile-body-reduction, 0px));
   line-height: 1.6;
 }
 

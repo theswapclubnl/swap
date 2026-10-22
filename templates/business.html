@@ -8,52 +8,115 @@
 {% block content %}
 
 <!-- ───────── HERO SECTION ───────── -->
-<section class="hero-section" data-aos="fade-up">
-
-  <div class="hero-image">
-
-    <div class="hero-text">
-
-      <h1 class="hero-headline" data-fit-heading>
-        <span class="business-heading-line business-heading-desktop" data-heading-line>Let's bring people together</span>
-        <span class="business-heading-line business-heading-mobile" data-heading-line>Let's bring</span>
-        <span class="business-heading-line business-heading-mobile" data-heading-line>people together</span>
-        <span class="business-heading-line" data-heading-line>by swapping.</span>
-      </h1>
-
-      <p class="hero-tagline">
-        We partner with organizations, brands, and communities
-        to promote sustainable style through events, unique collaborations,
-        and shared products.<br>
-        Interested in joining the movement? Start here.
-      </p>
-
-      <div class="hero-btns">
-        <a href="/contact" class="btn btn-green-yellow">
-          Contact Us
-        </a>
-        <a href="/how" class="btn btn-lilac">
-          Learn More
-        </a>
-      </div>
-
+<section class="business-hero">
+  <div class="business-hero-copy">
+    <h1 class="hero-headline">Let's bring people together by swapping!</h1>
+    <p class="hero-tagline">
+      We partner with organizations, brands, and communities
+      to promote sustainable style through events, unique collaborations,
+      and shared products.<br>
+      Interested in joining the movement? Start here.
+    </p>
+    <div class="hero-btns">
+      <a href="/contact" class="btn btn-green-yellow">Contact Us</a>
+      <a href="/how" class="btn btn-lilac">Learn More</a>
     </div>
-
   </div>
-
+  <div class="business-hero-visual">
+    <div class="business-photo-frame">
+      <div class="business-photo-gallery" id="businessPhotos" role="img" aria-label="People browsing and swapping pre-loved clothes at The Swap Club">
+        <img class="business-photo" src="{{ url_for('static', filename='images/SwapClubImage_01.jpeg') }}" alt="" decoding="async" fetchpriority="high">
+        <img class="business-photo" src="{{ url_for('static', filename='images/com2.jpg') }}" alt="" decoding="async">
+        <img class="business-photo" src="{{ url_for('static', filename='images/how_3.jpg') }}" alt="" decoding="async">
+      </div>
+      <span class="business-swap-icon shape-badge" aria-hidden="true">
+        <img src="{{ url_for('static', filename='images/brand/icons/SWAPCLUB_ICON_SWAP.png') }}" alt="">
+      </span>
+    </div>
+    <button class="business-photo-toggle" type="button" aria-controls="businessPhotos" aria-pressed="false" aria-label="Pause photos" hidden>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+        <g class="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></g>
+        <path class="play-icon" d="M7 4v16l13-8z"/>
+      </svg>
+    </button>
+  </div>
 </section>
 
+
+<!-- ───────── OUR SERVICES SECTION ───────── -->
+<section class="services-section" data-aos="fade-up">
+  <div class="services-inner">
+    <h2 class="section-title">Our Services</h2>
+
+    <div class="service-list">
+      <article class="service-row">
+        <div class="service-copy shape-bg">
+          <h3>Corporate Events</h3>
+          <div class="service-details shape-bg">
+            <p>Host a swap event at your office or venue. We handle everything from setup to execution, making it easy for your team to participate.</p>
+            <p class="service-tags">On-site event management&ensp;·&ensp;Digital point system&ensp;·&ensp;Impact reporting</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-row">
+        <div class="service-copy shape-bg">
+          <h3>Partnership Programs</h3>
+          <div class="service-details shape-bg">
+            <p>Become a long-term partner and integrate swapping into your sustainability initiatives throughout the year.</p>
+            <p class="service-tags">Quarterly events&ensp;·&ensp;Co-branded marketing&ensp;·&ensp;Employee benefits</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-row">
+        <div class="service-copy shape-bg">
+          <h3>Add-on Services</h3>
+          <div class="service-details shape-bg">
+            <p>Have something specific in mind? We'll work with you to create a tailored solution that meets your unique needs.</p>
+            <p class="service-tags">Repair corner&ensp;·&ensp;Color analysis&ensp;·&ensp;Upcycling workshops&ensp;·&ensp;Styling on request</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- ───────── OUR PARTNERSHIPS ───────── -->
+<section class="partnerships-section" aria-label="Our partners" data-aos="fade-up">
+  <div class="partnerships-inner">
+    {% if partnership_logos %}
+    <div class="partnership-carousel" tabindex="0" role="region" aria-label="Partner logos" id="partnerLogos">
+      <div class="partnership-logo-track">
+        {% for copy in range(2) %}
+        <ul class="partnership-logos"{% if copy %} aria-hidden="true"{% endif %}>
+          {% for logo in partnership_logos %}
+          <li><img src="{{ url_for('static', filename=logo.path) }}" alt="{% if not copy %}{{ logo.name }}{% endif %}" decoding="async"></li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+      </div>
+    </div>
+    <button class="partnership-toggle" type="button" aria-controls="partnerLogos" aria-pressed="false" aria-label="Pause logos" hidden>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+        <g class="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></g>
+        <path class="play-icon" d="M7 4v16l13-8z"/>
+      </svg>
+    </button>
+    {% endif %}
+  </div>
+</section>
 
 <!-- ───────── WHY PARTNER SECTION ───────── -->
 <section class="why-partner-section" data-aos="fade-up">
   <div class="why-partner-inner">
-    <p class="section-eyebrow">Why Partner With Us</p>
     <h2 class="section-title">Why Partner With<br>The Swap Club?</h2>
 
     <div class="why-grid">
       <div class="why-item">
         <div>
-          <span class="why-icon shape-badge"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+          <span class="why-icon shape-badge" aria-hidden="true"><span class="why-figure why-figure--flower"></span></span>
           <h3>Brand Positioning</h3>
           <p>Associate your brand with sustainability and social responsibility to attract conscious consumers.</p>
         </div>
@@ -61,7 +124,7 @@
 
       <div class="why-item">
         <div>
-          <span class="why-icon shape-badge"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></svg></span>
+          <span class="why-icon shape-badge" aria-hidden="true"><span class="why-figure why-figure--puzzle"></span></span>
           <h3>Team Building</h3>
           <p>Create unique bonding experiences that align with your company values and foster team spirit.</p>
         </div>
@@ -69,7 +132,7 @@
 
       <div class="why-item">
         <div>
-          <span class="why-icon shape-badge"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
+          <span class="why-icon shape-badge" aria-hidden="true"><span class="why-figure why-figure--recycle"></span></span>
           <h3>Measurable Impact</h3>
           <p>See what employees bring, take and value: measurable engagement, not just a feel-good moment.</p>
         </div>
@@ -77,7 +140,7 @@
 
       <div class="why-item">
         <div>
-          <span class="why-icon shape-badge"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <span class="why-icon shape-badge" aria-hidden="true"><span class="why-figure why-figure--hanger"></span></span>
           <h3>Low operational burden</h3>
           <p>We handle planning, staffing, check-in, the swap system and reporting. You provide venue and comms.</p>
         </div>
@@ -85,41 +148,6 @@
     </div>
   </div>
 </section>
-
-<!-- ───────── OUR SERVICES SECTION ───────── -->
-<section class="services-section" data-aos="fade-up">
-  <div class="services-inner">
-    <p class="section-eyebrow">What We Offer</p>
-    <h2 class="section-title">Our Services</h2>
-
-    <div class="service-list">
-      <article class="service-row">
-        <div class="service-copy">
-          <h3>Corporate Swap Events</h3>
-          <p>Host a swap event at your office or venue. We handle everything from setup to execution, making it easy for your team to participate.</p>
-          <p class="service-tags">On-site event management&ensp;·&ensp;Digital point system&ensp;·&ensp;Impact reporting</p>
-        </div>
-      </article>
-
-      <article class="service-row">
-        <div class="service-copy">
-          <h3>Partnership Programs</h3>
-          <p>Become a long-term partner and integrate swapping into your sustainability initiatives throughout the year.</p>
-          <p class="service-tags">Quarterly events&ensp;·&ensp;Co-branded marketing&ensp;·&ensp;Employee benefits</p>
-        </div>
-      </article>
-
-      <article class="service-row">
-        <div class="service-copy">
-          <h3>Add-on Services</h3>
-          <p>Have something specific in mind? We'll work with you to create a tailored solution that meets your unique needs.</p>
-          <p class="service-tags">Repair corner&ensp;·&ensp;Color analysis&ensp;·&ensp;Upcycling workshops&ensp;·&ensp;Styling on request</p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
 
 <!-- ───────── LET'S WORK TOGETHER INTRO ───────── -->
 <section class="work-together-section" data-aos="fade-up">
@@ -147,4 +175,8 @@
 </section>
 
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/business.js') }}"></script>
 {% endblock %}

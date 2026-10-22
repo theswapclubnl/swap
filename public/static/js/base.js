@@ -4,6 +4,42 @@
 
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* Hide the navbar on downward scroll; reveal it on upward scroll. */
+(function scrollNavigation() {
+  const nav = document.getElementById('main-nav');
+  if (!nav) return;
+  let previousY = Math.max(0, window.scrollY);
+  let ticking = false;
+
+  function update() {
+    const maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const currentY = Math.max(0, Math.min(window.scrollY, maxY));
+    const delta = currentY - previousY;
+    ticking = false;
+
+    if (currentY <= nav.offsetHeight + 16 || nav.classList.contains('nav-open') ||
+        nav.querySelector(':focus-visible')) {
+      nav.classList.remove('nav-hidden');
+      previousY = currentY;
+      return;
+    }
+    if (Math.abs(delta) < 8) return;
+    nav.classList.toggle('nav-hidden', delta > 0);
+    previousY = currentY;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(update);
+  }, { passive: true });
+
+  nav.addEventListener('focusin', () => {
+    nav.classList.remove('nav-hidden');
+    previousY = Math.max(0, window.scrollY);
+  });
+})();
+
 /* Fill the available heading width without wrapping. */
 (function fitPageHeadings() {
   const headings = document.querySelectorAll('[data-fit-heading]');
@@ -24,7 +60,8 @@ const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: r
       context.font = `${style.fontWeight} 100px ${style.fontFamily}`;
       const width = Math.max(...texts.map((text) => context.measureText(text).width + Math.max(0, text.length - 1) * spacing * 100 / currentSize));
       if (width > 0 && heading.clientWidth > 0) {
-        heading.style.fontSize = `${Math.min(80, (heading.clientWidth - 4) * 100 / width)}px`;
+        const maxSize = parseFloat(style.getPropertyValue('--fit-heading-max')) || 80;
+        heading.style.fontSize = `${Math.min(maxSize, (heading.clientWidth - 4) * 100 / width)}px`;
       }
     });
   }
@@ -589,15 +626,26 @@ if (counters.length) {
       return;
     }
     const target = +counter.getAttribute('data-target');
-    const current = +counter.innerText.replace(/\D/g, '') || 0;
-    const increment = target / 100;
+    const duration = Math.min(5000, 1800 + target * 0.9);
+    const suffix = counter.getAttribute('data-suffix') || '';
+    const step = Number(counter.getAttribute('data-step')) || 1;
+    const unit = counter.getAttribute('data-unit') || '';
+    const format = (value) => `${unit === 'K' ? value / 1000 : value}${unit}${suffix}`;
+    let startedAt = null;
+    counter.innerText = format(0);
 
-    if (current < target) {
-      counter.innerText = `${Math.ceil(current + increment)}`;
-      setTimeout(() => runCounter(counter), 20);
-    } else {
-      counter.innerText = finalText(counter);
-    }
+    const frame = (time) => {
+      if (startedAt === null) startedAt = time;
+      const progress = Math.min((time - startedAt) / duration, 1);
+      if (progress === 1 || prefersReducedMotion()) {
+        counter.innerText = finalText(counter);
+        return;
+      }
+      const eased = step > 1 ? progress : 1 - Math.pow(1 - progress, 3);
+      counter.innerText = format(Math.floor(target * eased / step) * step);
+      window.requestAnimationFrame(frame);
+    };
+    window.requestAnimationFrame(frame);
   };
 
   if ('IntersectionObserver' in window) {

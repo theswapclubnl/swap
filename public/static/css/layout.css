@@ -1,0 +1,128 @@
+/* Shared alignment and responsive rules, loaded after page styles. */
+:root {
+  --content-width: 1200px;
+  --page-gutter: max(20px, 5vw, calc((100vw - var(--content-width)) / 2));
+  --section-space: clamp(48px, 7vw, 96px);
+}
+
+/* Full-width backgrounds share the same inner content edges. */
+.events-hero,
+.business-hero,
+.tiers,
+.compare,
+.hours-section,
+.contact-hero,
+.contact-section,
+.social-section,
+.work-together-section,
+.why-partner-section,
+.services-section,
+.story,
+.clubhouse,
+.values-section,
+.about-video,
+.page-about .hero,
+.page-membership .hero,
+.page-how .about-section,
+.map-placeholder,
+footer {
+  padding-inline: var(--page-gutter);
+}
+
+.tiers,
+.compare,
+.hours-section,
+.services-section,
+.why-partner-section,
+.clubhouse,
+.page-how .about-section {
+  padding-block: var(--section-space);
+}
+
+.services-inner,
+.why-partner-inner,
+.story-grid,
+.clubhouse-inner,
+.values-inner,
+.tiers-grid,
+.practical-grid,
+.footer-grid,
+.footer-bottom {
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+
+/* Narrow reading blocks remain centered within the shared outer grid. */
+.hero-body,
+.about-body,
+.social-sub,
+.work-together-body { max-width: min(100%, 65ch); }
+
+h1, h2, h3, h4, h5, h6 { overflow-wrap: anywhere; }
+h1, h2, h3 { text-wrap: balance; }
+.section-title { font-size: clamp(1.65rem, 4.4vw, 3.5rem); line-height: 1.1; }
+.btn, .tier-btn, .hero-btn {
+  max-width: 100%;
+  min-height: 44px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+.hero-btns, .hero-buttons, .about-socials { flex-wrap: wrap; }
+input, textarea, select { min-width: 0; max-width: 100%; }
+video, iframe { max-width: 100%; }
+
+:where(.tiers-grid, .story-grid, .clubhouse-grid,
+  .locations-grid, .why-grid, .service-list, .compare-grid, .impact-grid,
+  .hero, .business-hero, .hours-section, .footer-grid) > * { min-width: 0; }
+
+.events-hero { gap: clamp(28px, 5vw, 72px); }
+.events-hero-text { min-width: 0; flex: 0 1 38%; }
+.events-hero-summary { flex: 1 1 0; min-width: 0; }
+.story-grid, .clubhouse-grid { gap: clamp(28px, 4vw, 56px); }
+.story-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.clubhouse-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+.business-hero, .page-membership .hero { gap: clamp(28px, 4vw, 64px); }
+@media (min-width: 1101px) {
+  .why-partner-section {
+    padding-inline: max(20px, 4vw, calc((100vw - 1320px) / 2));
+  }
+  .why-partner-inner, .why-grid { max-width: 1320px; }
+}
+.page-about .impact-grid { max-width: 960px; margin-inline: auto; }
+.location-title { white-space: normal; text-wrap: balance; }
+
+.page-how .about-title { white-space: normal; }
+
+/* Legal copy has its own reading width; the shared main and footer do not. */
+.terms-main {
+  width: min(calc(100% - 2 * var(--page-gutter)), 900px);
+  margin-inline: auto;
+  padding: calc(var(--nav-h) + 40px) 0 var(--section-space);
+}
+.terms-main .legal-header { margin-bottom: clamp(40px, 6vw, 72px); }
+.footer-grid > *, .footer-newsletter { min-width: 0; }
+.footer-newsletter p { max-width: 100%; overflow-wrap: anywhere; }
+
+@media (max-width: 900px) {
+  .events-hero { flex-direction: column; align-items: stretch; min-height: 0; }
+  .events-hero-text, .events-hero-summary { width: 100%; flex: initial; }
+  .events-hero-text p { max-width: 560px; }
+  .story-grid, .clubhouse-grid { grid-template-columns: minmax(0, 1fr); }
+  .step-slide { padding-inline: var(--page-gutter); }
+  .info-copy p, .work-together-body, .social-sub { font-size: calc(16px - var(--mobile-body-reduction, 0px)); line-height: 1.6; }
+}
+
+@media (max-width: 600px) {
+  :root { --mobile-body-reduction: 1px; }
+  .section-heading h2 { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+  .hero-body { text-align: left; }
+  .locations-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .location-title { font-size: 20px; }
+  .contact-form { padding: 24px 16px; }
+  .contact-social-links { flex-wrap: wrap; }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .footer-newsletter { grid-column: 1 / -1; }
+  .footer-newsletter .btn { width: auto; }
+}
+

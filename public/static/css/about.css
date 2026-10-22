@@ -6,7 +6,7 @@ h1 {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 10vw, 8rem);
   line-height: 0.9;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.02em;
   color: var(--plum-deep);
   margin-bottom: 28px;
@@ -23,7 +23,7 @@ h2 {
 
 p {
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: calc(18px - var(--mobile-body-reduction, 0px));
   line-height: 1.8;
   color: rgba(var(--text-rgb), 0.62);
   margin-bottom: 24px;
@@ -42,7 +42,7 @@ p {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 8vw, 6rem);
   line-height: 0.92;
-  text-transform: uppercase;
+  text-transform: none;
   letter-spacing: 0.02em;
   color: var(--plum-deep);
   margin-bottom: 28px;
@@ -55,7 +55,7 @@ p {
   margin-right: auto; 
   margin-bottom: 48px;
   font-family: var(--font-body);
-  font-size: clamp(16px, 2.2vw, 20px);
+  font-size: calc(clamp(16px, 2.2vw, 20px) - var(--mobile-body-reduction, 0px));
   line-height: 1.8;
   color: var(--text);
 
@@ -108,7 +108,7 @@ p {
 }
 
 .story-text .section-title { margin-bottom: 20px; }
-.story-text p { font-size: 16px; line-height: 1.75; }
+.story-text p { font-size: calc(16px - var(--mobile-body-reduction, 0px)); line-height: 1.75; }
 
 
 .about-socials {
@@ -119,10 +119,11 @@ p {
 }
 
 .social-link {
-  font-size: 11px;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--plum-deep);
   padding: 5px 18px 5px 6px;
   border-radius: 100px;
@@ -165,12 +166,12 @@ p {
   font-family: var(--font-display);
   font-size: clamp(1.45rem, 3vw, 2.6rem);
   color: var(--plum-deep);
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1;
   margin-bottom: 14px;
 }
 
-.value-text p { font-size: 16px; line-height: 1.75; color: rgba(var(--text-rgb), 0.62); max-width: 440px; margin-bottom: 0; }
+.value-text p { font-size: calc(16px - var(--mobile-body-reduction, 0px)); line-height: 1.75; color: rgba(var(--text-rgb), 0.62); max-width: 440px; margin-bottom: 0; }
 
 /* ───────── OUR IMPACT ───────── */
 .impact-inner { max-width: 900px; margin: 0 auto; }
@@ -245,7 +246,7 @@ p {
   font-family: var(--font-display);
   font-size: clamp(14px, 1.8vw, 22px);
   line-height: 1.1;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--plum);
 }
 .location-title { white-space: nowrap; }
@@ -256,11 +257,11 @@ p {
   font-family: var(--font-display);
   font-size: 1.1rem;
   color: var(--plum-deep);
-  text-transform: uppercase;
+  text-transform: none;
   margin-bottom: 6px;
   line-height: 1.1;
 }
-.clubhouse-detail p { font-size: 14px; line-height: 1.6; color: rgba(var(--text-rgb), 0.62); margin-bottom: 2px; max-width: none; }
+.clubhouse-detail p { font-size: calc(14px - var(--mobile-body-reduction, 0px)); line-height: 1.6; color: rgba(var(--text-rgb), 0.62); margin-bottom: 2px; max-width: none; }
 
 .clubhouse-link { display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 700; color: var(--plum-deep); text-decoration: underline; }
 .clubhouse-link:hover { color: var(--plum-deep); }
@@ -300,8 +301,8 @@ p {
 @media (max-width: 600px) {
   #slider-text { width: 92%; padding: 16px; }
   #slider-text h1 { font-size: clamp(2.4rem, 14vw, 6rem); }
-  #slider-text p { font-size: 15px; }
-  p { font-size: 16px; }
+  #slider-text p { font-size: calc(15px - var(--mobile-body-reduction, 0px)); }
+  p { font-size: calc(16px - var(--mobile-body-reduction, 0px)); }
 
   .about-section { padding: 72px 6%; }
   .about-founder-card { padding: 36px 24px; }
@@ -329,9 +330,9 @@ p {
   padding: 64px 6% 48px;
   display: flex;
   align-items: center;
-  /* soft colour blobs on a lilac base (palette: lilac, light-blue, hot-orange, plum) */
+  /* soft colour blobs on a lilac base (palette: lilac, hot-orange, plum) */
   background:
-    radial-gradient(circle at 88% 12%, var(--light-blue) 0, transparent 40%),
+    radial-gradient(circle at 88% 12%, var(--hot-orange) 0, transparent 40%),
     radial-gradient(circle at 80% 90%, var(--plum) 0, transparent 38%),
     radial-gradient(circle at 20% 80%, var(--plum) 0, transparent 40%),
     radial-gradient(circle at 10% 20%, var(--plum) 0, transparent 40%),

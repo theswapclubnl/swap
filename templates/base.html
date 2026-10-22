@@ -11,22 +11,18 @@
     }
   </script>
 
-  <!-- Fonts (non-blocking; replaces the render-blocking @import that was in base.css) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400&amp;family=Syne:wght@400;600;700;800&amp;family=Pinyon+Script&amp;display=swap">
-
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
 
   <!-- ─── CSS libraries ─── -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 
   {% block extra_css %}{% endblock %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
 
     <!-- ─── favicon ─── -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
 </head>
-<body>
+<body class="page-{{ request.endpoint }}">
 
   <!-- ──────────── NAVBAR ─────────────── -->
   <nav id="main-nav">
@@ -41,7 +37,7 @@
         <li><a href="/membership" class="{% if request.path == '/membership' %}active{% endif %}">Become a Member</a></li>
         <li><a href="/how" class="{% if request.path == '/how' %}active{% endif %}">How It Works</a></li>
         <li><a href="/about" class="{% if request.path == '/about' %}active{% endif %}">About</a></li>
-        <li><a href="/business" class="{% if request.path == '/business' %}active{% endif %}">B2B</a></li>
+        <li><a href="/business" class="{% if request.path == '/business' %}active{% endif %}">Business</a></li>
         <li><a href="/contact" class="{% if request.path == '/contact' %}active{% endif %}">Contact Us</a></li>
       </ul>
       <a href="https://luma.com/theswapclub" target="_blank" rel="noopener noreferrer" class="nav-cta mobile-nav-join-btn">Events</a>
