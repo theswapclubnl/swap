@@ -369,49 +369,27 @@
   .compare-grid { width: 100%; gap: 28px; }
   .compare-card {
     width: 100%;
-    min-height: 0;
+    min-height: 440px;
     height: auto;
-    padding: 0;
+    padding: 72px 16% 96px;
     overflow-wrap: break-word;
   }
-  .compare-card::before { display: none; }
-  .compare-details {
-    position: relative;
-    isolation: isolate;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 12% 44px;
-    min-width: 0;
-  }
-  .compare-details::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--compare-bg);
-    -webkit-mask: url('../images/brand-shape.svg') center / 100% 100% no-repeat;
-            mask: url('../images/brand-shape.svg') center / 100% 100% no-repeat;
-    pointer-events: none;
-  }
-  .compare-card h3 { font-size: clamp(22px, 6vw, 28px); line-height: 1.2; margin-bottom: 2px; }
-  .compare-features { min-width: 0; width: 100%; gap: 10px; margin-bottom: 16px; }
+  .compare-details { display: contents; }
+  .compare-card h3 { font-size: clamp(20px, 5.5vw, 24px); line-height: 1.2; margin-bottom: 20px; }
+  .compare-features { min-width: 0; width: 100%; gap: 10px; margin-bottom: 12px; }
   .compare-item {
     max-width: 100%;
     grid-template-columns: 10px minmax(0, 1fr);
     gap: 8px;
-    font-size: calc(14px - var(--mobile-body-reduction, 0px));
+    font-size: 12px;
     line-height: 1.5;
   }
   .compare-item::before { width: 10px; height: 10px; margin-top: calc(0.75em - 5px); }
-  .compare-action { flex-direction: column; gap: 10px; padding-top: 8px; justify-content: center; text-align: center; font-size: 13px; line-height: 1.4; overflow-wrap: anywhere; }
+  .compare-action { flex-direction: column; gap: 6px; margin-top: 0; padding-top: 0; justify-content: center; text-align: center; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
   .compare-action-arrow {
-    position: absolute;
-    right: 12%;
-    bottom: 18px;
     width: 28px;
     height: 28px;
   }
-  .compare-details { padding-bottom: 64px; }
   .hours-section { gap: 28px; }
   .hours-left h2 { font-size: clamp(2rem, 13vw, 3rem); }
   .hours-row {

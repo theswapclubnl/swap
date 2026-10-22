@@ -501,13 +501,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let inView = false;
     let paused = false;          // short cool-down after user interaction
     let userInteracting = false;
+    let touchInteracting = false;
+    let touchScrolling = false;
     let resumeTimer = null;
     let dragStartX = 0;
     let dragStartScrollLeft = 0;
     let suppressClick = false;
 
     const isRunning = () =>
-      inView && !paused && !userInteracting && !prefersReducedMotion() && !document.hidden;
+      inView && !paused && !userInteracting && !touchInteracting && !prefersReducedMotion() && !document.hidden;
 
     function tick(ts) {
       rafId = null;
@@ -535,7 +537,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function pauseThenResume() {
       paused = true;
       clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(() => { paused = false; start(); }, 2500);
+      resumeTimer = setTimeout(() => {
+        paused = false;
+        touchScrolling = false;
+        start();
+      }, 2500);
     }
 
     function endInteraction() {
@@ -557,7 +563,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.addEventListener('visibilitychange', start);
 
+    // Let the browser handle touch scrolling and momentum. Mouse/pen dragging
+    // stays custom, so desktop users can still grab the strip.
+    track.addEventListener('touchstart', () => {
+      touchInteracting = true;
+      touchScrolling = true;
+      pauseThenResume();
+    }, { passive: true });
+    const endTouch = (event) => {
+      if (event.touches.length) return;
+      touchInteracting = false;
+      touchScrolling = true;
+      pauseThenResume();
+    };
+    track.addEventListener('touchend', endTouch, { passive: true });
+    track.addEventListener('touchcancel', endTouch, { passive: true });
+    track.addEventListener('scroll', () => {
+      // Keep auto-advance paused until native momentum has finished too.
+      if (touchScrolling) pauseThenResume();
+    }, { passive: true });
+
     track.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'touch') return;
       if (event.button !== undefined && event.button !== 0) return;
       userInteracting = true;
       dragStartX = event.clientX;
@@ -574,6 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     track.addEventListener('pointerup', (event) => {
+      if (event.pointerType === 'touch') return;
       track.releasePointerCapture?.(event.pointerId);
       endInteraction();
     });
