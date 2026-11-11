@@ -1,63 +1,63 @@
 /* ABOUT PAGE — page-specific styles.
-   Shared reset, nav, .stats-bar and .about-* block styles live in base.css. */
+        Shared reset, nav, .stats-bar and .about-* block styles live in base.css. */
 
 .container { width: 100%; margin: 0 auto; padding: 0 0 80px; }
 h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 10vw, 8rem);
-  line-height: 0.9;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  color: var(--plum-deep);
-  margin-bottom: 28px;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 10vw, 8rem);
+    line-height: 0.9;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--plum-deep);
+    margin-bottom: 28px;
 }
 
 h2 {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 5vw, 4rem);
-  font-weight: 700;
-  line-height: 1.05;
-  color: var(--plum-deep);
-  margin-bottom: 24px;
+    font-family: var(--font-display);
+    font-size: clamp(1.7rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--plum-deep);
+    margin-bottom: 24px;
 }
 
 p {
-  font-family: var(--font-body);
-  font-size: calc(18px - var(--mobile-body-reduction, 0px));
-  line-height: 1.8;
-  color: rgba(var(--text-rgb), 0.62);
-  margin-bottom: 24px;
-  max-width: 1000px;
+    font-family: var(--font-body);
+    font-size: calc(18px - var(--mobile-body-reduction, 0px));
+    line-height: 1.8;
+    color: #000;
+    margin-bottom: 24px;
+    max-width: 1000px;
 }
 
 /* .section-eyebrow / .section-title live in base.css (shared). */
 
 /* ───────── HERO ───────── */
 .hero-title {
-  font-size: clamp(20px, 5.5vw, 64px);
-  white-space: nowrap;
+    font-size: clamp(20px, 5.5vw, 64px);
+    white-space: nowrap;
 }
 .hero { background: var(--cream); padding: 64px 6% 64px; text-align: center; margin: 0 auto; }
 .hero-headline {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 8vw, 6rem);
-  line-height: 0.92;
-  text-transform: none;
-  letter-spacing: 0.02em;
-  color: var(--plum-deep);
-  margin-bottom: 28px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 8vw, 6rem);
+    line-height: 0.92;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--plum-deep);
+    margin-bottom: 28px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
-.hero-body { 
-  margin-left: auto; 
-  margin-right: auto; 
-  margin-bottom: 48px;
-  font-family: var(--font-body);
-  font-size: calc(clamp(16px, 2.2vw, 20px) - var(--mobile-body-reduction, 0px));
-  line-height: 1.8;
-  color: var(--text);
+.hero-body {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 48px;
+    font-family: var(--font-body);
+    font-size: calc(clamp(16px, 2.2vw, 20px) - var(--mobile-body-reduction, 0px));
+    line-height: 1.8;
+    color: var(--text);
 
 }
 
@@ -66,45 +66,45 @@ p {
 .story { background: var(--cream); padding: 40px 6% 110px; }
 
 .story-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 .story-photo {
-  overflow: hidden;
-  width: 100%;
-  max-width: 520px;     /* 1:1 + shape mask come from base.css */
-  justify-self: center;
+    overflow: hidden;
+    width: 100%;
+    max-width: 520px;     /* 1:1 + shape mask come from base.css */
+    justify-self: center;
 }
 
 .story-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 /* Mask the pictures themselves so the surrounding shadows remain visible. */
 .story-photo,
 .clubhouse-grid div.clubhouse-photo {
-  overflow: visible;
-  -webkit-mask: none;
-          mask: none;
-  filter:
-    drop-shadow(0 6px 10px rgba(var(--hot-orange-rgb), 0.18))
-    drop-shadow(8px 14px 18px rgba(var(--hot-orange-rgb), 0.22));
+    overflow: visible;
+    -webkit-mask: none;
+                    mask: none;
+    filter:
+        drop-shadow(0 6px 10px rgba(var(--hot-orange-rgb), 0.18))
+        drop-shadow(8px 14px 18px rgba(var(--hot-orange-rgb), 0.22));
 }
 .story-photo img,
 .clubhouse-grid div.clubhouse-photo > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  -webkit-mask: url('../images/brand-shape.svg') center / contain no-repeat;
-          mask: url('../images/brand-shape.svg') center / contain no-repeat;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask: url('../images/brand-shape.svg') center / contain no-repeat;
+                    mask: url('../images/brand-shape.svg') center / contain no-repeat;
 }
 
 .story-text .section-title { margin-bottom: 20px; }
@@ -112,25 +112,25 @@ p {
 
 
 .about-socials {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin: 0;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 0;
 }
 
 .social-link {
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: none;
-  color: var(--plum-deep);
-  padding: 5px 18px 5px 6px;
-  border-radius: 100px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: background 0.2s, color 0.2s;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: none;
+    color: var(--plum-deep);
+    padding: 5px 18px 5px 6px;
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s, color 0.2s;
 }
 .social-link .shape-badge { --shape-size: 34px; --shape-bg-hover: var(--light-blue); --shape-fg-hover: var(--plum); }
 
@@ -139,11 +139,11 @@ p {
 .values-inner { max-width: 1000px; margin: 0 auto; }
 
 .value-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-  margin-bottom: 90px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-bottom: 90px;
 }
 .value-row.reverse .value-photo { order: 2; }
 .value-row.reverse .value-text { order: 1; }
@@ -153,54 +153,54 @@ p {
 .value-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .value-number {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 7vw, 3rem);
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--plum-deep);
-  margin-bottom: 8px;
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 7vw, 3rem);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--plum-deep);
+    margin-bottom: 8px;
 }
 
 .value-text h3 {
-  font-family: var(--font-display);
-  font-size: clamp(1.45rem, 3vw, 2.6rem);
-  color: var(--plum-deep);
-  text-transform: none;
-  line-height: 1;
-  margin-bottom: 14px;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 3vw, 2.6rem);
+    color: var(--plum-deep);
+    text-transform: none;
+    line-height: 1;
+    margin-bottom: 14px;
 }
 
-.value-text p { font-size: calc(16px - var(--mobile-body-reduction, 0px)); line-height: 1.75; color: rgba(var(--text-rgb), 0.62); max-width: 440px; margin-bottom: 0; }
+.value-text p { font-size: calc(16px - var(--mobile-body-reduction, 0px)); line-height: 1.75; color: #000; max-width: 440px; margin-bottom: 0; }
 
 /* ───────── OUR IMPACT ───────── */
 .impact-inner { max-width: 900px; margin: 0 auto; }
 
 .impact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    text-align: center;
 }
 
 .impact-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 
 .impact-num {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2rem, 11vw, 6.4rem);
-  color: var(--hot-orange);
-  line-height: 1;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2rem, 11vw, 6.4rem);
+    color: var(--hot-orange);
+    line-height: 1;
 }
 
 .impact-label {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(var(--plum-deep-rgb), 0.7);
-  text-align: center;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(var(--plum-deep-rgb), 0.7);
+    text-align: center;
 }
 
 /* ───────── CLUBHOUSE ───────── */
@@ -210,31 +210,31 @@ p {
 .clubhouse .section-title { text-align: center; }
 .clubhouse .section-title { white-space: nowrap; font-size: clamp(20px, 4vw, 40px); }
 .clubhouse-intro {
-  max-width: 620px;
-  margin: 0 auto 56px;
-  font-size: 16px;
-  line-height: 1.7;
-  color: rgba(var(--text-rgb), 0.62);
+    max-width: 620px;
+    margin: 0 auto 56px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #000;
 }
 
 .clubhouse-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  text-align: left;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    text-align: left;
 }
 
 .clubhouse-grid .clubhouse-photo {
-  width: 100%;
-  overflow: hidden;     /* 1:1 + shape mask come from base.css */
+    width: 100%;
+    overflow: hidden;     /* 1:1 + shape mask come from base.css */
 }
 .clubhouse-grid div.clubhouse-photo { max-width: 520px; justify-self: center; }
 
 .clubhouse-grid img.clubhouse-photo {
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .clubhouse-details { display: flex; flex-direction: column; gap: 24px; }
@@ -242,26 +242,26 @@ p {
 .location-details { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
 .clubhouse-detail .location-address { margin-top: 12px; }
 .location-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(14px, 1.8vw, 22px);
-  line-height: 1.1;
-  text-transform: none;
-  color: var(--plum);
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(14px, 1.8vw, 22px);
+    line-height: 1.1;
+    text-transform: none;
+    color: var(--plum);
 }
 .location-title { white-space: nowrap; }
 
 .clubhouse-detail { display: flex; gap: 16px; align-items: flex-start; }
 .clubhouse-icon { font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
 .clubhouse-detail h4 {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--plum-deep);
-  text-transform: none;
-  margin-bottom: 6px;
-  line-height: 1.1;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--plum-deep);
+    text-transform: none;
+    margin-bottom: 6px;
+    line-height: 1.1;
 }
-.clubhouse-detail p { font-size: calc(14px - var(--mobile-body-reduction, 0px)); line-height: 1.6; color: rgba(var(--text-rgb), 0.62); margin-bottom: 2px; max-width: none; }
+.clubhouse-detail p { font-size: calc(14px - var(--mobile-body-reduction, 0px)); line-height: 1.6; color: #000; margin-bottom: 2px; max-width: none; }
 
 .clubhouse-link { display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 700; color: var(--plum-deep); text-decoration: underline; }
 .clubhouse-link:hover { color: var(--plum-deep); }
@@ -270,103 +270,103 @@ p {
 
 /* ───────── RESPONSIVE ───────── */
 @media (max-width: 900px) {
-  .hero-split { flex-direction: column; height: auto; }
-  #slider-text, #image-slider { width: 100%; }
-  #image-slider { height: 60vh; }
-  #slider-text { padding: 60px 8%; }
+    .hero-split { flex-direction: column; height: auto; }
+    #slider-text, #image-slider { width: 100%; }
+    #image-slider { height: 60vh; }
+    #slider-text { padding: 60px 8%; }
 
-  .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .about-text { order: 1; }
-  .about-founder-card { order: 2; min-height: auto; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-text { order: 1; }
+    .about-founder-card { order: 2; min-height: auto; }
 
-  .article-list { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
-  .articles { padding: 80px 6%; }
+    .article-list { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+    .articles { padding: 80px 6%; }
 
-  .story-grid { grid-template-columns: 1fr; gap: 40px; }
-  .story-photo { order: -1; max-width: 400px; margin: 0 auto; }
+    .story-grid { grid-template-columns: 1fr; gap: 40px; }
+    .story-photo { order: -1; max-width: 400px; margin: 0 auto; }
 
-  .clubhouse-grid { grid-template-columns: 1fr; gap: 32px; }
-  .clubhouse-grid div.clubhouse-photo { max-width: 400px; margin: 0 auto; }
-  .clubhouse { padding: 72px 6%; }
+    .clubhouse-grid { grid-template-columns: 1fr; gap: 32px; }
+    .clubhouse-grid div.clubhouse-photo { max-width: 400px; margin: 0 auto; }
+    .clubhouse { padding: 72px 6%; }
 
-  .value-row { grid-template-columns: 1fr; gap: 28px; margin-bottom: 56px; }
-  .value-row.reverse .value-photo { order: 1; }
-  .value-row.reverse .value-text { order: 2; }
-  .value-photo { aspect-ratio: 16 / 10; }
+    .value-row { grid-template-columns: 1fr; gap: 28px; margin-bottom: 56px; }
+    .value-row.reverse .value-photo { order: 1; }
+    .value-row.reverse .value-text { order: 2; }
+    .value-photo { aspect-ratio: 16 / 10; }
 
-  .impact-num { font-size: clamp(1.9rem, 9vw, 5.1rem); }
-  .impact-label { font-size: 13px; }
+    .impact-num { font-size: clamp(1.9rem, 9vw, 5.1rem); }
+    .impact-label { font-size: 13px; }
 }
 
 @media (max-width: 600px) {
-  #slider-text { width: 92%; padding: 16px; }
-  #slider-text h1 { font-size: clamp(2.4rem, 14vw, 6rem); }
-  #slider-text p { font-size: calc(15px - var(--mobile-body-reduction, 0px)); }
-  p { font-size: calc(16px - var(--mobile-body-reduction, 0px)); }
+    #slider-text { width: 92%; padding: 16px; }
+    #slider-text h1 { font-size: clamp(2.4rem, 14vw, 6rem); }
+    #slider-text p { font-size: calc(15px - var(--mobile-body-reduction, 0px)); }
+    p { font-size: calc(16px - var(--mobile-body-reduction, 0px)); }
 
-  .about-section { padding: 72px 6%; }
-  .about-founder-card { padding: 36px 24px; }
-  .founder-card-list { grid-template-columns: 1fr; gap: 34px; }
-  .founder-card-image { width: 160px; height: 180px; }
+    .about-section { padding: 72px 6%; }
+    .about-founder-card { padding: 36px 24px; }
+    .founder-card-list { grid-template-columns: 1fr; gap: 34px; }
+    .founder-card-image { width: 160px; height: 180px; }
 
-  .story { padding: 32px 6% 72px; }
-  .story-photo { max-width: 320px; }
-  h1 { font-size: clamp(2.1rem, 12vw, 4.5rem); }
-  /* 3 stat columns must fit a phone: min-width 0 lets the columns shrink, and
-     the number size scales with the viewport (was a 3rem floor = sideways scroll) */
-  .impact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-  .impact-num { font-size: clamp(1.65rem, 9vw, 2.9rem); }
-  .impact-label { font-size: 10px; overflow-wrap: anywhere; }
+    .story { padding: 32px 6% 72px; }
+    .story-photo { max-width: 320px; }
+    h1 { font-size: clamp(2.1rem, 12vw, 4.5rem); }
+    /* 3 stat columns must fit a phone: min-width 0 lets the columns shrink, and
+            the number size scales with the viewport (was a 3rem floor = sideways scroll) */
+    .impact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .impact-num { font-size: clamp(1.65rem, 9vw, 2.9rem); }
+    .impact-label { font-size: 10px; overflow-wrap: anywhere; }
 }
 
 /* ───────── TOP-OF-PAGE VIDEO — framed on a colourful backdrop ───────── */
 .about-video {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  min-height: 100vh;
-  min-height: 100svh;
-  box-sizing: border-box;
-  padding: 64px 6% 48px;
-  display: flex;
-  align-items: center;
-  /* soft colour blobs on a lilac base (palette: lilac, hot-orange, plum) */
-  background:
-    radial-gradient(circle at 88% 12%, var(--hot-orange) 0, transparent 40%),
-    radial-gradient(circle at 80% 90%, var(--plum) 0, transparent 38%),
-    radial-gradient(circle at 20% 80%, var(--plum) 0, transparent 40%),
-    radial-gradient(circle at 10% 20%, var(--plum) 0, transparent 40%),
-    var(--lilac);
-  }
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 100vh;
+    min-height: 100svh;
+    box-sizing: border-box;
+    padding: 64px 6% 48px;
+    display: flex;
+    align-items: center;
+    /* soft colour blobs on a lilac base (palette: lilac, hot-orange, plum) */
+    background:
+        radial-gradient(circle at 88% 12%, var(--hot-orange) 0, transparent 40%),
+        radial-gradient(circle at 80% 90%, var(--plum) 0, transparent 38%),
+        radial-gradient(circle at 20% 80%, var(--plum) 0, transparent 40%),
+        radial-gradient(circle at 10% 20%, var(--plum) 0, transparent 40%),
+        var(--lilac);
+    }
 
 .about-video__frame {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 18px 38px rgba(var(--text-rgb), 0.22);
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 18px 38px rgba(var(--text-rgb), 0.22);
 }
 
 /* the shared .background-video is absolutely positioned for the home hero;
-   inside the frame it simply fills the frame instead of the whole screen */
+        inside the frame it simply fills the frame instead of the whole screen */
 .about-video__frame .background-video {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @media (max-width: 900px) {
-  .about-video { min-height: 100vh; min-height: 100svh; padding: 48px 5% 32px; }
-  .about-video__frame { border-width: 3px; border-radius: 16px; }
+    .about-video { min-height: 100vh; min-height: 100svh; padding: 48px 5% 32px; }
+    .about-video__frame { border-width: 3px; border-radius: 16px; }
 }
 
 @media (max-width: 600px) {
-  .about-video { padding: 40px 5% 24px; }
-  .about-video__frame { border-radius: 12px; }
+    .about-video { padding: 40px 5% 24px; }
+    .about-video__frame { border-radius: 12px; }
 }
