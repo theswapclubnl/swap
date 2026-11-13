@@ -4,7 +4,7 @@
 
 /* ───────── HERO ───────── */
 .contact-hero {
-    padding: 96px var(--section-px) 56px;
+    padding: 96px var(--section-px) 24px;
     background: var(--lilac);
     text-align: center;
 }
@@ -55,7 +55,7 @@
 
 /* ───────── FORM ───────── */
 .contact-section {
-    padding: 12px var(--section-px) 96px;
+    padding: 8px var(--section-px) 96px;
     background: var(--lilac);
 }
 
@@ -97,13 +97,22 @@
     box-shadow: 0 0 0 3px rgba(var(--plum-rgb), 0.18);
 }
 
-.contact-form .btn { justify-self: start; padding: 14px 32px; font-size: 16px; }
+.contact-form .btn {
+    justify-self: start;
+    padding: 14px 32px;
+    font-size: 16px;
+    background: var(--hot-orange);
+    border-color: var(--hot-orange);
+    color: var(--cream);
+}
 
 /* ───────── FLASH MESSAGES ───────── */
 .flash-container {
     width: min(calc(100% - 32px), var(--max-w));
     margin: 24px auto 0;
 }
+
+.contact-layout .flash-container { margin-top: 0; }
 
 .form-message {
     margin-bottom: 10px;
@@ -116,7 +125,7 @@
 
 @media (max-width: 760px) {
     .contact-hero { padding-top: 72px; }
-    .contact-section { padding: 48px var(--section-px) 72px; }
+    .contact-section { padding: 8px var(--section-px) 72px; }
     .contact-form { padding: 24px 20px; }
     .contact-form .btn { justify-self: stretch; }
 }
@@ -210,15 +219,17 @@
 
 /* ───────── DISABLED STATE FOR BUTTON ───────── */
 .contact-form .btn:disabled {
-    opacity: 0.6;
+    opacity: 1;
     cursor: not-allowed;
-    background: var(--lilac);
-    color: var(--plum-deep);
+    background: var(--hot-orange);
+    border-color: var(--hot-orange);
+    color: var(--cream);
     transform: none !important;
     box-shadow: none !important;
 }
 
 .contact-form .btn:not(:disabled):hover {
+    filter: none;
     opacity: 1;
     cursor: pointer;
 }
@@ -307,4 +318,8 @@
     width: 1px;
     height: 1px;
     overflow: hidden;
+}
+
+@media (max-width: 600px) {
+    .contact-hero__inner > p { max-width: 28ch; }
 }

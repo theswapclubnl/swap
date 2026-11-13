@@ -10,8 +10,10 @@ import ssl
 from email.message import EmailMessage
 from pathlib import Path
 
+from localization import install_localization
+
 from dotenv import load_dotenv
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, flash, redirect, render_template, request, send_from_directory, url_for
 
 # Load variables from .env locally. On Vercel they come from the project settings.
 load_dotenv()
@@ -19,6 +21,7 @@ load_dotenv()
 # On Vercel, static files must live in public/ (served by the CDN at /static/...).
 # Pointing Flask at the same folder keeps local development identical.
 app = Flask(__name__, static_folder="public/static", static_url_path="/static")
+install_localization(app)
 app.secret_key = os.environ.get("SECRET_KEY", "dev-only-change-me")
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
@@ -28,6 +31,7 @@ TOPICS = {
     "collaboration": "Collaboration idea",
     "business": "Business inquiry",
     "feedback": "Site feedback",
+    "fashion_donations": "Fashion donations",
 }
 
 
@@ -38,6 +42,14 @@ def inject_analytics():
 
 
 # ───────────────────────── Page routes ─────────────────────────
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        Path(app.static_folder) / "images", "favicon.ico",
+        mimetype="image/vnd.microsoft.icon", max_age=86400,
+    )
+
 
 @app.route("/")
 def home():
@@ -98,7 +110,7 @@ def contact():
     form_data = {
         "name": request.form.get("name", "").strip(),
         "email": request.form.get("email", "").strip(),
-        "topic": request.form.get("topic", "general"),
+        "topic": request.form.get("topic", request.args.get("topic", "general") if request.args.get("topic") in TOPICS else "general"),
         "message": request.form.get("message", "").strip(),
     }
 

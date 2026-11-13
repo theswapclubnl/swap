@@ -166,5 +166,26 @@ The logo slider is shown once files are added.
 White-background-removed versions live in `public/static/images/logos/transparent/`, using
 the original filename stem and a `.png` extension. The Business page prefers
 these versions while preserving the original uploads. Its logo slider loops
-automatically, pauses on hover or keyboard focus, and has a pause button.
+automatically at a slower pace and pauses on hover or keyboard focus.
 With reduced motion enabled, logos stay still and can be scrolled horizontally.
+
+## English and Dutch
+
+The EN/NL links in the navigation switch every page, including Privacy and Terms.
+The selected language is included in internal links and remembered in the
+`swapclub_language` functional cookie for one year. English is the default.
+
+`localization.py` translates server-rendered text and accessibility labels using
+`translations/nl.json`. English copy stays in the templates; when changing that
+copy, update its corresponding Dutch entry as well and restart the server. Brand names, addresses,
+external URLs, scripts, and visitors' form input are preserved. Embedded Luma
+content is supplied by Luma itself.
+
+Business contact links open `/contact?topic=business`. Donation links use
+`/contact?topic=fashion_donations`; both topics are validated by the server.
+
+Run the local regression checks with:
+
+```bash
+python3 -m unittest discover -s tests -v
+```

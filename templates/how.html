@@ -71,8 +71,8 @@
                 </article>
 
             </div>
-            </div>
         </section>
+    </div>
 
     <!-- SWAPPING PROCESS -->
         <section id="how-it-works" class="steps-outer" data-aos="fade-up">
@@ -223,28 +223,6 @@
                         <article class="example-card">
                             <div class="example-top">
                                 <div class="example-points">
-                                    <span class="example-number shape-bg">5</span>
-                                    <span class="example-label">points</span>
-                                </div>
-                                <h3>Patagonia fleece</h3>
-                            </div>
-
-                            <div class="example-image-wrap">
-                                <img src="{{ url_for('static', filename='images/fleece.png') }}" width="900" height="792" loading="lazy" decoding="async" alt="Patagonia fleece" class="example-img">
-                            </div>
-
-                            <div class="example-breakdown">
-                                <p>2 base points</p>
-                                <p>+ 3 sustainable brand points</p>
-                                <span></span>
-                                <p>= 5 points</p>
-                            </div>
-                        </article>
-
-
-                        <article class="example-card">
-                            <div class="example-top">
-                                <div class="example-points">
                                     <span class="example-number shape-bg">7</span>
                                     <span class="example-label">points</span>
                                 </div>
@@ -261,6 +239,29 @@
                                 <p>+ 2 new with tags points</p>
                                 <span></span>
                                 <p>= 7 points</p>
+                            </div>
+                        </article>
+
+
+                        <article class="example-card">
+                            <div class="example-top">
+                                <div class="example-points">
+                                    <span class="example-number shape-bg">8</span>
+                                    <span class="example-label">points</span>
+                                </div>
+                                <h3>Patagonia fleece</h3>
+                            </div>
+
+                            <div class="example-image-wrap">
+                                <img src="{{ url_for('static', filename='images/fleece.png') }}" width="900" height="792" loading="lazy" decoding="async" alt="Patagonia fleece" class="example-img">
+                            </div>
+
+                            <div class="example-breakdown">
+                                <p>3 base points</p>
+                                <p>+ 3 sustainable brand points</p>
+                                <p>+ 2 natural fabric points</p>
+                                <span></span>
+                                <p>= 8 points</p>
                             </div>
                         </article>
 
@@ -338,29 +339,6 @@
                         <article class="example-card">
                             <div class="example-top">
                                 <div class="example-points">
-                                    <span class="example-number shape-bg">8</span>
-                                    <span class="example-label">points</span>
-                                </div>
-                                <h3>Patagonia fleece</h3>
-                            </div>
-
-                            <div class="example-image-wrap">
-                                <img src="{{ url_for('static', filename='images/fleece.png') }}" width="900" height="792" loading="lazy" decoding="async" alt="Patagonia fleece" class="example-img">
-                            </div>
-
-                            <div class="example-breakdown">
-                                <p>3 base points</p>
-                                <p>+ 3 sustainable brand points</p>
-                                <p>+ 2 sustainable brand points</p>
-                                <span></span>
-                                <p>= 8 points</p>
-                            </div>
-                        </article>
-
-
-                        <article class="example-card">
-                            <div class="example-top">
-                                <div class="example-points">
                                     <span class="example-number shape-bg">7</span>
                                     <span class="example-label">points</span>
                                 </div>
@@ -377,6 +355,29 @@
                                 <p>+ 2 new with tags points</p>
                                 <span></span>
                                 <p>= 7 points</p>
+                            </div>
+                        </article>
+
+
+                        <article class="example-card">
+                            <div class="example-top">
+                                <div class="example-points">
+                                    <span class="example-number shape-bg">8</span>
+                                    <span class="example-label">points</span>
+                                </div>
+                                <h3>Patagonia fleece</h3>
+                            </div>
+
+                            <div class="example-image-wrap">
+                                <img src="{{ url_for('static', filename='images/fleece.png') }}" width="900" height="792" loading="lazy" decoding="async" alt="Patagonia fleece" class="example-img">
+                            </div>
+
+                            <div class="example-breakdown">
+                                <p>3 base points</p>
+                                <p>+ 3 sustainable brand points</p>
+                                <p>+ 2 natural fabric points</p>
+                                <span></span>
+                                <p>= 8 points</p>
                             </div>
                         </article>
 
@@ -439,7 +440,7 @@
         <h2 style="text-align: center;">Frequently Asked Questions</h2>
 </div>
 
-<div class="divider-wrap" data-alignment="default"><div style="height: 50px;" class="divider"></div></div><div class="toggles" data-br="" data-starting="default" data-style="minimal_small">
+<div class="divider-wrap" data-alignment="default"><div class="divider faq-title-divider"></div></div><div class="toggles" data-br="" data-starting="default" data-style="minimal_small">
 
 <div class="toggle default" data-inner-wrap="true"><h3 class="toggle-title"><a href="#" role="button" aria-expanded="false" class="toggle-heading">Can I join if I've never swapped before?</a></h3><div><div class="inner-toggle-wrap">
 <div class="wpb_text_column wpb_content_element">
@@ -521,6 +522,14 @@
         <p>The Clubhouse is primarily a members' space, with different membership options depending on how often you want to swap and attend events. We also open it to non-members for selected events and activities. You can also book a day pass and use it for a day! Drinks are always included.</p>
 </div>
 </div></div></div>
+
+    <div class="toggle default" data-inner-wrap="true">
+        <h3 class="toggle-title"><a href="#" role="button" aria-expanded="false" class="toggle-heading">Can fashion businesses donate clothing?</a></h3>
+        <div><div class="inner-toggle-wrap">
+            <p>Yes, we welcome enquiries from fashion businesses about surplus stock and samples. Please contact us with the type, quantity, and condition of the items. We will discuss suitability and practical arrangements before a donation is agreed.</p>
+            <p><a href="{{ url_for('contact', topic='fashion_donations') }}">Ask About Fashion Donations</a></p>
+        </div></div>
+    </div>
 
 </div>
 </section>
