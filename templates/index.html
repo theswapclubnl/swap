@@ -78,16 +78,15 @@
         <div class="events-hero-text">
             <h1 data-fit-heading><span class="events-heading-line" data-heading-line>Your Next</span><br><span data-heading-line>Swap.</span></h1>
             <p>
-            Join a Swap Club event. Bring items you no longer use,
-            collect points and choose new pre-loved pieces.
+                Join a Swap Club event. Bring items you no longer use,
+                collect points and choose new pre-loved pieces.
             </p>
 
             <div class="hero-buttons">
-            <a href="/how" class="btn btn-plum">First Time? Start Here</a>
-            <a href="/membership" class="btn btn-hot-orange membership-cta">Become a Member</a>
+                <a href="/how" class="btn btn-plum">First Time? Start Here</a>
+                <a href="/membership" class="btn btn-hot-orange membership-cta">Become a Member</a>
             </div>
         </div>
-
         <div class="events-hero-summary">
             {% include "luma_calendar.html" %}
         </div>
@@ -186,89 +185,14 @@
 
 
 
-<section class="tiers" id="tiers">
-    <div class="tiers-header">
-        <h2 class="section-title">Pick Your Membership</h2>
-    </div>
-    <div class="tiers-grid">
-        <div class="tier-card">
-            <div class="tier-head">
-                <div class="tier-label">Basic · monthly</div>
-                <div class="tier-name">Store Only</div>
-                <div class="tier-price">€12</div>
-            </div>
-            <div class="tier-body">
-                <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access anytime</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>5 bonus points / month</div>
-                <div class="tier-feature"><span class="tier-dash">–</span>Events: pay per ticket (€15)</div>
-                <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Join The Club</a>
-            </div>
-        </div>
-        <div class="tier-card featured">
-            <div class="tier-head">
-                <div class="tier-label">Standard · monthly</div>
-                <div class="tier-name">Clubhouse Regular</div>
-                <div class="tier-price">€15</div>
-            </div>
-            <div class="tier-body">
-                <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access anytime</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>10 bonus points / month</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>1 event included per month</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>Member-only events</div>
-                <div class="tier-feature">
-                    <span class="tier-present-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" focusable="false">
-                            <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
-                            <path d="M2 7h20v5H2z" />
-                            <path d="M12 22V7" />
-                            <path d="M12 7H7.5A2.5 2.5 0 1 1 10 4.5L12 7z" />
-                            <path d="M12 7h4.5A2.5 2.5 0 1 0 14 4.5L12 7z" />
-                        </svg>
-                    </span>
-                    Upcycled bag gift (after 3 months)
-                    </div>
-                <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Join The Club</a>
-            </div>
-        </div>
-        <div class="tier-card premium">
-            <div class="tier-head">
-                <div class="tier-label">Premium · monthly</div>
-                <div class="tier-name">Social Swapper</div>
-                <div class="tier-price">€39</div>
-            </div>
-            <div class="tier-body">
-                <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access anytime</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>20 bonus points / month</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>Unlimited swap events</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>Member-only events</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>Early access & exclusive events</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>1 × bring-a-friend per month</div>
-                <div class="tier-feature">
-                    <span class="tier-present-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" focusable="false">
-                            <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
-                            <path d="M2 7h20v5H2z" />
-                            <path d="M12 22V7" />
-                            <path d="M12 7H7.5A2.5 2.5 0 1 1 10 4.5L12 7z" />
-                            <path d="M12 7h4.5A2.5 2.5 0 1 0 14 4.5L12 7z" />
-                        </svg>
-                    </span>
-                    Upcycled bag gift (after 3 months)
-                </div>
-                <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Join The Club</a>
-            </div>
-        </div>
-    </div>
-</section>
+{% with show_membership_intro=true %}
+    {% include "membership_tiers.html" %}
+{% endwith %}
 
 
 
 <!-- ─── THE COMMUNITY ─── -->
 <section class="floating-swap-section home-floating-swap-section reveal" id="community" data-aos="fade-up">
-    <div class="floating-swap-header">
-        <p class="font-writtenscript" data-scroll-quote>"Giving away clothes feels just as rewarding as finding something new!"</p>
-    </div>
-
     <div class="hscroll-wrap floating-card-track-wrap">
         <button class="hscroll-btn prev shape-bg" type="button" aria-label="Scroll carousel left">&#8249;</button>
         <div class="hscroll floating-card-track" data-speed="26" role="group" aria-label="Community photos">
@@ -293,10 +217,10 @@
         </div>
         <button class="hscroll-btn next shape-bg" type="button" aria-label="Scroll carousel right">&#8250;</button>
     </div>
+
+    <div class="floating-swap-header">
+        <p class="font-writtenscript" data-scroll-quote>"Giving away clothes feels just as rewarding as finding something new!"</p>
+    </div>
 </section>
-
-
-{% include "social_section.html" %}
-
 
 {% endblock %}

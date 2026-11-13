@@ -50,6 +50,10 @@ const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: r
     function fit() {
         headings.forEach((heading) => {
             const style = window.getComputedStyle(heading);
+            if (style.getPropertyValue('--fit-heading-wrap').trim() === '1') {
+                heading.style.removeProperty('font-size');
+                return;
+            }
             const currentSize = parseFloat(style.fontSize);
             const spacing = parseFloat(style.letterSpacing) || 0;
             const lines = Array.from(heading.querySelectorAll('[data-heading-line]'))
@@ -68,7 +72,7 @@ const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: r
 
     window.addEventListener('resize', fit);
     if (document.fonts) document.fonts.ready.then(fit);
-    fit();
+    if (!document.fonts) fit();
 })();
 
 /* Fit mobile social headings to the width of their supporting paragraph. */
@@ -100,7 +104,7 @@ const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: r
 
     window.addEventListener('resize', fit);
     if (document.fonts) document.fonts.ready.then(fit);
-    fit();
+    if (!document.fonts) fit();
 })();
 
 /* Opening hours gently scroll back and forth on mobile; touch pauses autoplay. */
@@ -170,7 +174,7 @@ const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: r
         ───────────────────────────────────────────── */
 if (typeof AOS !== 'undefined') {
     document.querySelectorAll(
-        '.page-content > section, .page-content > div:not(.flash-container):not(.hours-strip), .page-content > article, .terms-main > .legal-header, .terms-main > section'
+        '.terms-main > .legal-header, .terms-main > section'
     ).forEach((el) => {
         if (!el.hasAttribute('data-aos')) {
             el.setAttribute('data-aos', 'fade-up');
@@ -182,6 +186,8 @@ if (typeof AOS !== 'undefined') {
             el.setAttribute('data-aos-delay', String(Math.min((index % 4) * 70, 210)));
         }
     });
+
+    document.querySelectorAll('.page-content > section, .page-content > div, .steps-outer').forEach((el) => el.removeAttribute('data-aos'));
 
     AOS.init({
         duration: 950,
@@ -241,36 +247,6 @@ if (typeof AOS !== 'undefined') {
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', requestUpdate);
     requestUpdate();
-})();
-
-/* ─────────────────────────────────────────────
-        Page transitions — fallback only.
-        Browsers with cross-document View Transitions slide pages natively
-        (see base.css). Everywhere else <html class="no-vt"> is set in <head>,
-        and we play the CSS slide-out before following an internal link.
-        ───────────────────────────────────────────── */
-(function pageTransitionFallback() {
-    const root = document.documentElement;
-    if (!root.classList.contains('no-vt')) return;
-
-    // Coming back via the bfcache must not leave the page half-slid-out.
-    window.addEventListener('pageshow', (e) => {
-        if (e.persisted) root.classList.remove('is-leaving');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        const link = e.target.closest('a[href]');
-        if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
-
-        const url = new URL(link.href, window.location.href);
-        if (url.origin !== window.location.origin) return;                       // external
-        if (url.pathname === window.location.pathname && url.search === window.location.search) return; // same-page / #hash
-
-        e.preventDefault();
-        root.classList.add('is-leaving');
-        setTimeout(() => { window.location.href = url.href; }, 260);
-    });
 })();
 
 /* ─────────────────────────────────────────────
@@ -401,6 +377,36 @@ stepsScrollEls.forEach(stepsScroll => {
         });
     }
 
+    // Do not consume page scroll until the first step is fully visible.
+    let mobileReady = false;
+    function updateStepReadiness() {
+        const first = stepSlides[0];
+        if (!first) return;
+        const rect = first.getBoundingClientRect();
+        const fullyVisible = rect.top >= -2 && rect.bottom <= window.innerHeight + 2;
+        if (fullyVisible) mobileReady = true;
+        if (outer.getBoundingClientRect().bottom < 0 || outer.getBoundingClientRect().top > window.innerHeight) {
+            mobileReady = false;
+        }
+        stepsScroll.classList.toggle('steps-ready', mobileReady);
+    }
+    window.addEventListener('scroll', updateStepReadiness, { passive: true });
+    window.addEventListener('resize', updateStepReadiness);
+    stepsScroll.addEventListener('wheel', (event) => {
+        if (isMobileSteps() || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+        const rect = stepsScroll.getBoundingClientRect();
+        const atStart = stepsScroll.scrollTop <= 1;
+        const atEnd = stepsScroll.scrollTop + stepsScroll.clientHeight >= stepsScroll.scrollHeight - 2;
+        const fullyVisible = rect.top >= -2 && rect.bottom <= window.innerHeight + 2;
+        if ((atStart && event.deltaY > 0 && !fullyVisible) || (atEnd && event.deltaY > 0) || (atStart && event.deltaY < 0)) {
+            event.preventDefault();
+            const distance = atStart && event.deltaY > 0 && rect.bottom > window.innerHeight && rect.top > 0
+                ? Math.min(event.deltaY, rect.bottom - window.innerHeight) : event.deltaY;
+            window.scrollBy({ top: distance, behavior: 'instant' });
+        }
+    }, { passive: false });
+    updateStepReadiness();
+
     // Mark the first slide active by default (covers the mobile carousel,
     // where opacity feedback relies on this class).
     updateActiveStep(0);
@@ -448,22 +454,39 @@ document.addEventListener('DOMContentLoaded', () => {
     if (toggle && nav) {
         const setOpen = (open) => {
             nav.classList.toggle('nav-open', open);
+            document.documentElement.classList.toggle('menu-open', open);
+            const menu = document.getElementById('navMenu');
+            if (menu) menu.inert = !open && window.matchMedia('(max-width: 900px)').matches;
+            if (open && menu) requestAnimationFrame(() => menu.querySelector('a')?.focus({ preventScroll: true }));
             toggle.setAttribute('aria-expanded', String(open));
-            toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+            toggle.setAttribute('aria-label', document.documentElement.lang === 'nl'
+                ? (open ? 'Navigatie sluiten' : 'Navigatie openen')
+                : (open ? 'Close navigation' : 'Open navigation'));
         };
         const isOpen = () => nav.classList.contains('nav-open');
+        setOpen(false);
 
         toggle.addEventListener('click', () => setOpen(!isOpen()));
         nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isOpen()) { setOpen(false); toggle.focus(); }
+            if (e.key === 'Tab' && isOpen()) {
+                const controls = [toggle, ...nav.querySelectorAll('#navMenu a[href]')];
+                const first = controls[0];
+                const last = controls[controls.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault(); last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault(); first.focus();
+                }
+            }
         });
         document.addEventListener('click', (e) => {
             if (isOpen() && !nav.contains(e.target)) setOpen(false);
         });
         window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
-            if (e.matches) setOpen(false);
+            setOpen(false);
         });
     }
 

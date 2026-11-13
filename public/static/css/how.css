@@ -3,17 +3,7 @@
 
 .how-page { background: var(--cream); color: var(--text); }
 
-/* HERO */
-
-.how-headline {
-    font-family: var(--font-display);
-    font-size: clamp(2.2rem, 7vw, 6.5rem);
-    text-transform: none;
-    color: var(--plum);
-    text-align: center;
-    margin-top: 8px;
-}
-
+/* ────────────────── HERO ────────────────── */
 .how-grid-entry {
     position: relative;
     min-width: 0;
@@ -102,7 +92,7 @@
     .grid-item:focus-within img { transform: none; }
 }
 
-/* ───────── HOW IT WORKS intro ───────── */
+/* ────────────────── HOW IT WORKS intro ────────────────── */
 .how {
     background: var(--lilac);
     min-height: 100vh;
@@ -141,8 +131,62 @@
     line-height: 1.5;
 }
 
-/* WHAT ARE SWAP POINTS? */
-.about-section { background: var(--cream); padding: 100px 6%; }
+
+
+/* ────────────────── PRACTICAL BEFORE EVENT INFO ────────────────── */
+.section-heading { text-align: center; margin-bottom: 20px; }
+
+.section-heading h2 {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 8vw, 56px);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--plum);
+}
+
+.practical-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 1080px; margin: 0 auto; }
+
+.info-card {
+    display: flex;
+    gap: 16px;
+    padding: 4px 32px;
+    border-left: none;
+}
+.info-card:first-child { border-left: none; padding-left: 0; }
+.info-card:last-child { padding-right: 0; }
+
+.info-copy h3 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--plum);
+    text-transform: none;
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+
+.info-copy p {
+    font-family: var(--font-body);
+    font-size: calc(13.5px - var(--mobile-body-reduction, 0px));
+    line-height: 1.6;
+    color: var(--plum);
+    margin: 0;
+    max-width: none;
+}
+
+.map-placeholder {
+    margin-top: 0;
+    background: var(--light-blue);
+    color: var(--plum);
+    padding: 56px 6% 60px;
+    text-align: center;
+}
+.map-placeholder p { font-family: var(--font-body); color: var(--plum); }
+
+/* ────────────────── WHAT ARE SWAP POINTS? ────────────────── */
+.about-section { background: var(--light-blue); padding: 100px 6%; }
 .about-inner { max-width: 920px; margin: 0 auto; }
 
 #swap-points .about-inner,
@@ -190,72 +234,7 @@
 }
 
 
-
-
-/* PRACTICAL INFO */
-.section-heading { text-align: center; margin-bottom: 20px; }
-
-.section-heading h2 {
-    display: inline-block;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(2.2rem, 8vw, 56px);
-    letter-spacing: 0.02em;
-    text-transform: none;
-    color: var(--hot-orange);
-}
-
-.practical-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 1080px; margin: 0 auto; }
-
-.info-card {
-    display: flex;
-    gap: 16px;
-    padding: 4px 32px;
-    border-left: none;
-}
-.info-card:first-child { border-left: none; padding-left: 0; }
-.info-card:last-child { padding-right: 0; }
-
-.info-num {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--hot-orange);
-    flex-shrink: 0;
-    padding-top: 3px;
-}
-
-.info-copy h3 {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--hot-orange);
-    text-transform: none;
-    line-height: 1.15;
-    margin-bottom: 8px;
-}
-
-.info-copy p {
-    font-family: var(--font-body);
-    font-size: calc(13.5px - var(--mobile-body-reduction, 0px));
-    line-height: 1.6;
-    color: var(--hot-orange);
-    margin: 0;
-    max-width: none;
-}
-
-.map-placeholder {
-    margin-top: 0;
-    background: var(--light-blue);
-    color: var(--hot-orange);
-    padding: 56px 6% 60px;
-    text-align: center;
-}
-.map-placeholder p { font-family: var(--font-body); color: var(--hot-orange); }
-
-
-
-/* EXAMPLES MARQUEE */
+/* ────────────────── POINT EXAMPLES ────────────────── */
 .examples-section { background: var(--cream); }
 
 .points-section h2 {
@@ -389,9 +368,16 @@
 }
 
 @media (max-width: 600px) {
+
+    #swap-points .about-title {
+        --fit-heading-wrap: 1;
+        font-size: clamp(28px, 8vw, 40px);
+        white-space: normal;
+    }
+
     .grid-link-label {
         --label-arrow-size: clamp(24px, 5vw, 28px);
-        font-size: clamp(16px, 4vw, 20px);
+        font-size: clamp(18px, 4.5vw, 23px);
         margin-bottom: 12px;
         overflow-wrap: break-word;
     }
@@ -406,7 +392,13 @@
     .grid-title { font-size: 15px; }
     .grid-body { font-size: calc(16px - var(--mobile-body-reduction, 0px)); }
 
-    .example-card { width: 280px; flex: 0 0 280px; min-height: 380px; padding: 22px; }
+    .examples-set { gap: 18px; padding-right: 18px; }
+    .example-card { width: 240px; flex: 0 0 240px; min-height: 340px; padding: 18px; }
+    .example-top { grid-template-columns: 48px minmax(0, 1fr); column-gap: 14px; }
+    .example-number { width: 48px; height: 48px; font-size: 26px; }
+    .example-card h3 { font-size: 18px; margin-top: 10px; }
+    .example-image-wrap { height: 130px; margin: 18px 0 16px; }
+    .example-breakdown { font-size: 12px; line-height: 1.5; }
 }
 
 /* "What to know before arriving" points */
@@ -417,3 +409,39 @@
 /* "What are swap points?" copy */
 .about-inner { text-align: center; }
 .about-body { margin-left: auto; margin-right: auto; }
+
+.grid-link-label { font-size: clamp(24px, 2.8vw, 38px); }
+.grid-link-label::before { top: calc(50% + 10px); }
+.page-how #faqs { background: var(--lilac); transform: none; opacity: 1; }
+.page-how .page-content { background: var(--lilac); }
+.page-how .steps-outer { transform: none; }
+@media (max-width: 900px) {
+    .grid-link-label { font-size: clamp(24px, 4vw, 34px); }
+    .page-how .steps-scroll { touch-action: pan-y; scroll-snap-type: x proximity; }
+    .page-how .steps-scroll.steps-ready { touch-action: pan-x pan-y; scroll-snap-type: x mandatory; }
+    .page-how .step-slide { scroll-snap-stop: normal; }
+    .page-how .steps-scroll:not(.steps-ready) { overflow-x: hidden; }
+}
+@media (max-width: 600px) {
+    .grid-link-label { font-size: clamp(21px, 5.2vw, 27px); }
+}
+@media (min-width: 901px) {
+    .page-how .steps-outer,
+        .page-how .steps-scroll,
+        .page-how .step-slide,
+        .page-how .steps-sidebar { height: calc(100svh - var(--nav-h)); }
+    .page-how .steps-sidebar { top: var(--nav-h); }
+}
+@media (max-width: 900px) {
+    .page-how .step-slide { padding-block: 24px; }
+    .page-how .step-content { gap: 16px; }
+    .page-how .step-image-wrap { width: min(220px, 26svh); }
+    .page-how .step-body { margin-bottom: 16px; }
+    .page-how .step-number { font-size: clamp(30px, 7svh, 50px); }
+}
+
+
+@media (min-width: 901px) {
+    .practical-grid .info-copy h3 { font-size: 1.4rem; }
+    .practical-grid .info-copy p { font-size: 16px; }
+}

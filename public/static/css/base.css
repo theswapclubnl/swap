@@ -10,25 +10,23 @@
         tokens and components defined here.
         ========================================================= */
 
-/* ─── FONTS ───
-        Self-hosted (static/fonts). Outfit and BN Dope are declared here.
-        font-display: swap shows fallback text immediately, then swaps when loaded. */
+/* ────────────────── FONTS ────────────────── */
 @font-face {
     font-family: 'Outfit';
     src: url('../fonts/Outfit-Variable.woff2') format('woff2');
     font-weight: 100 900;          /* variable font: every weight from one file */
     font-style: normal;
-    font-display: swap;
+    font-display: optional;
 }
 @font-face {
     font-family: 'BN Dope';
     src: url('../fonts/BNDope.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
-    font-display: swap;
+    font-display: optional;
 }
 
-/* ─── DESIGN TOKENS — Plum, Cream, Lilac, Sky, Orange & Green-Yellow palette ─── */
+/* ────────────────── DESIGN TOKENS ────────────────── */
 :root {
     /* Core palette */
     --plum: #850047;;
@@ -86,7 +84,7 @@
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ─── RESET ─── */
+/* ────────────────── RESET ────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
 
@@ -145,9 +143,7 @@ html.has-scroll-motion div.clubhouse-photo {
 
 
 
-/* ─────────────────────────────────────────────
-        HORIZONTAL SCROLL / MARQUEE CAROUSELS
-        ───────────────────────────────────────────── */
+/* ────────────────── HORIZONTAL SCROLL / MARQUEE CAROUSELS ────────────────── */
 .hscroll-wrap {
     position: relative;
     width: 100%;
@@ -225,12 +221,7 @@ html.has-scroll-motion div.clubhouse-photo {
 }
 
 
-/* ─────────────────────────────────────────────
-        BUTTONS
-        Every button fill/border comes from the palette:
-            primary   → plum / hot-purple / hot-purple-deep
-            secondary → lilac / light-blue / cream
-        ───────────────────────────────────────────── */
+/* ────────────────── BUTTONS ────────────────── */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -269,18 +260,21 @@ html.has-scroll-motion div.clubhouse-photo {
 
 .btn-light-blue       { background: var(--light-blue); border-color: var(--light-blue); color: var(--plum-deep); }
 
-/* ─────────────────────────────────────────────
-        BRAND SHAPE
-        static/images/brand-shape.svg is the four-lobed brand shape, traced
-        from the artwork so it stays crisp at any size and can take any colour.
-        Three ways to use it:
-            1. PHOTOS    – the picture box is masked to the shape (list below).
-            2. .shape-badge – a coloured shape behind an icon. Tune with
-                                        --shape-size / --shape-bg / --shape-fg (+ -hover).
-            3. .shape-bg – add the shape as a coloured backdrop to any
-                                        positioned element (--shape-bg sets the colour).
-        Shapes are square, so photo boxes are 1:1 (object-fit: cover crops).
-        ───────────────────────────────────────────── */
+
+
+/* ────────────────── BRAND SHAPE ────────────────── */
+/*        
+    static/images/brand-shape.svg is the brand shape.
+    It stays crisp at any size and can take any colour.
+    Three ways to use it:
+    1. PHOTOS: The picture box is fitted to the shape (list below).
+    2. .shape-badge: A coloured shape behind an icon. Tune with
+        --shape-size / --shape-bg / --shape-fg (+ -hover).
+    3. .shape-bg: Add the shape as a coloured backdrop to any positioned element. 
+        (--shape-bg sets the colour)
+    Shapes are square, so photo boxes are 1:1 (object-fit: cover crops). 
+*/
+
 .step-image-wrap,
 .story-photo,
 .compare-card,
@@ -353,13 +347,9 @@ a:focus-visible > .shape-badge { color: var(--shape-fg-hover); }
 }
 
 
-/* ─────────────────────────────────────────────
-        NAVBAR
-        The mobile menu reuses these exact colours, type and hover
-        states — see the responsive block for the panel layout.
-        ───────────────────────────────────────────── */
+/* ────────────────── NAVBAR ────────────────── */
 nav {
-    background: rgba(var(--cream-rgb), 0.65);
+    background: rgba(var(--lilac-rgb), 0.65);
     -webkit-backdrop-filter: blur(18px) saturate(1.3);
                     backdrop-filter: blur(18px) saturate(1.3);
     padding: 2px 20px;
@@ -435,13 +425,13 @@ nav.nav-open {
 .nav-links a:focus-visible,
 .nav-links a:active,
 .nav-links a.active {
-    text-decoration-color: currentColor;
+    color: var(--hot-orange);
 }
 
 .nav-cta {
     display: inline-flex;
     align-items: center;
-    margin-left: 36px;
+    margin-left: 26px;
     padding: 8px 18px;
     background: var(--plum);
     border-radius: 6px;
@@ -459,7 +449,48 @@ nav.nav-open {
     transform: translateY(-0.1em);
 }
 
-/* Shared Luma calendar frame */
+
+/* Hamburger toggle (driven by aria-expanded, no JS class juggling) */
+.nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--plum);
+    transition: filter var(--transition), box-shadow var(--transition), color var(--transition), transform var(--transition);
+}
+.nav-toggle:hover {
+    filter: brightness(0.9);
+    box-shadow: none;
+    transform: translateY(-0.1em);
+}
+
+.nav-toggle-bars { position: relative; display: block; width: 22px; height: 14px; }
+.nav-toggle-bars span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: top 0.3s var(--ease-out), transform 0.3s var(--ease-out), opacity 0.2s ease;
+}
+.nav-toggle-bars span:nth-child(1) { top: 0; }
+.nav-toggle-bars span:nth-child(2) { top: 6px; }
+.nav-toggle-bars span:nth-child(3) { top: 12px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1) { top: 6px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
+
+
+
+/* ────────────────── Luma calendar frame ────────────────── */
 .events-hero-summary { min-width: 0; }
 .luma-calendar-wrapper {
     width: 100%;
@@ -569,47 +600,8 @@ nav.nav-open {
     }
 }
 
-/* Hamburger → X (driven by aria-expanded, no JS class juggling) */
-.nav-toggle {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    color: var(--plum);
-    transition: filter var(--transition), box-shadow var(--transition), color var(--transition), transform var(--transition);
-}
-.nav-toggle:hover {
-    filter: brightness(0.9);
-    box-shadow: none;
-    transform: translateY(-0.1em);
-}
 
-.nav-toggle-bars { position: relative; display: block; width: 22px; height: 14px; }
-.nav-toggle-bars span {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    border-radius: 2px;
-    background: currentColor;
-    transition: top 0.3s var(--ease-out), transform 0.3s var(--ease-out), opacity 0.2s ease;
-}
-.nav-toggle-bars span:nth-child(1) { top: 0; }
-.nav-toggle-bars span:nth-child(2) { top: 6px; }
-.nav-toggle-bars span:nth-child(3) { top: 12px; }
-.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1) { top: 6px; transform: rotate(45deg); }
-.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2) { opacity: 0; }
-.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
-
-/* ─────────────────────────────────────────────
-        HERO (full-bleed image hero — home / business)
-        ───────────────────────────────────────────── */
+/* ────────────────── HERO ────────────────── */
 .hero-section {
     position: relative;
     height: 100vh;
@@ -671,9 +663,7 @@ nav.nav-open {
     }
 }
 
-/* ─────────────────────────────────────────────
-        SCROLL-SNAP "HOW IT WORKS" STEPS (home / how)
-        ───────────────────────────────────────────── */
+/* ────────────────── SCROLL-SNAP "HOW IT WORKS" STEPS ────────────────── */
 .steps-outer {
     display: grid;
     grid-template-columns: 200px 1fr;
@@ -854,10 +844,7 @@ nav.nav-open {
 .inline-link { color: var(--plum-deep); font-weight: 700; text-decoration: underline; }
 
 
-/* ─────────────────────────────────────────────
-        FAQ — centered question links, answers in block cards
-        (used on the How It Works page)
-        ───────────────────────────────────────────── */
+/* ──────────────────FAQ ────────────────── */
 #faqs {
     padding: 100px 0;
     color: var(--plum);
@@ -867,7 +854,7 @@ nav.nav-open {
 
 .faq-title-block h1 {
     font-family: var(--font-display);
-    font-size: clamp(1.7rem, 12vw, 6rem);   /* BN Dope words are ~6.7em wide: must scale down on phones */
+    font-size: clamp(1.7rem, 12vw, 6rem);   
     text-transform: none;
     color: var(--plum);
     margin: 0 0 8px;
@@ -955,17 +942,21 @@ nav.nav-open {
 }
 
 
-/* ─────────────────────────────────────────────
-        SHARED SECTION HEADINGS (used on every page)
-        ───────────────────────────────────────────── */
-.section-eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--plum-deep);
-    margin-bottom: 12px;
+/* Shared FAQ title spacing and compact mobile answers. */
+.faq-title-divider { height: 50px; }
+@media (max-width: 600px) {
+    #faqs { padding-block: 48px; }
+    .faq-title-block h2 { font-size: clamp(28px, 8vw, 40px); }
+    #faqs .faq-title-divider { height: 24px; }
+    #faqs .toggle-heading { padding-block: 12px; }
+    #faqs .inner-toggle-wrap .wpb_text_column {
+        margin-bottom: 12px;
+        padding: 8px 16px;
+    }
 }
+
+
+/* ──────────────────SHARED SECTION HEADINGS ────────────────── */
 .section-title {
     font-family: var(--font-display);
     font-weight: 900;
@@ -976,10 +967,7 @@ nav.nav-open {
     margin-bottom: 24px;
 }
 
-/* ─────────────────────────────────────────────
-        BACKGROUND VIDEO (home hero + top of About)
-        The parent needs position: relative + isolation: isolate.
-        ───────────────────────────────────────────── */
+/* ────────────────── BACKGROUND VIDEO (home hero + top of About) ────────────────── */
 .background-video {
     position: absolute;
     inset: 0;
@@ -991,11 +979,9 @@ nav.nav-open {
 }
 
 
-/* ─────────────────────────────────────────────
-        MEMBERSHIP TIER CARDS (home / membership)
-        ───────────────────────────────────────────── */
+/* ────────────────── MEMBERSHIP TIER CARDS (home / membership) ────────────────── */
 .tiers {
-    background: var(--plum);
+    background: var(--lilac);
     padding: clamp(44px, 7vw, 72px) clamp(20px, 5vw, 56px);
 }
 .tiers-header {
@@ -1004,7 +990,7 @@ nav.nav-open {
 }
 .tiers-header .section-eyebrow { color: var(--lilac); }
 .tiers-header .section-title {
-    color: var(--cream);
+    color: var(--plum);
     margin-bottom: 0;
 }
 
@@ -1016,10 +1002,10 @@ nav.nav-open {
 
 .tiers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 300px));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 270px));
     justify-content: center;
     gap: clamp(14px, 2vw, 20px);
-    max-width: 940px;
+    max-width: 850px;
     margin: 0 auto;
 }
 
@@ -1031,7 +1017,7 @@ nav.nav-open {
     flex-direction: column;
     border: none;
 }
-.tier-card.featured { background: var(--light-lilac); border: none; }
+.tier-card.featured { background: var(--light-blue); border: none; }
 .tier-card.premium  { background: var(--green-yellow); border: none; }
 
 .tier-head {
@@ -1134,6 +1120,8 @@ nav.nav-open {
 .tier-feature:last-of-type { margin-bottom: 16px; }
 
 .tier-btn {
+    position: relative;
+    left: -4px;
     font-family: var(--font-display);
     margin-top: auto;
     display: inline-flex;
@@ -1180,37 +1168,38 @@ nav.nav-open {
 
 @media (min-width: 601px) {
     .tier-name { font-size: 26px; }
-    .tier-price { font-size: 30px; }
+    .tier-price { font-size: 24px; }
 }
 
 @media (max-width: 900px) {
-    .tiers-grid { max-width: 620px; }
+    .tiers-grid { max-width: 560px; }
     .tiers-header .section-title,
     .compare .section-title { font-size: clamp(2.3rem, 9vw, 3.7rem); }
 }
 
-/* Phones: narrower, centred cards with a tighter type scale so a whole
-        card fits comfortably inside the viewport. */
+/* Phones: 
+    narrower, centred cards with a tighter type scale so a whole
+    card fits comfortably inside the viewport. 
+*/
+
 @media (max-width: 600px) {
     .join-cta-row { flex-direction: column; align-items: center; }
     .join-cta-row .btn { width: 100%; max-width: 280px; }
 
     .tiers-header { margin-bottom: 24px; }
-    .tiers-grid { max-width: 300px; }
+    .tiers-grid { max-width: 270px; }
 
     .tier-head { padding: 18px 14px 6px 22px; }
     .tier-body { padding: 6px 14px 18px 22px; }
     .tier-label { font-size: 9.5px; }
-    .tier-price { font-size: clamp(22px, 6vw, 26px); }
+    .tier-price { font-size: 20px; }
     .tier-feature { font-size: calc(13px - var(--mobile-body-reduction, 0px)); gap: 8px; padding: 4px 0; }
     .tier-btn {
     font-family: var(--font-display); padding: 11px; font-size: 15px; }
 }
 
 
-/* ─────────────────────────────────────────────
-        FOOTER
-        ───────────────────────────────────────────── */
+/* ────────────────── FOOTER ────────────────── */
 footer {
     background: var(--warm-white);
     border-top: 1.5px solid rgba(var(--plum-rgb), 0.15);
@@ -1276,7 +1265,7 @@ footer {
 }
 
 
-/* ───────── SOCIAL / NEWSLETTER SECTION ───────── */
+/* ────────────────── SOCIAL / NEWSLETTER SECTION ────────────────── */
 .social-section { background: var(--light-blue); padding: 60px 6%; text-align: center; }
 .social-inner { max-width: 920px; margin: 0 auto; }
 
@@ -1320,9 +1309,7 @@ footer {
 
 
 
-/* ─────────────────────────────────────────────
-        RESPONSIVE — NAV / FOOTER / STEPS
-        ───────────────────────────────────────────── */
+/* ────────────────── RESPONSIVE — NAV / FOOTER / STEPS ────────────────── */
 @media (max-width: 900px) {
     /* ── Mobile navigation ──
             The toggle opens a full-screen lilac panel behind the logo/close button. */
@@ -1351,6 +1338,9 @@ footer {
         min-height: 100svh;
         padding: calc(var(--nav-h-mobile) + 32px) var(--section-px) 40px;
         background: var(--lilac);
+        height: 100svh;
+        overflow-y: auto;
+        justify-content: safe center;
         -webkit-backdrop-filter: none;
                         backdrop-filter: none;
         border-top: none;
@@ -1369,15 +1359,23 @@ footer {
         transition-delay: 0s;
     }
 
-    .nav-links { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+    .nav-links { flex-direction: column; align-items: stretch; gap: clamp(4px, 1svh, 10px); width: 100%; }
     .nav-links a {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 48px;
+        min-height: clamp(52px, 10svh, 80px);
         width: 100%;
+        padding: 8px 0;
+        font-size: clamp(20px, 5.5vw, 36px);
+        line-height: 1.2;
     }
-    .nav-cta { margin: 18px 0 0; min-height: 44px; padding: 8px 28px; }
+    .nav-right .nav-cta {
+        margin: 24px 0 0;
+        min-height: 52px;
+        padding: 12px 28px;
+        font-size: clamp(18px, 4.5vw, 24px);
+    }
 
     /* ── Footer ── same structure and type scale as desktop, in two columns */
     footer { padding: 48px var(--section-px) 28px; }
@@ -1482,35 +1480,7 @@ footer {
 }
 
 
-/* ─────────────────────────────────────────────
-        PAGE TRANSITIONS — slide between pages
-        Modern browsers: native cross-document View Transitions (no JS).
-        Others: html.no-vt (set in <head>) enables the CSS fallback that
-        base.js drives.
-        ───────────────────────────────────────────── */
-@view-transition { navigation: auto; }
-
-nav { view-transition-name: site-nav; } /* header stays put while the page slides */
-
-@keyframes page-slide-out { to   { opacity: 0; transform: translateX(-48px); } }
-@keyframes page-slide-in  { from { opacity: 0; transform: translateX(48px); } }
-
-::view-transition-old(root) { animation: 320ms cubic-bezier(0.4, 0, 1, 1) both page-slide-out; }
-::view-transition-new(root) { animation: 520ms var(--ease-out) both page-slide-in; }
-
-html.no-vt .page-content,
-html.no-vt footer { animation: page-slide-in 0.5s var(--ease-out) backwards; }
-html.no-vt.is-leaving .page-content,
-html.no-vt.is-leaving footer { animation: page-slide-out 0.28s cubic-bezier(0.4, 0, 1, 1) forwards; }
-
-@media (prefers-reduced-motion: reduce) {
-    @view-transition { navigation: none; }
-    html.no-vt .page-content,
-    html.no-vt footer { animation: none; }
-}
-
-
-/* ─── COOKIE BANNER (Google Analytics consent) ─── */
+/* ────────────────── COOKIE BANNER (Google Analytics consent) ────────────────── */
 .cookie-banner {
     position: fixed;
     left: 16px;

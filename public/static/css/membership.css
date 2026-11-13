@@ -4,25 +4,27 @@
         second copy of the global reset/nav/hero already defined in base.css —
         both have been removed.) */
 
-/* ───────── HERO ───────── */
+/* ────────────────── HERO ────────────────── */
+.page-membership,
+.page-membership .page-content > section:not(.social-section):not(.compare):not(.hours-section) { background: var(--lilac); }
+.page-membership .tiers-header .section-title { color: var(--plum-deep); }
+
 .hero {
     background: var(--lilac);
-    min-height: 100vh;
-    min-height: 100svh;
-    padding: 80px 48px 100px;
+    padding: calc(var(--nav-h) + 28px) 48px 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 64px;
     align-items: center;
 }
-.hero-eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(var(--plum-deep-rgb), 0.8);
-    margin-bottom: 16px;
+.hero-copy { width: 100%; max-width: 1040px; margin-inline: auto; }
+.hero .hero-headline { text-align: center; }
+.hero .hero-body {
+    margin-inline: auto;
+    margin-bottom: 0;
+    text-align: center;
 }
+
 .hero-headline {
     font-family: var(--font-display);
     font-weight: 900;
@@ -31,77 +33,25 @@
     color: var(--plum-deep);
     text-transform: none;
     margin-bottom: 24px;
+    margin-top: 24px;
 }
-.hero-headline H2 {
-    color: var(--plum-deep);
-}
-.hero-headline span { color: var(--plum-deep); }
+
 .hero-body { font-size: calc(17px - var(--mobile-body-reduction, 0px)); line-height: 1.6; color: var(--plum); max-width: 560px; margin-bottom: 36px; text-align: justify; }
-.hero .hero-btns { justify-content: flex-start; }
-.hero-btn {
-    font-family: var(--font-display);
-    display: block;
-    margin-top: 16px;
-    width: 100%;
-    background: var(--plum-deep);
-    color: var(--text-white);
-    text-align: center;
-    padding: 16px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 18px;
-    cursor: pointer;
-    border: none;
+
+.membership-calendar {
+    padding: var(--section-space) var(--page-gutter);
+    background: var(--cream);
 }
-
-
+.membership-calendar .luma-calendar-wrapper { max-width: 1080px; margin-inline: auto; }
 
 
 /* .hours-strip and .section-eyebrow / .section-title now live in
         base.css (shared) — this page only adds the tweaks below. */
 .section-title { color: var(--plum-deep); }
 
-/* ───────── HOW IT WORKS (4 steps) ───────── */
-.how {
-    background: var(--cream);
-    padding: 96px 48px;
-    text-align: center;
-}
-.steps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    max-width: 900px;
-    margin: 0 auto;
-}
 
-.step-num {
-    font-family: var(--font-display);
-    font-weight: 900;
-    font-size: clamp(2.3rem, 10vw, 4rem);
-    color: var(--plum-deep);
-    line-height: 1;
-    margin-bottom: 8px;
-    -webkit-text-stroke: 2px var(--plum-deep);
-}
-.step-title {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: 18px;
-    text-transform: none;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1.1;
-}
-.step-body {
-    font-size: calc(13px - var(--mobile-body-reduction, 0px));
-    color: var(--plum-deep);
-    line-height: 1.5;
-}
-
-/* ───────── COMPARE: TICKET VS MEMBERSHIP ───────── */
+/* ────────────────── COMPARE: TICKET VS MEMBERSHIP ────────────────── */
 .compare {
-    background: var(--cream);
     padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 48px);
     padding-bottom: clamp(104px, 11vw, 144px);
     overflow: visible;
@@ -120,7 +70,7 @@
     text-align: center;
 }
 .compare-card {
-    --compare-bg: var(--light-blue);
+    --compare-bg: var(--hot-orange);
     position: relative;
     isolation: isolate;
     aspect-ratio: auto;
@@ -159,13 +109,17 @@
         drop-shadow(6px 12px 16px rgba(var(--hot-orange-rgb), 0.22));
 }
 .compare-card.highlight {
-    --compare-bg: var(--lilac);
+    --compare-bg: var(--light-blue);
 }
+.compare-card:not(.highlight),
+.compare-card:not(.highlight) h3,
+.compare-card:not(.highlight) .compare-item { color: var(--cream); }
+
 .compare-card h3 {
     text-wrap: balance;
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(24px, 2.5vw, 32px);
+    font-size: clamp(27px, 2.8vw, 36px);
     text-transform: none;
     margin: 0 0 18px;
     color: var(--plum-deep);
@@ -234,9 +188,9 @@
 }
 
 
-/* ───────── CLUBHOUSE HOURS ───────── */
+/* ────────────────── LOCATION HOURS + EVENTS ────────────────── */
 .hours-section {
-    background: var(--lilac);
+    background: var(--hot-orange);
     padding: clamp(56px, 7vw, 88px) clamp(20px, 5vw, 56px);
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1.15fr);
@@ -247,17 +201,17 @@
     font-family: var(--font-display);
     font-weight: 900;
     font-size: clamp(1.9rem, 7vw, 3.5rem);
-    color: var(--plum);
+    color: var(--cream);
     text-transform: none;
     line-height: 0.95;
     margin-bottom: 20px;
 }
 .hours-left h2 span {
-    color: var(--plum-deep);
+    color: var(--cream);
 }
 .hours-left p {
     font-size: calc(clamp(15px, 1.6vw, 16px) - var(--mobile-body-reduction, 0px));
-    color: #000;
+    color: var(--cream);
     line-height: 1.6;
     max-width: 420px;
 }
@@ -267,7 +221,7 @@
     gap: 12px;
 }
 .hours-row {
-    background: rgba(var(--plum-rgb), 0.12);
+    background: rgba(var(--cream-rgb), 0.12);
     border-radius: 10px;
     padding: clamp(14px, 2vw, 18px) clamp(16px, 3vw, 24px);
     display: flex;
@@ -280,25 +234,25 @@
     font-weight: 800;
     font-size: 18px;
     text-transform: none;
-    color: var(--plum-deep);
+    color: var(--cream);
 }
 .hours-time {
     font-size: calc(14px - var(--mobile-body-reduction, 0px));
     font-weight: 600;
-    color: var(--plum-deep);
+    color: var(--cream);
 }
 .hours-row.er {
-    background: rgba(var(--plum-rgb), 0.12);
+    background: rgba(var(--cream-rgb), 0.12);
 }
 .hours-row.er .hours-day {
-    color: var(--plum);
+    color: var(--cream);
 }
 .hours-row.er .hours-time {
-    color: rgba(var(--plum-rgb), 0.5);
+    color: rgba(var(--cream-rgb), 0.8);
     font-size: calc(12px - var(--mobile-body-reduction, 0px));
 }
 
-/* ───────── FINAL CTA ───────── */
+/* ────────────────── FINAL CTA ────────────────── */
 .cta-section {
     background: var(--plum);
     padding: 96px 48px;
@@ -352,10 +306,27 @@
     border: 2px solid var(--cream);
 }
 
-/* ───────── RESPONSIVE ───────── */
+/* ────────────────── Give the desktop hero headline more size and room. ────────────────── */
+@media (min-width: 901px) {
+    .hero-copy { max-width: 1200px; }
+    .hero .hero-headline { font-size: clamp(2.8rem, 4.5vw, 3.6rem); }
+}
+
+/* Compact comparison cards on desktop. */
+@media (min-width: 901px) {
+    .compare-grid { width: min(100%, 900px); }
+    .compare-card {
+        min-height: 380px;
+        padding: 56px 10% 40px;
+    }
+    .compare-card h3 { font-size: clamp(27px, 2.4vw, 32px); }
+    .compare-features { gap: 16px; }
+}
+
+/* ────────────────── RESPONSIVE ────────────────── */
 @media (max-width: 900px) {
     .compare .section-title { font-size: clamp(2.2rem, 9vw, 3.7rem); }
-    .hero { grid-template-columns: 1fr; min-height: 100vh; min-height: 100svh; padding: 56px 24px 72px; }
+    .hero { grid-template-columns: 1fr; padding: calc(var(--nav-h-mobile) + 20px) 24px 0; }
     .steps, .points-grid { grid-template-columns: repeat(2, 1fr); }
     .compare-grid { width: min(100%, 480px); grid-template-columns: minmax(0, 1fr); }
     .compare-card { min-height: 0; padding: 68px 12% 36px; }
@@ -370,16 +341,17 @@
     .steps, .points-grid { grid-template-columns: 1fr; }
     .compare-intro { margin-bottom: 32px; font-size: calc(15px - var(--mobile-body-reduction, 0px)); }
     .compare { padding-inline: clamp(12px, 4vw, 24px); }
-    .compare-grid { width: 100%; gap: 28px; }
+    .compare .section-title { margin-bottom: 16px; }
+    .compare-grid { width: 100%; gap: 16px; }
     .compare-card {
         width: 100%;
-        min-height: 440px;
+        min-height: 400px;
         height: auto;
-        padding: 96px 16% 72px;
+        padding: 112px 16% 48px;
         overflow-wrap: break-word;
     }
     .compare-details { display: contents; }
-    .compare-card h3 { font-size: clamp(20px, 5.5vw, 24px); line-height: 1.2; margin-bottom: 12px; }
+    .compare-card h3 { font-size: clamp(23px, 6vw, 27px); line-height: 1.2; margin-bottom: 12px; }
     .compare-features { min-width: 0; width: 100%; gap: 10px; margin-bottom: 8px; }
     .compare-item {
         max-width: 100%;
@@ -420,4 +392,31 @@
         line-height: 1.4;
     }
     .cta-section h2 { font-size: clamp(2rem, 12vw, 44px); }
+}
+
+.page-membership .hero .hero-body { text-align: justify; }
+
+.page-membership .compare-grid { gap: 10px; }
+.compare-action-arrow { display: block; background: currentColor; -webkit-mask: url('../images/brand/arrows/RGB_SWAPCLUB_ARROWS_PURPLE2.png') center / contain no-repeat; mask: url('../images/brand/arrows/RGB_SWAPCLUB_ARROWS_PURPLE2.png') center / contain no-repeat; }
+.compare-card:not(.highlight) .compare-action-arrow { background: var(--cream); }
+
+.hours-time a { text-decoration: underline; text-underline-offset: 3px; }
+
+
+.membership-calendar .luma-calendar-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr); align-items: center; }
+.membership-calendar .luma-calendar-heading-start { grid-column: 1; grid-row: 1; justify-self: start; }
+.membership-calendar .luma-calendar-actions { display: contents; }
+.membership-calendar .luma-calendar-eyebrow { grid-column: 2; grid-row: 1; font-size: clamp(16px, 2.2vw, 25px); text-align: center; }
+.membership-calendar .luma-calendar-actions .btn { grid-column: 3; grid-row: 1; justify-self: end; }
+@media (max-width: 600px) {
+    .membership-calendar .luma-calendar-heading { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); padding-inline: 12px; gap: 12px; }
+    .membership-calendar .luma-calendar-heading-start { grid-column: 1; grid-row: 2; }
+    .membership-calendar .luma-calendar-badge { width: 44px; height: 44px; font-size: 12px; }
+    .membership-calendar .luma-calendar-eyebrow { grid-column: 1 / -1; font-size: clamp(14px, 3.6vw, 18px); letter-spacing: 0.02em; }
+    .membership-calendar .luma-calendar-actions .btn { grid-column: 2; grid-row: 2; white-space: normal; font-size: 15px; }
+    
+    .page-membership .hero .hero-headline { font-size: clamp(28px, 8vw, 38px); }
+    
+    .page-membership .compare-grid { gap: 12px; }
+    .page-membership .compare-card::before { inset-block: -4px; }
 }

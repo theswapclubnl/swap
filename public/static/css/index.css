@@ -606,3 +606,35 @@
     .hours-strip-label { font-weight: 800; }
     .hours-strip-divider { display: inline; }
 }
+
+.page-home .tiers ~ .floating-swap-section { background: var(--lilac); }
+.home-floating-swap-section { padding: 32px 0 40px; }
+.home-floating-swap-section .floating-swap-header { max-width: 1200px; margin: 56px auto 0; }
+.home-floating-swap-section .floating-swap-header p { max-width: 1100px; font-size: clamp(2rem, 4.6vw, 4.5rem); margin-bottom: 0; padding-bottom: 0; }
+@media (max-width: 600px) {
+    .home-floating-swap-section .floating-swap-header p { font-size: clamp(1.7rem, 6.5vw, 2.5rem); }
+    .floating-card-track-wrap { --card-width: min(60vw, 230px); --card-height: min(76vw, 290px); --card-gap: 6px; }
+}
+
+.tiers-join-copy {
+    max-width: 640px;
+    margin: 0 auto 32px;
+    color: var(--plum);
+    font-family: var(--font-body);
+    font-size: calc(16px - var(--mobile-body-reduction, 0px));
+    line-height: 1.6;
+    text-align: center;
+}
+.tiers-join-copy p { margin-bottom: 12px; }
+
+.tiers-join-copy .section-title { margin-bottom: 16px; }
+
+@media (min-width: 901px) {
+    .tiers-join-copy { max-width: 1092px; }
+    .tiers-join-copy .section-title { white-space: nowrap; }
+    .tiers-join-copy p { max-width: 640px; margin-inline: auto; }
+}
+
+@media (max-width: 600px) {
+    .tiers-join-copy p { max-width: 28ch; margin-inline: auto; }
+}

@@ -11,99 +11,13 @@
     <div class="hero-copy">
         <h1 class="hero-headline">The Swap Club gives you the freedom to reinvent your wardrobe!</h1>
         <p class="hero-body">
-            Imagine having access to a shop full of clothes; where everything is free, as long as you bring something in return. That’s
-            the Clubhouse. A shop in Amsterdam where members can walk in anytime, swap pieces and build a wardrobe they love. From €12 a month, cancel anytime.
+             We are a shop in Amsterdam where members can walk in anytime, swap pieces and build a wardrobe they love. Become a member from €12 a month, option to cancel at anytime.
         </p>
-        <div class="hero-btns">
-            <a href="#tiers" class="btn btn-plum">See Membership Plans</a>
-            <a href="https://forms.piggy.eu/forms/7621a0c4-00d3-4691-95bd-f632186a5f4f/public/custom"  target="_blank" rel="noopener noreferrer" class="btn btn-social btn-social-newsletter">
-                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.3l8 5.1 8-5.1V7H4Zm0 10h16V9.7l-8 5.1-8-5.1V17Z"/>
-                </svg>
-                Join Our Mail
-            </a>
-        </div>
-    </div>
-
-    <div class="events-hero-summary">
-        {% include "luma_calendar.html" %}
     </div>
 </section>
 
     <!-- MEMBERSHIP TIERS -->
-<section class="tiers" id="tiers">
-    <div class="tiers-header">
-        <h2 class="section-title">Pick Your Membership</h2>
-    </div>
-    <div class="tiers-grid">
-        <div class="tier-card">
-            <div class="tier-head">
-                <div class="tier-label">Basic · monthly</div>
-                <div class="tier-name">Store Only</div>
-                <div class="tier-price">€12</div>
-            </div>
-            <div class="tier-body">
-                <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access anytime</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>5 bonus points / month</div>
-                <div class="tier-feature"><span class="tier-dash">–</span>Events: pay per ticket (€15)</div>
-                <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Join The Club</a>
-            </div>
-        </div>
-        <div class="tier-card featured">
-            <div class="tier-head">
-                <div class="tier-label">Standard · monthly</div>
-                <div class="tier-name">Clubhouse Regular</div>
-                <div class="tier-price">€15</div>
-            </div>
-            <div class="tier-body">
-                <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access anytime</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>10 bonus points / month</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>1 event included per month</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>Member-only events</div>
-                <div class="tier-feature">
-                    <span class="tier-present-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" focusable="false">
-                            <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
-                            <path d="M2 7h20v5H2z" />
-                            <path d="M12 22V7" />
-                            <path d="M12 7H7.5A2.5 2.5 0 1 1 10 4.5L12 7z" />
-                            <path d="M12 7h4.5A2.5 2.5 0 1 0 14 4.5L12 7z" />
-                        </svg>
-                    </span>
-                    Upcycled bag gift (after 3 months)
-                </div>
-                <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Join The Club</a>
-            </div>
-        </div>
-        <div class="tier-card premium">
-            <div class="tier-head">
-                <div class="tier-label">Premium · monthly</div>
-                <div class="tier-name">Social Swapper</div>
-                <div class="tier-price">€39</div>
-            </div>
-            <div class="tier-body">
-                <div class="tier-feature"><span class="tier-check">✓</span>Clubhouse access anytime</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>20 bonus points / month</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>Unlimited swap events</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>Member-only events</div>
-                <div class="tier-feature"><span class="tier-check">✓</span>1 × bring-a-friend per month</div>
-                <div class="tier-feature">
-                    <span class="tier-present-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" focusable="false">
-                            <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
-                            <path d="M2 7h20v5H2z" />
-                            <path d="M12 22V7" />
-                            <path d="M12 7H7.5A2.5 2.5 0 1 1 10 4.5L12 7z" />
-                            <path d="M12 7h4.5A2.5 2.5 0 1 0 14 4.5L12 7z" />
-                        </svg>
-                    </span>
-                    Upcycled bag gift (after 3 months)
-                </div>
-                <a href="https://luma.com/theswapclub" class="tier-btn" target="_blank" rel="noopener noreferrer">Join The Club</a>
-            </div>
-        </div>
-    </div>
-</section>
+{% include "membership_tiers.html" %}
 
 <section class="compare">
     <h2 class="section-title">Single Ticket or Membership?</h2>
@@ -117,7 +31,7 @@
                     <li class="compare-item">Great for first-time visitors.</li>
                     <li class="compare-item">Clubhouse access during events only.</li>
                 </ul>
-                <span class="compare-action">Explore Single Events <img class="compare-action-arrow" src="{{ url_for('static', filename='images/brand/arrows/RGB_SWAPCLUB_ARROWS_PURPLE2.png') }}" width="40" height="40" alt=""></span>
+                <span class="compare-action">Explore Single Events <span class="compare-action-arrow" aria-hidden="true"></span></span>
             </div>
         </a>
         <a class="compare-card highlight" href="#tiers">
@@ -129,12 +43,16 @@
                     <li class="compare-item">Points, history and events in one place.</li>
                     <li class="compare-item">Be part of our community.</li>
                 </ul>
-                <span class="compare-action">View Membership Plans <img class="compare-action-arrow" src="{{ url_for('static', filename='images/brand/arrows/RGB_SWAPCLUB_ARROWS_PURPLE2.png') }}" width="40" height="40" alt=""></span>
+                <span class="compare-action">View Membership Plans <span class="compare-action-arrow" aria-hidden="true"></span></span>
             </div>
         </a>
     </div>
 </section>
 
+
+<section class="membership-calendar" aria-label="Events calendar">
+    {% include "luma_calendar.html" %}
+</section>
 
 <section class="hours-section">
     <div class="hours-left">
@@ -144,8 +62,8 @@
     <div class="hours-right">
         <div class="hours-row er"><div class="hours-day">Member Events</div><div class="hours-time">Every Wednesday Evening</div></div>
         <div class="hours-row er"><div class="hours-day">Big Swaps</div><div class="hours-time">2 per month  ·  open to everyone  ·  €15</div></div>
-        <div class="hours-row er"><div class="hours-day">The Clubhouse</div><div class="hours-time">Wed, Fri & Sat 11-18  ·  De Clercqstraat 66, Amsterdam</div></div>
-        <div class="hours-row er"><div class="hours-day">Blue Marble</div><div class="hours-time">Member Only · Thur to Sat: 12:00 – 18:00  ·  Waterlooplein 6, Amsterdam</div></div>
+        <div class="hours-row er"><div class="hours-day">The Clubhouse</div><div class="hours-time">Wed, Fri & Sat 11-18  ·  <a href="https://www.google.com/maps/search/?api=1&amp;query=De+Clercqstraat+66+Amsterdam" target="_blank" rel="noopener noreferrer">De Clercqstraat 66, Amsterdam</a></div></div>
+        <div class="hours-row er"><div class="hours-day">Blue Marble</div><div class="hours-time">Member Only · Thur to Sat: 12:00 – 18:00  ·  <a href="https://www.google.com/maps/search/?api=1&amp;query=Waterlooplein+6+Amsterdam" target="_blank" rel="noopener noreferrer">Waterlooplein 6, Amsterdam</a></div></div>
     </div>
 </section>
 
