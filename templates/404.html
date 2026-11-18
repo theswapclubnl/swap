@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found | The Swap Club{% endblock %}
+{% block description %}This page doesn't exist (anymore). Let's get you back to swapping.{% endblock %}
+{# Error pages must not show up in search results #}
+{% block robots %}<meta name="robots" content="noindex, follow">{% endblock %}
+
+{% block content %}
+<section class="not-found">
+    <h1 class="section-title">Page not found</h1>
+    <p>This page doesn't exist (anymore). Let's get you back to swapping.</p>
+    <div class="hero-btns">
+        <a href="/" class="btn btn-plum">Back to home</a>
+        <a href="/how" class="btn btn-hot-orange">How it works</a>
+    </div>
+</section>
+{% endblock %}

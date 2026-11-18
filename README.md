@@ -1,9 +1,7 @@
 # The Swap Club — Website
 
 A Flask website for The Swap Club's Amsterdam swapping community, events,
-memberships, and business collaborations. Uses Jinja templates, plain CSS and
-JavaScript, and Gmail SMTP for contact emails. No frontend build step or database
-is required.
+memberships, and business collaborations. Uses Jinja templates, plain CSS and JavaScript, and Gmail SMTP for contact emails. No frontend build step or database is required.
 
 ## Running locally
 
@@ -34,6 +32,7 @@ GMAIL_USERNAME=your-address@gmail.com
 GMAIL_APP_PASSWORD=your-google-app-password
 CONTACT_TO_EMAIL=
 GA_MEASUREMENT_ID=
+SITE_URL=https://www.theswapclub.nl
 PORT=5001
 ```
 
@@ -47,6 +46,7 @@ values through the hosting environment settings.
 | `CONTACT_TO_EMAIL` | Optional. Deliver to a different inbox than `GMAIL_USERNAME`. |
 | `GA_MEASUREMENT_ID` | GA4 Measurement ID (`G-XXXXXXXXXX`). Empty = Analytics and cookie banner are off. |
 | `SECRET_KEY` | Signs Flask session cookies used for flash messages. Set a strong private value in production; otherwise the code uses `dev-only-change-me`. |
+| `SITE_URL` | Public address of the live site, e.g. `https://www.theswapclub.nl` (no trailing slash). Used for canonical links, `sitemap.xml`, `robots.txt` and link previews. Set it in production; if empty, the current host is used. |
 | `PORT` | Local port when running `python app.py`; defaults to `5001`. |
 
 Analytics loads after consent, including on later visits with saved consent.
@@ -67,6 +67,19 @@ Analytics is configured, **Cookie settings** in the footer reopens the banner.
 | `/terms` | `terms.html`: terms page. |
 | `/events` | Redirects to `/#events` on the homepage. |
 | `/community` | Redirects to `/#community` on the homepage. |
+| `/robots.txt` | Allows all crawlers and points to the sitemap. |
+| `/sitemap.xml` | Lists every page in English and Dutch (`?lang=nl`) with language alternates. Add new pages to `SITEMAP_PAGES` in `app.py`. |
+| any unknown URL | `404.html`: branded "Page not found" page (not indexed). |
+
+## SEO
+
+`base.html` adds a meta description, canonical link, English/Dutch `hreflang`
+alternates, and Open Graph/Twitter tags (link previews) to every page. The
+homepage also includes schema.org business details (address, opening hours,
+socials) for Google. Set a page's search snippet with
+`{% block description %}…{% endblock %}` (and add its Dutch version to
+`translations/nl.json`); the `<title>` block doubles as the share title.
+Keep descriptions roughly 120–160 characters and each page's text unique.
 
 ## Contact form
 
@@ -76,22 +89,7 @@ Topics cover general questions, collaborations, business inquiries, and site
 feedback. A hidden `website` honeypot field filters bots; `contact.js` adds
 browser-side validation and a character counter.
 
-Email is sent through `smtp.gmail.com:587` using STARTTLS. The recipient defaults
-to `GMAIL_USERNAME`, and `Reply-To` is set to the visitor's address. Successful
-submissions redirect back to the contact page to prevent resending on refresh.
-Validation and delivery errors appear as flash messages.
 
-### Contact form works locally but fails on the live site
-
-The local `.env` is not uploaded to Vercel. Add `GMAIL_USERNAME`,
-`GMAIL_APP_PASSWORD`, `CONTACT_TO_EMAIL`, and `SECRET_KEY` to the project's
-**Production** environment variables, using the values from your local `.env`.
-Redeploy after adding or changing them; existing deployments keep their previous
-environment settings. For a preview URL, configure the **Preview** environment too.
-
-If sending still fails, inspect the deployment's runtime logs for `Contact email`.
-The log distinguishes missing configuration, rejected Gmail authentication,
-SMTP rejection, and connection failures without printing credentials or messages.
 
 ## Hosting
 

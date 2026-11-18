@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
-{% block title %}Home | The Swap Club{% endblock %}
+{% block title %}The Swap Club | Clothing Swap Club in Amsterdam{% endblock %}
+{% block description %}The Swap Club is a clothing swap club in Amsterdam. Bring your pre-loved clothes, earn swap points and choose new-to-you pieces at our Clubhouse and swap events.{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
@@ -82,7 +83,7 @@
 <div class="events-page" id="events">
     <section class="events-hero" data-aos="fade-up">
         <div class="events-hero-text">
-            <h1 data-fit-heading><span class="events-heading-line" data-heading-line>Your Next</span><br><span data-heading-line>Swap.</span></h1>
+            <h2 data-fit-heading><span class="events-heading-line" data-heading-line>Your Next</span><br><span data-heading-line>Swap.</span></h2>
             <p>
                 Join a Swap Club event. Bring items you no longer use,
                 collect points and choose new pre-loved pieces.
@@ -153,8 +154,8 @@
                 <div class="step-text">
                     <span class="step-number">2</span>
                     <h3 class="step-title">Earn Points</h3>
-                    <p class="step-body">Earn swap points to your personalised digital wallet according to the quality and type of items you bring in. <a href="#swap-points" class="inline-link">Learn More.</a></p>
-                    <a href="#swap-points" class="btn btn-green-yellow">Learn More</a>
+                    <p class="step-body">Earn swap points to your personalised digital wallet according to the quality and type of items you bring in. <a href="/how#swap-points" class="inline-link">Learn More.</a></p>
+                    <a href="/how#swap-points" class="btn btn-green-yellow">Learn More</a>
                 </div>
             </div>
         </div>

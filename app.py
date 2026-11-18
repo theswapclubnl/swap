@@ -13,7 +13,7 @@ from pathlib import Path
 from localization import install_localization
 
 from dotenv import load_dotenv
-from flask import Flask, flash, redirect, render_template, request, send_from_directory, url_for
+from flask import Flask, Response, flash, redirect, render_template, request, send_from_directory, url_for
 
 # Load variables from .env locally. On Vercel they come from the project settings.
 load_dotenv()
@@ -41,6 +41,62 @@ def inject_analytics():
     return {"ga_measurement_id": os.environ.get("GA_MEASUREMENT_ID", "").strip()}
 
 
+# ───────────────────────── SEO ─────────────────────────
+
+# Pages listed in sitemap.xml (each also exists in Dutch via ?lang=nl).
+SITEMAP_PAGES = ["/", "/how", "/membership", "/about", "/business", "/contact", "/privacy", "/terms"]
+
+
+def site_url():
+    """Public address of the site, e.g. https://www.theswapclub.nl (no trailing slash).
+
+    Set SITE_URL in production so canonical links and the sitemap always point at
+    the real domain (also on preview deployments); otherwise the current host is used.
+    """
+    return (os.environ.get("SITE_URL", "").strip() or request.url_root).rstrip("/")
+
+
+@app.context_processor
+def inject_seo():
+    base = site_url()
+    path = request.path
+    return {
+        "site_url": base,
+        "url_en": base + path,
+        "url_nl": base + path + "?lang=nl",
+    }
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    body = f"User-agent: *\nAllow: /\n\nSitemap: {site_url()}/sitemap.xml\n"
+    return Response(body, mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    base = site_url()
+    entries = []
+    for path in SITEMAP_PAGES:
+        en, nl = base + path, base + path + "?lang=nl"
+        alternates = (
+            f'<xhtml:link rel="alternate" hreflang="en" href="{en}"/>'
+            f'<xhtml:link rel="alternate" hreflang="nl" href="{nl.replace("&", "&amp;")}"/>'
+            f'<xhtml:link rel="alternate" hreflang="x-default" href="{en}"/>'
+        )
+        for loc in (en, nl):
+            entries.append(f"<url><loc>{loc}</loc>{alternates}</url>")
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+           'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "\n".join(entries) + "\n</urlset>\n")
+    return Response(xml, mimetype="application/xml")
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"), 404
+
+
 # ───────────────────────── Page routes ─────────────────────────
 
 @app.route("/favicon.ico")
@@ -58,7 +114,7 @@ def home():
 
 @app.route("/events")
 def events():
-    return redirect("/#events")
+    return redirect("/#events", code=301)
 
 
 @app.route("/how")
@@ -190,7 +246,7 @@ def about():
 
 @app.route("/community")
 def community():
-    return redirect("/#community")
+    return redirect("/#community", code=301)
 
 
 @app.route("/privacy")

@@ -11,6 +11,10 @@ from flask import g, request
 TRANSLATIONS = json.loads((Path(__file__).parent / 'translations' / 'nl.json').read_text())
 
 
+TRANSLATED_META = {'description', 'og:title', 'og:description', 'og:image:alt',
+                   'twitter:title', 'twitter:description'}
+
+
 def normalize(text):
     return re.sub(r'\s+', ' ', text).strip()
 
@@ -40,8 +44,13 @@ class DutchHTML(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         translated = []
+        # Page titles/descriptions in <meta> tags (search results and link previews)
+        meta_key = (dict(attrs).get('name') or dict(attrs).get('property')) if tag == 'meta' else None
+        translate_content = meta_key in TRANSLATED_META
         for name, value in attrs:
             if value is not None and name in {'alt', 'title', 'placeholder', 'aria-label'}:
+                value = translate(value)
+            if value is not None and name == 'content' and translate_content:
                 value = translate(value)
             if value and name in {'href', 'action'} and value.startswith('/') and not value.startswith(('//', '/static/', '/favicon.ico')):
                 parts = urlsplit(value)

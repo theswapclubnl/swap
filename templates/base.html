@@ -5,6 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}The Swap Club{% endblock %}</title>
 
+    <!-- ─── SEO ─── -->
+    {% set page_url = url_nl if current_language == 'nl' else url_en %}
+    {% set share_image = site_url ~ url_for('static', filename='images/hero_poster.jpg') %}
+    <meta name="description" content="{% block description %}The Swap Club is a clothing swap club in Amsterdam. Bring your pre-loved clothes, earn swap points and choose new-to-you pieces at our Clubhouse and swap events.{% endblock %}">
+    {% block robots %}<meta name="robots" content="index, follow">{% endblock %}
+    <link rel="canonical" href="{{ page_url }}">
+    <link rel="alternate" hreflang="en" href="{{ url_en }}">
+    <link rel="alternate" hreflang="nl" href="{{ url_nl }}">
+    <link rel="alternate" hreflang="x-default" href="{{ url_en }}">
+    <meta name="theme-color" content="#f8dae9">
+
+    <!-- Link previews (WhatsApp, Instagram, LinkedIn, Facebook, X …) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="The Swap Club">
+    <meta property="og:title" content="{{ self.title()|trim }}">
+    <meta property="og:description" content="{{ self.description()|trim }}">
+    <meta property="og:url" content="{{ page_url }}">
+    <meta property="og:image" content="{{ share_image }}">
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="899">
+    <meta property="og:image:alt" content="Clothing rails at The Swap Club Clubhouse in Amsterdam">
+    <meta property="og:locale" content="{{ 'nl_NL' if current_language == 'nl' else 'en_GB' }}">
+    <meta property="og:locale:alternate" content="{{ 'en_GB' if current_language == 'nl' else 'nl_NL' }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ self.title()|trim }}">
+    <meta name="twitter:description" content="{{ self.description()|trim }}">
+    <meta name="twitter:image" content="{{ share_image }}">
+
+    {% if request.endpoint == 'home' %}
+    <!-- Business details for Google (name, address, opening hours, socials) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Store",
+        "name": "The Swap Club",
+        "description": "Clothing swap club and Clubhouse in Amsterdam: bring pre-loved clothes, earn swap points and swap them for new-to-you pieces.",
+        "url": "{{ site_url }}/",
+        "logo": "{{ site_url }}{{ url_for('static', filename='images/brand/logos/COLOUR_COMBO/RGB_THESWAPCLUB_HORIZONTAL_LOGO_COLOUR3.png') }}",
+        "image": "{{ share_image }}",
+        "email": "info@theswapclub.nl",
+        "priceRange": "€12–€39",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "De Clercqstraat 66",
+            "addressLocality": "Amsterdam",
+            "addressCountry": "NL"
+        },
+        "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Wednesday", "Friday", "Saturday"],
+            "opens": "11:00",
+            "closes": "18:00"
+        }],
+        "sameAs": [
+            "https://www.instagram.com/theswapclub.nl/",
+            "https://www.tiktok.com/@theswapclub.amsterdam",
+            "https://www.linkedin.com/company/the-swap-club/",
+            "https://www.facebook.com/p/The-Swap-Club-Amsterdam-61560924692272/",
+            "https://luma.com/theswapclub"
+        ]
+    }
+    </script>
+    {% endif %}
+
     <link rel="preload" href="{{ url_for('static', filename='fonts/BNDope.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{ url_for('static', filename='fonts/Outfit-Variable.woff2') }}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />

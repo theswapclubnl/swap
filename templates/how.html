@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}How it works | The Swap Club{% endblock %}
+{% block description %}How swapping works at The Swap Club: bring clean, good-quality items, earn swap points in your digital wallet and swap them for pre-loved clothes in Amsterdam.{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/how.css') }}">
@@ -8,7 +9,8 @@
 
 
 {% block content %}
-<section class="how">
+<section class="how" aria-labelledby="how-page-title">
+    <h1 id="how-page-title" class="visually-hidden">How The Swap Club works</h1>
                 <div class="grid-container ">
                         <div class="how-grid-entry"><div class="grid-item">
                                 <a href="#before-event">
