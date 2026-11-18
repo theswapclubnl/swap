@@ -33,8 +33,8 @@
     --plum-deep: #850047;
     --plum-dark: #850047;
     --cream: #fdfcf8;
-    --lilac: #f8dae9;
-    --light-lilac: #FFD1E7;
+    --lilac: #FFD1E7;
+    --light-lilac: #f8dae9;
     --light-blue: #c0e8ff;
     --hot-orange: #ff591d;
     --green-yellow: #ddec4e;
@@ -631,7 +631,7 @@ nav.nav-open {
     font-family: var(--font-display);
     font-size: clamp(1.7rem, 5vw, 4.5rem);
     line-height: 0.93;
-    color: var(--light-lilac);
+    color: var(--lilac);
     text-transform: none;
     margin-bottom: 14px;
 }
@@ -981,7 +981,7 @@ nav.nav-open {
 
 /* ────────────────── MEMBERSHIP TIER CARDS (home / membership) ────────────────── */
 .tiers {
-    background: var(--lilac);
+    background: var(--light-lilac);
     padding: clamp(44px, 7vw, 72px) clamp(20px, 5vw, 56px);
 }
 .tiers-header {
@@ -1434,14 +1434,31 @@ footer {
         height: auto;
         scroll-snap-align: center;
         scroll-snap-stop: always;
-        padding: 48px 6%;
+        padding: 32px 6% 40px;
         transition: opacity 0.25s ease;
     }
-    .step-content { grid-template-columns: 1fr; gap: 24px; }
+    /* Single centred column: dots, image and text all share one centre line */
+    .step-content {
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
+        gap: 20px;
+        max-width: 480px;
+        margin-inline: auto;
+        text-align: center;
+    }
     .step-image-wrap {
-        max-width: 260px; /* smaller step images on mobile; shape stays square */
+        /* smaller step images on mobile; scales with screen height so a whole step fits */
+        width: min(240px, 62vw, 30svh);
+        max-width: 100%;
         margin: 0 auto;
     }
+    .step-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .step-body { max-width: 34ch; margin-bottom: 20px; }
     /* Dim non-active slides slightly for clear swipe feedback (toggled via JS) */
     .step-slide:not(.step-slide-active) { opacity: 0.45; }
     .step-number {

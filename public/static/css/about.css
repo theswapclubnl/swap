@@ -260,7 +260,6 @@ p {
 }
 
 @media (max-width: 600px) {
-    .page-about .page-content p { text-align: justify; }
     #slider-text { width: 92%; padding: 16px; }
     #slider-text h1 { font-size: clamp(2.4rem, 14vw, 6rem); }
     #slider-text p { font-size: calc(15px - var(--mobile-body-reduction, 0px)); }

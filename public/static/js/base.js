@@ -384,7 +384,11 @@ stepsScrollEls.forEach(stepsScroll => {
         if (!first) return;
         const rect = first.getBoundingClientRect();
         const fullyVisible = rect.top >= -2 && rect.bottom <= window.innerHeight + 2;
-        if (fullyVisible) mobileReady = true;
+        // On short phone screens a slide can be taller than the viewport and never be
+        // "fully" visible; treat it as ready once it fills most of the screen.
+        const visible = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+        const mostlyVisible = visible >= Math.min(rect.height, window.innerHeight) * 0.85;
+        if (fullyVisible || mostlyVisible) mobileReady = true;
         if (outer.getBoundingClientRect().bottom < 0 || outer.getBoundingClientRect().top > window.innerHeight) {
             mobileReady = false;
         }

@@ -40,13 +40,19 @@
     </div>
 
     <div class="hours-strip">
-        <span class="hours-strip-label">The Clubhouse is open:</span>
-        <span class="hours-strip-time">Wed, Fri &amp; Sat, 11:00–18:00</span>
-        <span class="hours-strip-divider" aria-hidden="true">·</span>
-        <span class="hours-strip-label">Blue Marble is open:</span>
-        <span class="hours-strip-time">Thur - Sat, 12:00–18:00</span>
-        <span class="hours-strip-divider" aria-hidden="true">·</span>
-        <span class="hours-strip-events">Events on weekday evenings &amp; weekends</span>
+        {# Two identical sets: on phones the track scrolls one set-width and loops
+           seamlessly. The copy is hidden on desktop and from screen readers. #}
+        <div class="hours-strip-track">
+            {% for copy in (0, 1) %}
+            <div class="hours-strip-set"{% if copy == 1 %} aria-hidden="true"{% endif %}>
+                <span class="hours-strip-label">The Clubhouse is open:</span>
+                <span class="hours-strip-time">Wed, Fri &amp; Sat, 11:00–18:00</span>
+                <span class="hours-strip-divider" aria-hidden="true">·</span>
+                <span class="hours-strip-events">Events on weekday evenings &amp; weekends</span>
+                <span class="hours-strip-divider hours-strip-loop-divider" aria-hidden="true">·</span>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </section>
     <!-- ───  <a

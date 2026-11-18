@@ -301,3 +301,114 @@ nav { min-height: var(--nav-h); gap: 16px; padding: 2px 12px; }
     .tier-body { padding: 6px 22px 30px; }
 }
 nav.nav-open { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+.page-about .page-content p,
+.page-membership .hero .hero-body {
+    margin-inline: auto;
+    text-align: justify;
+}
+.page-about .story-text p { max-width: 65ch; }
+
+/* ── Phone alignment fixes ──
+   Keep shared body copy readable and give narrow membership cards room. */
+@media (max-width: 600px) {
+    .hero-body,
+    .privacy-main section p,
+    .privacy-main section li { text-align: left; }
+
+    .page-about .hero-title { margin-bottom: 16px; }
+
+    /* Narrower cards with clear breathing room either side (~14vw per side) */
+    .tiers-grid {
+        max-width: min(72vw, 290px);
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+    }
+    /* Extra left padding nudges the card text in from the left edge */
+    .tier-head { padding: 26px 18px 6px 30px; }
+    .tier-body { padding: 6px 18px 28px 30px; }
+    /* keep the button centred on the card despite the uneven padding: (30 - 18) / 2 */
+    .tier-btn { position: relative; left: -6px; }
+    .tier-name { white-space: normal; text-wrap: balance; }
+}
+
+/* ── Tablet alignment fixes (601px – 900px, plus shared bits) ── */
+
+/* About stats: three columns that can shrink, with numbers sized to fit them
+   (the old 9–11vw sizes made "3000+" and "2000+" run into each other). */
+@media (min-width: 601px) {
+    .impact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .impact-num { font-size: clamp(2rem, 6vw, 4.8rem); white-space: nowrap; }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+    /* Tier cards: wrap and centre each row, so a lone third card sits in the
+       middle instead of hanging under the first one. */
+    .tiers-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 600px;
+        gap: 28px;
+    }
+    .tiers-grid > .tier-card { flex: 0 1 270px; min-width: 0; }
+    .tier-name { white-space: normal; text-wrap: balance; }
+
+    .page-membership .hero .hero-body { max-width: 60ch; }
+}
+
+/* About stats on phones: "3000+" must fit a third of the screen */
+@media (max-width: 600px) {
+    .impact-num { font-size: clamp(1.25rem, 6.6vw, 2.4rem); white-space: nowrap; }
+}
+
+/* Compare cards (Single Ticket / Membership): text sits a bit higher in the shape.
+   Top padding moves to the bottom, so the cards keep the same size. */
+@media (min-width: 901px) {
+    .compare-card { padding-top: 40px; padding-bottom: 56px; }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+    .compare-card { padding-top: 50px; padding-bottom: 54px; }
+}
+@media (max-width: 600px) {
+    .compare-card { padding-top: 84px; padding-bottom: 76px; }
+}
+
+/* Mobile menu: Events button and language switch share one height.
+   The language switch stays square (same shape), just scaled up. */
+@media (max-width: 900px) {
+    :root { --nav-menu-btn-h: 52px; }
+    .nav-right .nav-actions .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--nav-menu-btn-h);
+        min-height: var(--nav-menu-btn-h);
+        padding-block: 0;
+        line-height: 1;
+    }
+    .nav-right .language-switch {
+        width: var(--nav-menu-btn-h);
+        height: var(--nav-menu-btn-h);
+        flex: 0 0 var(--nav-menu-btn-h);
+        font-size: 15px;
+    }
+}
+
+/* Compare cards on phones: less space between them. Cards size to their text
+   (was a forced 400px height that left a big empty lobe under the text), and the
+   shape stretches to fill each card exactly (brand-shape-stretch.svg), so there
+   is no extra empty band around it. Text sits slightly above centre. */
+@media (max-width: 600px) {
+    .page-membership .compare-grid { width: min(100%, 400px); gap: 10px; }
+    .compare-card {
+        min-height: 0;
+        aspect-ratio: auto;
+        padding-top: 60px;
+        padding-bottom: 68px;
+    }
+    .compare-card::before {
+        -webkit-mask: url('../images/brand-shape-stretch.svg') center / 100% 100% no-repeat;
+                mask: url('../images/brand-shape-stretch.svg') center / 100% 100% no-repeat;
+    }
+}

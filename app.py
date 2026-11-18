@@ -205,4 +205,6 @@ def terms():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "5001"))
-    app.run(debug=True, port=port)
+    # Translations are loaded once at startup, so also restart when they change.
+    app.run(debug=True, port=port,
+            extra_files=[os.path.join(os.path.dirname(os.path.abspath(__file__)), "translations", "nl.json")])

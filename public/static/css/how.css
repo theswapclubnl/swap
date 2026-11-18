@@ -425,23 +425,26 @@
 @media (max-width: 600px) {
     .grid-link-label { font-size: clamp(21px, 5.2vw, 27px); }
 }
-@media (min-width: 901px) {
-    .page-how .steps-outer,
-        .page-how .steps-scroll,
-        .page-how .step-slide,
-        .page-how .steps-sidebar { height: calc(100svh - var(--nav-h)); }
-    .page-how .steps-sidebar { top: var(--nav-h); }
-}
-@media (max-width: 900px) {
-    .page-how .step-slide { padding-block: 24px; }
-    .page-how .step-content { gap: 16px; }
-    .page-how .step-image-wrap { width: min(220px, 26svh); }
-    .page-how .step-body { margin-bottom: 16px; }
-    .page-how .step-number { font-size: clamp(30px, 7svh, 50px); }
-}
+/* Steps layout intentionally has no How-page overrides: it uses the shared
+   base.css layout so it lines up exactly like the steps on the home page. */
 
 
 @media (min-width: 901px) {
     .practical-grid .info-copy h3 { font-size: 1.4rem; }
     .practical-grid .info-copy p { font-size: 16px; }
+}
+
+/* Link-grid labels: the arrow is part of the label's own flow, so it always sits
+   right after the text, also when a label like "Swapping Process" wraps. */
+.grid-link-label {
+    width: fit-content;
+    max-width: 100%;
+    gap: 6px;
+}
+.grid-link-label::before,
+.how-grid-entry:last-child .grid-link-label::before {
+    position: static;
+    order: 1;
+    flex: 0 0 var(--label-arrow-size);
+    transform: rotate(90deg);
 }

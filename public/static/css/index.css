@@ -20,23 +20,33 @@
     background: rgba(var(--text-rgb), 0.4);
 }
 
+/* Hero copy is centred with normal flow (flex), not absolute positioning +
+   transforms, so it lines up the same in iOS Safari as in desktop browsers. */
 .background-video-content {
     position: relative;
     z-index: 1;
     width: 100%;
-    padding: 4rem 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 2rem) 6% 4rem;
     color: var(--text-white);
 }
 
-.hero-text {
-    max-width: 700px;
+.hero-section .hero-text {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .hero-headline {
-    width: min(1280px, 94vw);
+    width: 100%;
+    max-width: 1280px;
     font-size: clamp(2.8rem, 8.4vw, 7.8rem);
-    margin: 0 0 1rem 50%;
-    transform: translateX(-50%);
+    margin: 0 auto 1rem;
 }
 
 .hero-tagline {
@@ -139,12 +149,7 @@
     }
 
     .background-video-content {
-        padding: 3rem 1rem;
-    }
-
-    .hero-text {
-        width: calc(100% - 32px);
-        max-width: 100%;
+        padding: calc(var(--nav-h-mobile) + 1.5rem) 20px 2.5rem;
     }
 
     .hero-section .hero-btns {
@@ -175,7 +180,7 @@
 
 @media (max-width: 400px) {
     .background-video-content {
-        padding: 2.5rem 0.75rem;
+        padding-inline: 16px;
     }
 
     .hero-headline {
@@ -194,7 +199,7 @@
 .events-hero {
     width: 100%;
     min-height: 85vh;
-    background: var(--lilac);
+    background: var(--light-lilac);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -356,6 +361,11 @@
 /* ───────── CLUBHOUSE HOURS STRIP ───────── */
 .hours-strip { background: var(--green-yellow); padding: 8px 40px; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; font-weight: 600; color: var(--plum-deep); flex-wrap: wrap; text-align: center; }
 .hours-strip-divider { opacity: 0.4; }
+.hours-strip-track,
+.hours-strip-set { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+/* Desktop: everything fits, so show one static set */
+.hours-strip-set[aria-hidden="true"],
+.hours-strip-loop-divider { display: none; }
 .hero-section .hours-strip {
     position: absolute;
     left: 0;
@@ -370,7 +380,7 @@
 .community-page { background: var(--cream); color: var(--text); }
 
 /* ───────── FLOATING STORY WALL (marquee flip-cards) ───────── */
-.floating-swap-section { background: var(--cream); padding: 100px 0; overflow: hidden; }
+.floating-swap-section { background: var(--light-lilac); padding: 100px 0; overflow: hidden; }
 
 .floating-swap-header { text-align: center; max-width: 1000px; margin: 0 auto 56px; padding: 0 6%; }
 
@@ -587,27 +597,63 @@
     .hero-headline { font-size: clamp(2.8rem, 13vw, 3.8rem); }
     .stats-bar { grid-template-columns: 1fr 1fr; }
     .about-section, .community-section, .faq-section { padding: 72px 6%; }
-    .hero-section { display: grid; grid-template-rows: 1fr auto; height: auto; min-height: 100svh; }
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+    }
+    .background-video-content { flex: 1 1 auto; }
     .hero-section .hours-strip { position: relative; }
+    /* One line that loops like a ticker. The track holds two identical sets and
+       moves exactly one set-width (-50%), so the jump back is invisible. */
     .hours-strip {
+        display: block;
+        width: 100%;
+        overflow: hidden;
+        padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
+        font-size: 12px;
+        line-height: 1.5;
+        white-space: nowrap;
+    }
+    .hours-strip-track {
         display: flex;
         flex-wrap: nowrap;
         justify-content: flex-start;
-        gap: 10px;
-        width: 100%;
-        min-width: 0;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding: 8px 16px;
-        font-size: 12px;
-        line-height: 1.5;
+        gap: 0;
+        width: max-content;
+        animation: hours-strip-loop 18s linear infinite;
     }
-    .hours-strip > span { flex-shrink: 0; }
+    .hours-strip-set,
+    .hours-strip-set[aria-hidden="true"] {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-shrink: 0;
+        gap: 10px;
+        padding-right: 10px; /* equals the gap, so spacing across the loop seam matches */
+    }
+    .hours-strip-loop-divider { display: inline; }
+    .hours-strip-set > span { flex-shrink: 0; }
     .hours-strip-label { font-weight: 800; }
-    .hours-strip-divider { display: inline; }
 }
 
-.page-home .tiers ~ .floating-swap-section { background: var(--lilac); }
+@keyframes hours-strip-loop {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* No motion wanted: fall back to two centred, wrapped lines */
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+    .hours-strip { white-space: normal; padding-inline: 16px; }
+    .hours-strip-track { animation: none; width: 100%; justify-content: center; }
+    .hours-strip-set { flex-wrap: wrap; justify-content: center; gap: 0 8px; padding-right: 0; }
+    .hours-strip-set[aria-hidden="true"],
+    .hours-strip-divider { display: none; }
+    .hours-strip-events { flex-basis: 100%; }
+}
+
 .home-floating-swap-section { padding: 32px 0 40px; }
 .home-floating-swap-section .floating-swap-header { max-width: 1200px; margin: 56px auto 0; }
 .home-floating-swap-section .floating-swap-header p { max-width: 1100px; font-size: clamp(2rem, 4.6vw, 4.5rem); margin-bottom: 0; padding-bottom: 0; }
