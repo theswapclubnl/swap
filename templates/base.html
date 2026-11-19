@@ -79,9 +79,13 @@
     {% block extra_css %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
 
-    <!-- Square, stable favicon URLs for browsers and search crawlers. -->
-    <link rel="icon" type="image/png" sizes="128x128" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <!-- Favicons. Google Search needs a square icon in a multiple of 48px
+         (48, 96, 192 …) linked from the homepage, at a stable, crawlable URL. -->
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ url_for('static', filename='images/favicon-48.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='images/favicon-96.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="icon" type="image/vnd.microsoft.icon" sizes="16x16 32x32 48x48 64x64 128x128" href="{{ url_for('favicon') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
 </head>
 <body class="page-{{ request.endpoint }}">
 
